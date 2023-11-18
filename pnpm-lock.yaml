@@ -84,6 +84,9 @@ importers:
       babel-plugin-transform-inline-environment-variables:
         specifier: ^0.4.4
         version: 0.4.4
+      dayjs:
+        specifier: ^1.11.10
+        version: 1.11.10
       expo:
         specifier: 49.0.16
         version: 49.0.16(@babel/core@7.23.2)

@@ -33,6 +33,7 @@
     "@tamagui/themes": "^1.75.1",
     "@tamagui/toast": "^1.75.1",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
+    "dayjs": "^1.11.10",
     "expo": "49.0.16",
     "expo-blur": "~12.6.0",
     "expo-dev-client": "~2.4.11",
