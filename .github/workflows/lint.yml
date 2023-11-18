@@ -1,0 +1,55 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  # Allow this workflow to be triggered manually (ex: in GitHub UI)
+  workflow_dispatch:
+
+permissions:
+  checks: write
+  contents: write
+
+jobs:
+  lint:
+    name: Run Lint
+    runs-on: ubuntu-latest
+    steps:
+      # Checks out the repository and enables the use of commands made available in the project ie npm run
+      - name: Checkout Git repository
+        uses: actions/checkout@v3
+
+      # Configure npm
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run linters
+        run: "pnpm run lint && pnpm run format"

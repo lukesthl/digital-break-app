@@ -1,0 +1,29 @@
+{
+  "name": "supertokens-expo-template",
+  "private": true,
+  "scripts": {
+    "native": "pnpm run --filter @acme/expo dev:client",
+    "fix": "manypkg fix",
+    "lint": "pnpm run --filter \"{apps/*}\"  --stream --parallel lint",
+    "format": "pnpm run --filter \"{apps/*}\"  --stream --parallel format",
+    "build": "pnpm run --filter \"{apps/*}\"  --stream --parallel build",
+    "start:prod": "node dist/main",
+    "upgrade:tamagui": "pnpm up '*tamagui*'@latest '@tamagui/*'@latest react-native-web-lite@latest",
+    "check-deps": "check-dependency-version-consistency ."
+  },
+  "resolutions": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-refresh": "^0.14.0",
+    "react-native-svg": "13.9.0",
+    "react-native-web": "~0.19.6"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.23.2",
+    "@manypkg/cli": "^0.21.0",
+    "check-dependency-version-consistency": "^4.1.0",
+    "node-gyp": "^9.4.0",
+    "turbo": "^1.10.16",
+    "typescript": "^5.2.2"
+  }
+}
