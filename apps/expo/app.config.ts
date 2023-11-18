@@ -17,42 +17,20 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
-    usesAppleSignIn: true,
     bundleIdentifier: "com.lukesthl.digitalbreak",
-    googleServicesFile: process.env.GOOGLE_SERVICES_FILE,
-    associatedDomains: [process.env.ASSOCIATED_DOMAIN ?? ""],
-    infoPlist: {
-      CFBundleURLTypes: [
-        {
-          CFBundleURLSchemes: [process.env.GOOGLE_SIGNIN_IOS_CLIENT_ID],
-        },
-      ],
-    },
   },
   android: {
     adaptiveIcon: {
       foregroundImage: "./assets/images/adaptive-icon.png",
       backgroundColor: "#ffffff",
     },
-    permissions: ["android.permission.RECORD_AUDIO"],
-    googleServicesFile: "./google-services.json",
   },
   web: {
     bundler: "metro",
     // output: 'static',
     favicon: "./assets/images/favicon.png",
   },
-  plugins: [
-    "expo-router",
-    "expo-apple-authentication",
-    "@react-native-google-signin/google-signin",
-    [
-      "expo-image-picker",
-      {
-        photosPermission: "The app accesses your photos to let you share them with your friends.",
-      },
-    ],
-  ],
+  plugins: ["expo-router"],
   experiments: {
     typedRoutes: true,
   },
@@ -61,7 +39,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       origin: false,
     },
     eas: {
-      projectId: "fb88c696-3171-471e-a8e2-fb4ac671b225",
+      projectId: "4fb26108-8286-4f78-b25f-1c10a7c6e82b",
     },
   },
 });

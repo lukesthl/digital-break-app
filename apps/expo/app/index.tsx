@@ -1,9 +1,10 @@
-import { Text, View } from "tamagui";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Text } from "tamagui";
 
 export default function IndexPage() {
   return (
-    <View>
-      <Text>hey</Text>
-    </View>
+    <SafeAreaView>
+      <Text color="black">Digital Break</Text>
+    </SafeAreaView>
   );
 }
