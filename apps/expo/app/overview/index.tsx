@@ -1,5 +1,6 @@
-import { Check, ChevronRight, Hand, Plus, TrendingUp } from "@tamagui/lucide-icons";
-import { H4, Image, Text, View, XStack, YStack } from "tamagui";
+import { router } from "expo-router";
+import { Check, ChevronRight, Plus, ShieldBan, TrendingUp } from "@tamagui/lucide-icons";
+import { H1, H2, H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../components/container";
 import { Divider } from "../../components/divider";
@@ -68,25 +69,25 @@ const Overview = () => {
         <XStack space="$4">
           <ShadowCard flex={1}>
             <View backgroundColor="rgba(254,94,42,0.2)" padding="$2" borderRadius={999} alignSelf="flex-start">
-              <Hand color="#FE5E2A" />
+              <ShieldBan color="#FE5E2A" />
             </View>
-            <Text color="#797979" fontWeight={"600"} marginTop="$2">
+            <Paragraph color="#797979" marginTop="$1">
               Interrupted
-            </Text>
-            <Text color="#212121" fontWeight={"900"} fontSize={"$10"}>
+            </Paragraph>
+            <H1 color="#212121" lineHeight={50} marginBottom={-6}>
               129x
-            </Text>
+            </H1>
           </ShadowCard>
           <ShadowCard flex={1}>
             <View backgroundColor="rgba(103,214,93,0.2)" padding="$2" borderRadius={999} alignSelf="flex-start">
-              <Check color="#67D65D" strokeWidth={4} />
+              <Check color="#67D65D" />
             </View>
-            <Text color="#797979" fontWeight={"600"} marginTop="$2">
+            <Paragraph color="#797979" marginTop="$1">
               Prevented
-            </Text>
-            <Text color="#212121" fontWeight={"900"} fontSize={"$10"}>
+            </Paragraph>
+            <H1 color="#212121" lineHeight={50} marginBottom={-6}>
               65%
-            </Text>
+            </H1>
           </ShadowCard>
         </XStack>
         {apps.map((app, index) => {
@@ -99,53 +100,51 @@ const Overview = () => {
               pressStyle={{
                 backgroundColor: "#F5F5F5",
               }}
+              onPress={() => {
+                router.push(`/overview/${app.name}`);
+              }}
             >
               <XStack space="$2" justifyContent="space-between">
                 <XStack space="$2" alignItems="center">
-                  <Image source={{ uri: app.icon }} width={24} height={24} />
-                  <Text color="#212121" fontWeight={"bold"} fontSize={"$5"}>
+                  <Image source={{ uri: app.icon }} width={20} height={20} />
+                  <SizableText color="#212121" fontWeight={"900"} fontSize={"$5"}>
                     {app.name}
-                  </Text>
+                  </SizableText>
                 </XStack>
                 <XStack
                   backgroundColor="rgba(103,214,93,0.2)"
-                  padding="$2"
                   borderRadius={"$2"}
                   alignItems="center"
                   space="$1"
+                  paddingHorizontal="$2"
+                  paddingVertical="$1"
                 >
-                  <Text color="#67D65D" fontWeight={"700"}>
+                  <Paragraph color="#67D65D" fontWeight={"bold"}>
                     20% reduction
-                  </Text>
+                  </Paragraph>
                   <TrendingUp color="#67D65D" strokeWidth={2.5} size={16} />
                 </XStack>
               </XStack>
               <XStack space="$4" marginTop="$2">
                 <YStack>
-                  <Text color="#212121" fontWeight={"900"} fontSize={"$9"}>
-                    {randomInterreption}x
-                  </Text>
-                  <Text color="#797979" fontWeight={"600"}>
-                    Interrupted
-                  </Text>
-                </YStack>
-                <Divider />
-                <YStack>
-                  <Text color="#212121" fontWeight={"900"} fontSize={"$9"}>
-                    {randomPrevention}%
-                  </Text>
-                  <Text color="#797979" fontWeight={"600"}>
-                    Prevented
-                  </Text>
-                </YStack>
-                <Divider />
-                <YStack>
-                  <Text color="#212121" fontWeight={"900"} fontSize={"$9"}>
+                  <H2 color="#212121" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
                     {randomSaved}h
-                  </Text>
-                  <Text color="#797979" fontWeight={"600"}>
-                    Saved
-                  </Text>
+                  </H2>
+                  <Paragraph color="#797979">Saved</Paragraph>
+                </YStack>
+                <Divider />
+                <YStack>
+                  <H2 color="#212121" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+                    {randomInterreption}x
+                  </H2>
+                  <Paragraph color="#797979">Interrupted</Paragraph>
+                </YStack>
+                <Divider />
+                <YStack>
+                  <H2 color="#212121" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+                    {randomPrevention}%
+                  </H2>
+                  <Paragraph color="#797979">Prevented</Paragraph>
                 </YStack>
                 <View alignSelf="center" justifyContent="flex-end" flexDirection="row" flex={1}>
                   <ChevronRight color="#797979" />
@@ -162,11 +161,11 @@ const Overview = () => {
           <View borderWidth={1} borderColor={"#E3E3E3"} borderRadius={"$2"} padding="$4" borderStyle="dashed">
             <XStack justifyContent="center" alignItems="center" space="$2">
               <Plus color="#797979" />
-              <YStack space="$1">
-                <Text color="#212121" fontWeight={"bold"} fontSize={"$5"}>
+              <YStack>
+                <SizableText color="#212121" fontWeight={"bold"} fontSize={"$5"}>
                   Add app
-                </Text>
-                <Text color="#797979">Block apps to stay focused</Text>
+                </SizableText>
+                <Paragraph color="#797979">Block apps to stay focused</Paragraph>
               </YStack>
             </XStack>
           </View>

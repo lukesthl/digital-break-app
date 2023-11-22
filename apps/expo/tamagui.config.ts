@@ -1,9 +1,10 @@
 import { createAnimations } from "@tamagui/animations-react-native";
-import { createInterFont } from "@tamagui/font-inter";
 import { createMedia } from "@tamagui/react-native-media-driver";
 import { shorthands } from "@tamagui/shorthands";
 import { themes, tokens } from "@tamagui/themes";
 import { createTamagui } from "tamagui";
+
+import { createSatoshiFont } from "./components/font-satoshi";
 
 const animations = createAnimations({
   bouncy: {
@@ -24,8 +25,20 @@ const animations = createAnimations({
     stiffness: 250,
   },
 });
-const headingFont = createInterFont({ family: "InterBold" });
-const bodyFont = createInterFont();
+const headingFont = createSatoshiFont({ family: "SatoshiBlack" });
+const bodyFont = createSatoshiFont({
+  family: "Satoshi",
+  face: {
+    bold: { normal: "SatoshiBold" },
+    normal: { normal: "Satoshi" },
+    300: { normal: "Satoshi" },
+    500: { normal: "Satoshi" },
+    600: { normal: "SatoshiBold" },
+    700: { normal: "SatoshiBold" },
+    800: { normal: "SatoshiBlack" },
+    900: { normal: "SatoshiBlack" },
+  },
+});
 const config = createTamagui({
   animations,
   defaultTheme: "light",

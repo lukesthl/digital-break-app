@@ -1,19 +1,19 @@
 import dayjs from "dayjs";
-import { Text, View, XStack, YStack } from "tamagui";
+import { SizableText, View, XStack, YStack } from "tamagui";
 
 import { ShadowCard } from "../../components/shadow.card";
 
 export const WeeklySummary = () => {
   return (
     <ShadowCard>
-      <Text color="#212121" fontWeight={"bold"} fontSize={"$5"}>
+      <SizableText color="#212121" fontWeight={"bold"} fontSize={"$5"}>
         Saved 9h this week
-      </Text>
+      </SizableText>
       <XStack space="$2" marginTop="$3">
         <YStack alignItems="center" justifyContent="space-between" marginTop={"$2"} marginBottom="$4">
-          <Text color="#797979">1h</Text>
-          <Text color="#797979">0.5h</Text>
-          <Text color="#797979">0h</Text>
+          <SizableText color="#797979">1h</SizableText>
+          <SizableText color="#797979">0.5h</SizableText>
+          <SizableText color="#797979">0h</SizableText>
         </YStack>
         <XStack space="$2.5" flex={1} width={"100%"}>
           {Array.from({ length: 7 }).map((_, day) => {
@@ -41,11 +41,11 @@ export const WeeklySummary = () => {
                     zIndex={1}
                   />
                 </View>
-                <Text color="#797979" alignSelf="center">
+                <SizableText color="#797979" alignSelf="center">
                   {dayjs()
                     .day(day + 1)
                     .format("ddd")}
-                </Text>
+                </SizableText>
               </YStack>
             );
           })}
