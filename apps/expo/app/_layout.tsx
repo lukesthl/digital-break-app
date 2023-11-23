@@ -71,7 +71,7 @@ function RootLayoutNav() {
               }}
             />
             <Tabs.Screen
-              name="apps/index"
+              name="apps"
               options={{
                 tabBarIcon: ({ color, focused }) => (
                   <LayoutGrid
@@ -86,6 +86,7 @@ function RootLayoutNav() {
                     Apps
                   </SizableText>
                 ),
+                headerShown: false,
               }}
             />
             <Tabs.Screen

@@ -1,8 +1,5 @@
 import { router, Stack } from "expo-router";
 import { observer } from "mobx-react-lite";
-
-import "react-native";
-
 import { Button, SizableText } from "tamagui";
 
 export const unstable_settings = {
