@@ -16,13 +16,13 @@ export const Header = () => (
         backgroundColor={"rgba(0,0,0,0.05)"}
         borderRadius="$3"
       >
-        <Coffee color="#212121" size={24} />
+        <Coffee color="$text11" size={24} />
       </Button>
-      <Heading color="#212121">Digital Break</Heading>
+      <Heading color="$text11">Digital Break</Heading>
     </XStack>
     <Link href={"/overview/settings/modal"} asChild>
       <Button
-        backgroundColor={"white"}
+        backgroundColor={"$background1"}
         shadowColor={"black"}
         shadowOpacity={0.1}
         shadowRadius={6}

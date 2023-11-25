@@ -23,39 +23,13 @@ import {
 import type { Variable } from "@tamagui/web";
 import { createTokens } from "@tamagui/web";
 
-export const primary = {
-  primary1: "hsl(206, 100%, 99.2%)",
-  primary2: "hsl(210, 100%, 98.0%)",
-  primary3: "hsl(209, 100%, 96.5%)",
-  primary4: "hsl(210, 98.8%, 94.0%)",
-  primary5: "hsl(209, 95.0%, 90.1%)",
-  primary6: "hsl(209, 81.2%, 84.5%)",
-  primary7: "hsl(208, 77.5%, 76.9%)",
-  primary8: "hsl(206, 81.9%, 65.3%)",
-  primary9: "hsl(206, 100%, 50.0%)",
-  primary10: "hsl(208, 100%, 47.3%)",
-  primary11: "hsl(211, 100%, 43.2%)",
-  primary12: "hsl(211, 100%, 15.0%)",
-};
-
-export const primaryDark = {
-  primary1: "hsl(206, 100%, 99.2%)",
-  primary2: "hsl(210, 100%, 98.0%)",
-  primary3: "hsl(209, 100%, 96.5%)",
-  primary4: "hsl(210, 98.8%, 94.0%)",
-  primary5: "hsl(209, 95.0%, 90.1%)",
-  primary6: "hsl(209, 81.2%, 84.5%)",
-  primary7: "hsl(208, 77.5%, 76.9%)",
-  primary8: "hsl(206, 81.9%, 65.3%)",
-  primary9: "hsl(206, 100%, 50.0%)",
-  primary10: "hsl(208, 100%, 47.3%)",
-  primary11: "hsl(211, 100%, 43.2%)",
-  primary12: "hsl(211, 100%, 15.0%)",
-};
+import { colors } from "./colors";
 
 export const colorTokens = {
   light: {
-    primary,
+    primary: colors.primary.light,
+    text: colors.text.light,
+    background: colors.background.light,
     blue,
     gray,
     green,
@@ -66,7 +40,9 @@ export const colorTokens = {
     yellow,
   },
   dark: {
-    primary: primaryDark,
+    primary: colors.primary.dark,
+    text: colors.text.dark,
+    background: colors.background.dark,
     blue: blueDark,
     gray: grayDark,
     green: greenDark,
@@ -88,6 +64,8 @@ export const darkColors = {
   ...colorTokens.dark.purple,
   ...colorTokens.dark.red,
   ...colorTokens.dark.yellow,
+  ...colorTokens.dark.text,
+  ...colorTokens.dark.background,
 };
 
 export const lightColors = {
@@ -100,6 +78,8 @@ export const lightColors = {
   ...colorTokens.light.purple,
   ...colorTokens.light.red,
   ...colorTokens.light.yellow,
+  ...colorTokens.light.text,
+  ...colorTokens.light.background,
 };
 
 export const color = {

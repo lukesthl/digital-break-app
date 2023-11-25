@@ -6,7 +6,7 @@ import { ShadowCard } from "../../components/shadow.card";
 export const WeeklySummary = () => {
   return (
     <ShadowCard>
-      <SizableText color="#212121" fontWeight={"bold"} fontSize={"$5"}>
+      <SizableText color="$text11" fontWeight={"bold"} fontSize={"$5"}>
         Saved 9h this week
       </SizableText>
       <XStack space="$2" marginTop="$3">

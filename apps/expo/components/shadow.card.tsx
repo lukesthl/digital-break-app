@@ -5,7 +5,7 @@ export const ShadowCard = ({
   ...viewProps
 }: { children: React.ReactNode } & React.ComponentProps<typeof View>) => (
   <View
-    backgroundColor={"white"}
+    backgroundColor={"$background1"}
     shadowColor={"black"}
     shadowOpacity={0.1}
     shadowRadius={6}

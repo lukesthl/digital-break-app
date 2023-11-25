@@ -30,7 +30,7 @@ const OverviewLayout = observer(() => {
                 size="$4"
                 backgroundColor={"transparent"}
               >
-                <SizableText color="#212121" size="$4">
+                <SizableText color="$text11" size="$4">
                   Done
                 </SizableText>
               </Button>

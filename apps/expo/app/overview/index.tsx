@@ -64,7 +64,7 @@ const Overview = () => {
     <Container>
       <YStack space="$4">
         <Header />
-        <H4 color="$primary1">Overview</H4>
+        <H4 color="$text11">Overview</H4>
         <WeeklySummary />
         <XStack space="$4">
           <ShadowCard flex={1}>
@@ -74,7 +74,7 @@ const Overview = () => {
             <Paragraph color="#797979" marginTop="$1">
               Interrupted
             </Paragraph>
-            <H1 color="#212121" lineHeight={50} marginBottom={-6}>
+            <H1 color="$text11" lineHeight={50} marginBottom={-6}>
               129x
             </H1>
           </ShadowCard>
@@ -85,7 +85,7 @@ const Overview = () => {
             <Paragraph color="#797979" marginTop="$1">
               Prevented
             </Paragraph>
-            <H1 color="#212121" lineHeight={50} marginBottom={-6}>
+            <H1 color="$text11" lineHeight={50} marginBottom={-6}>
               65%
             </H1>
           </ShadowCard>
@@ -107,7 +107,7 @@ const Overview = () => {
               <XStack space="$2" justifyContent="space-between">
                 <XStack space="$2" alignItems="center">
                   <Image source={{ uri: app.icon }} width={20} height={20} />
-                  <SizableText color="#212121" fontWeight={"900"} fontSize={"$5"}>
+                  <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
                     {app.name}
                   </SizableText>
                 </XStack>
@@ -127,21 +127,21 @@ const Overview = () => {
               </XStack>
               <XStack space="$4" marginTop="$2">
                 <YStack>
-                  <H2 color="#212121" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+                  <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
                     {randomSaved}h
                   </H2>
                   <Paragraph color="#797979">Saved</Paragraph>
                 </YStack>
                 <Divider />
                 <YStack>
-                  <H2 color="#212121" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+                  <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
                     {randomInterreption}x
                   </H2>
                   <Paragraph color="#797979">Interrupted</Paragraph>
                 </YStack>
                 <Divider />
                 <YStack>
-                  <H2 color="#212121" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+                  <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
                     {randomPrevention}%
                   </H2>
                   <Paragraph color="#797979">Prevented</Paragraph>
@@ -162,7 +162,7 @@ const Overview = () => {
             <XStack justifyContent="center" alignItems="center" space="$2">
               <Plus color="#797979" />
               <YStack>
-                <SizableText color="#212121" fontWeight={"bold"} fontSize={"$5"}>
+                <SizableText color="$text11" fontWeight={"bold"} fontSize={"$5"}>
                   Add app
                 </SizableText>
                 <Paragraph color="#797979">Block apps to stay focused</Paragraph>

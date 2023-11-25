@@ -62,7 +62,7 @@ const Apps = () => {
     <Container>
       <YStack space="$4">
         <Header />
-        <H4 color="#212121">Apps</H4>
+        <H4 color="$text11">Apps</H4>
         <View flexDirection="row" flexWrap="wrap">
           {apps.map((app, index) => (
             <View
@@ -82,12 +82,12 @@ const Apps = () => {
               >
                 <XStack space="$2" alignItems="center">
                   <Image source={{ uri: app.icon }} width={20} height={20} />
-                  <SizableText color="#212121" fontWeight={"900"} fontSize={"$5"}>
+                  <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
                     {app.name}
                   </SizableText>
                 </XStack>
                 <SizableText color="#797979">Break</SizableText>
-                <SizableText color="#212121" fontWeight={"bold"} fontSize={"$6"} marginTop={-3}>
+                <SizableText color="$text11" fontWeight={"bold"} fontSize={"$6"} marginTop={-3}>
                   10 sec
                 </SizableText>
                 <View justifyContent="flex-end" flexDirection="row">
@@ -125,7 +125,7 @@ const Apps = () => {
             <XStack justifyContent="center" alignItems="center" space="$2">
               <Plus color="#797979" />
               <YStack>
-                <SizableText color="#212121" fontWeight={"bold"} fontSize={"$5"}>
+                <SizableText color="$text11" fontWeight={"bold"} fontSize={"$5"}>
                   Add app
                 </SizableText>
                 <Paragraph color="#797979">Block apps to stay focused</Paragraph>

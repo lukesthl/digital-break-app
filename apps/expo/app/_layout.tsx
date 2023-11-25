@@ -4,7 +4,7 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Tabs } from "expo-router";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { BarChart2, LayoutGrid } from "@tamagui/lucide-icons";
-import { SizableText, TamaguiProvider, Theme } from "tamagui";
+import { getTokenValue, SizableText, TamaguiProvider, Theme } from "tamagui";
 
 import config from "../tamagui.config";
 
@@ -63,12 +63,17 @@ function RootLayoutNav() {
                   colors: {
                     ...DefaultTheme.colors,
                     background: "#FFFFFF",
-                    text: "#212121",
-                    primary: "#212121",
+                    text: getTokenValue("$text11") as string,
+                    primary: getTokenValue("$text11") as string,
                     border: "#E3E3E3",
                   },
                 }
-              : DarkTheme
+              : {
+                  ...DarkTheme,
+                  colors: {
+                    ...DarkTheme.colors,
+                  },
+                }
           }
         >
           <Tabs screenOptions={{ tabBarStyle: { minHeight: 80 } }}>

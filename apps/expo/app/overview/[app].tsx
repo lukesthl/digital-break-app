@@ -49,21 +49,21 @@ export default function App() {
           </Paragraph>
           <XStack space="$4" marginTop="$2">
             <YStack>
-              <H2 color="#212121" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+              <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
                 {12}h
               </H2>
               <Paragraph color="#797979">Saved</Paragraph>
             </YStack>
             <Divider />
             <YStack>
-              <H2 color="#212121" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+              <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
                 {"12"}x
               </H2>
               <Paragraph color="#797979">Interrupted</Paragraph>
             </YStack>
             <Divider />
             <YStack>
-              <H2 color="#212121" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+              <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
                 {12}%
               </H2>
               <Paragraph color="#797979">Prevented</Paragraph>
