@@ -236,7 +236,7 @@ const Chart = () => {
         pointerLabelHeight: 90,
         activatePointersOnLongPress: true,
         autoAdjustPointerLabelPosition: false,
-        pointerLabelComponent: (items: any) => {
+        pointerLabelComponent: (items: [{ date: string; value: string }]) => {
           return (
             <View
               style={{
@@ -280,7 +280,7 @@ const PieChart = () => {
     { value: 16, color: "#555555", gradientCenterColor: "#E3E3E3" },
     { value: 3, color: "#333333", gradientCenterColor: "#E3E3E3" },
   ];
-  const [focusedData, setFocusedData] = useState<(typeof pieData)[0] | null>(pieData[0]);
+  const [focusedData, setFocusedData] = useState<(typeof pieData)[0] | null>(pieData[0] ? pieData[0] : null);
 
   return (
     <PieChartGifted
@@ -290,7 +290,7 @@ const PieChart = () => {
       toggleFocusOnPress={false}
       sectionAutoFocus
       innerCircleColor={"#797979"}
-      onPress={(data) => {
+      onPress={(data: (typeof pieData)[0]) => {
         setFocusedData(data);
       }}
       innerCircleBorderColor={"#939393"}

@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useColorScheme } from "react-native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Tabs } from "expo-router";
-import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { BarChart2, LayoutGrid } from "@tamagui/lucide-icons";
 import { SizableText, TamaguiProvider, Theme } from "tamagui";
 
@@ -40,20 +41,35 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const colorScheme = useColorScheme();
+  const [currentColorScheme, setCurrentColorScheme] = useState(colorScheme);
+  const onColorSchemeChange = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    if (colorScheme !== currentColorScheme) {
+      onColorSchemeChange.current = setTimeout(() => setCurrentColorScheme(colorScheme), 1000);
+    } else if (onColorSchemeChange.current) {
+      clearTimeout(onColorSchemeChange.current);
+    }
+  }, [colorScheme]);
   return (
     <TamaguiProvider config={config}>
-      <Theme name="light">
+      <Theme name={currentColorScheme === "dark" ? "dark" : "light"}>
         <ThemeProvider
-          value={{
-            ...DefaultTheme,
-            colors: {
-              ...DefaultTheme.colors,
-              background: "#FFFFFF",
-              text: "#212121",
-              primary: "#212121",
-              border: "#E3E3E3",
-            },
-          }}
+          value={
+            currentColorScheme === "light"
+              ? {
+                  ...DefaultTheme,
+                  colors: {
+                    ...DefaultTheme.colors,
+                    background: "#FFFFFF",
+                    text: "#212121",
+                    primary: "#212121",
+                    border: "#E3E3E3",
+                  },
+                }
+              : DarkTheme
+          }
         >
           <Tabs screenOptions={{ tabBarStyle: { minHeight: 80 } }}>
             <Tabs.Screen

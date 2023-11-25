@@ -64,7 +64,7 @@ const Overview = () => {
     <Container>
       <YStack space="$4">
         <Header />
-        <H4 color="#212121">Overview</H4>
+        <H4 color="$primary1">Overview</H4>
         <WeeklySummary />
         <XStack space="$4">
           <ShadowCard flex={1}>

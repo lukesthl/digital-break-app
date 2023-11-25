@@ -1,6 +1,6 @@
 import { router } from "expo-router";
-import { ChevronRight, Plus, ShieldBan, TrendingUp } from "@tamagui/lucide-icons";
-import { H1, H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
+import { ChevronRight, Plus } from "@tamagui/lucide-icons";
+import { H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../components/container";
 import { Header } from "../../components/header";

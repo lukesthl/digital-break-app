@@ -1,10 +1,11 @@
 import { createAnimations } from "@tamagui/animations-react-native";
 import { createMedia } from "@tamagui/react-native-media-driver";
 import { shorthands } from "@tamagui/shorthands";
-import { themes, tokens } from "@tamagui/themes";
+import { themes } from "@tamagui/themes";
 import { createTamagui } from "tamagui";
 
 import { createSatoshiFont } from "./components/font-satoshi";
+import { tokens } from "./constants/tokens";
 
 const animations = createAnimations({
   bouncy: {
@@ -39,6 +40,7 @@ const bodyFont = createSatoshiFont({
     900: { normal: "SatoshiBlack" },
   },
 });
+console.log(tokens.color.primary10Light);
 const config = createTamagui({
   animations,
   defaultTheme: "light",
