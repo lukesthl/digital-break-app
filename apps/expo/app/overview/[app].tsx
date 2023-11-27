@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LineChart as LineChartGifted, PieChart as PieChartGifted } from "react-native-gifted-charts";
 import { Link, useLocalSearchParams } from "expo-router";
 import { ChevronRight, Cog } from "@tamagui/lucide-icons";
-import { H2, H4, Paragraph, SizableText, Text, View, XStack, YStack } from "tamagui";
+import { getTokenValue, H2, H4, Paragraph, SizableText, Text, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../components/container";
 import { Divider } from "../../components/divider";
@@ -195,6 +195,8 @@ const Chart = () => {
     { value: 25, date: "4 May 2022" },
     { value: 21, date: "5 May 2022" },
   ];
+  const grey3 = getTokenValue("$grey3") as string;
+  const grey4 = getTokenValue("$grey4") as string;
   return (
     <LineChartGifted
       areaChart
@@ -204,16 +206,16 @@ const Chart = () => {
       color="#797979"
       thickness={3}
       height={130}
-      startFillColor="#939393"
-      endFillColor="#E3E3E3"
+      startFillColor={grey4}
+      endFillColor={grey3}
       startOpacity={0.9}
       endOpacity={0.2}
       initialSpacing={0}
       noOfSections={2}
-      yAxisColor="#E3E3E3"
+      yAxisColor={grey3}
       yAxisThickness={1}
       rulesType="dashed"
-      rulesColor="#E3E3E3"
+      rulesColor={grey3}
       yAxisTextStyle={{ color: "#797979", fontFamily: "Satoshi", fontSize: 12 }}
       yAxisLabelSuffix={"x"}
       yAxisLabelWidth={30}
@@ -222,7 +224,7 @@ const Chart = () => {
       rulesThickness={1}
       dataPointLabelShiftX={2}
       horizontalRulesStyle={{ color: "#121212" }}
-      xAxisColor="#E3E3E3"
+      xAxisColor={grey3}
       animateOnDataChange
       animationDuration={1000}
       isAnimated
@@ -246,7 +248,7 @@ const Chart = () => {
                 marginTop: -30,
                 marginLeft: -40,
               }}
-              backgroundColor={"#939393"}
+              backgroundColor={grey4}
             >
               <Text style={{ color: "white", fontSize: 14, marginBottom: 6, textAlign: "center" }}>
                 {items[0].date}
@@ -269,16 +271,18 @@ const Chart = () => {
 };
 
 const PieChart = () => {
+  const grey3 = getTokenValue("$grey3") as string;
+  const grey4 = getTokenValue("$grey4") as string;
   const pieData = [
     {
       value: 47,
-      color: "#939393",
-      gradientCenterColor: "#E3E3E3",
+      color: grey4,
+      gradientCenterColor: grey3,
       focused: true,
     },
-    { value: 40, color: "#777777", gradientCenterColor: "#E3E3E3" },
-    { value: 16, color: "#555555", gradientCenterColor: "#E3E3E3" },
-    { value: 3, color: "#333333", gradientCenterColor: "#E3E3E3" },
+    { value: 40, color: "#777777", gradientCenterColor: grey3 },
+    { value: 16, color: "#555555", gradientCenterColor: grey3 },
+    { value: 3, color: "#333333", gradientCenterColor: grey3 },
   ];
   const [focusedData, setFocusedData] = useState<(typeof pieData)[0] | null>(pieData[0] ? pieData[0] : null);
 
@@ -293,7 +297,7 @@ const PieChart = () => {
       onPress={(data: (typeof pieData)[0]) => {
         setFocusedData(data);
       }}
-      innerCircleBorderColor={"#939393"}
+      innerCircleBorderColor={grey4}
       focusOnPress
       centerLabelComponent={() => {
         return (

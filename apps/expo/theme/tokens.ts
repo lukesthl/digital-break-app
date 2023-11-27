@@ -30,6 +30,7 @@ export const colorTokens = {
     primary: colors.primary.light,
     text: colors.text.light,
     background: colors.background.light,
+    grey: colors.grey.light,
     blue,
     gray,
     green,
@@ -43,6 +44,7 @@ export const colorTokens = {
     primary: colors.primary.dark,
     text: colors.text.dark,
     background: colors.background.dark,
+    grey: colors.grey.dark,
     blue: blueDark,
     gray: grayDark,
     green: greenDark,
@@ -66,6 +68,7 @@ export const darkColors = {
   ...colorTokens.dark.yellow,
   ...colorTokens.dark.text,
   ...colorTokens.dark.background,
+  ...colorTokens.dark.grey,
 };
 
 export const lightColors = {
@@ -80,6 +83,7 @@ export const lightColors = {
   ...colorTokens.light.yellow,
   ...colorTokens.light.text,
   ...colorTokens.light.background,
+  ...colorTokens.light.grey,
 };
 
 export const color = {

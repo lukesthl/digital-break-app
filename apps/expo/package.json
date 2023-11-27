@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "export": "expo export --platform web",
-    "dev:client": "npx expo start -c --dev-client",
+    "dev:client": "npx expo start --dev-client",
     "lint": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
     "generate-themes": "tamagui generate-themes ./theme/theme-builder.ts ./theme/theme-output.ts"

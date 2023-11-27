@@ -11,7 +11,7 @@ export const ShadowCard = ({
     shadowRadius={6}
     borderRadius={"$4"}
     borderWidth={1}
-    borderColor={"#E3E3E3"}
+    borderColor={"$grey3"}
     shadowOffset={{ width: 0, height: 2 }}
     padding="$3"
     {...viewProps}

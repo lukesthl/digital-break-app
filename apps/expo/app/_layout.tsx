@@ -65,7 +65,7 @@ function RootLayoutNav() {
                     background: "#FFFFFF",
                     text: getTokenValue("$text11") as string,
                     primary: getTokenValue("$text11") as string,
-                    border: "#E3E3E3",
+                    border: getTokenValue("$grey3") as string,
                   },
                 }
               : {

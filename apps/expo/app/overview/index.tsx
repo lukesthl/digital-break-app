@@ -98,7 +98,7 @@ const Overview = () => {
             <ShadowCard
               key={index}
               pressStyle={{
-                backgroundColor: "#F5F5F5",
+                backgroundColor: "$grey1",
               }}
               onPress={() => {
                 router.push(`/overview/${app.name}`);
@@ -155,10 +155,10 @@ const Overview = () => {
         })}
         <ShadowCard
           pressStyle={{
-            backgroundColor: "#F5F5F5",
+            backgroundColor: "$grey1",
           }}
         >
-          <View borderWidth={1} borderColor={"#E3E3E3"} borderRadius={"$2"} padding="$4" borderStyle="dashed">
+          <View borderWidth={1} borderColor={"$grey3"} borderRadius={"$2"} padding="$4" borderStyle="dashed">
             <XStack justifyContent="center" alignItems="center" space="$2">
               <Plus color="#797979" />
               <YStack>

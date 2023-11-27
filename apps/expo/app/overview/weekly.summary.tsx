@@ -22,14 +22,14 @@ export const WeeklySummary = () => {
               <YStack key={day} flex={1} space="$1.5">
                 <View
                   height={100}
-                  backgroundColor={"#E3E3E3"}
+                  backgroundColor={"$grey3"}
                   borderRadius={"$2"}
                   position="relative"
-                  pressStyle={{ backgroundColor: "#D1D1D1" }}
+                  pressStyle={{ backgroundColor: "$grey1" }}
                 >
                   <View
                     height={height}
-                    backgroundColor={"#939393"}
+                    backgroundColor={"$grey4"}
                     borderTopLeftRadius={"$1"}
                     borderTopRightRadius={"$1"}
                     borderBottomRightRadius={"$2"}

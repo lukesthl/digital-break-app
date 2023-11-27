@@ -9,7 +9,7 @@ export const Header = () => (
         shadowColor={"black"}
         shadowOpacity={0.1}
         shadowRadius={6}
-        borderColor={"#E3E3E3"}
+        borderColor={"$grey3"}
         shadowOffset={{ width: 0, height: 2 }}
         width={36}
         height={36}
@@ -27,12 +27,12 @@ export const Header = () => (
         shadowOpacity={0.1}
         shadowRadius={6}
         pressStyle={{
-          backgroundColor: "#E3E3E3",
-          borderColor: "#E3E3E3",
+          backgroundColor: "$grey3",
+          borderColor: "$grey3",
         }}
         borderRadius={999}
         borderWidth={1}
-        borderColor={"#E3E3E3"}
+        borderColor={"$grey3"}
         shadowOffset={{ width: 0, height: 2 }}
         width={48}
         height={48}
