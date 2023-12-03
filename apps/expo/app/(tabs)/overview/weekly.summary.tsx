@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { SizableText, View, XStack, YStack } from "tamagui";
 
-import { ShadowCard } from "../../components/shadow.card";
+import { ShadowCard } from "../../../components/shadow.card";
 
 export const WeeklySummary = () => {
   return (

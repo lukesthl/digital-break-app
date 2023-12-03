@@ -1,70 +1,39 @@
+import { useEffect, useState } from "react";
+import { RefreshControl } from "react-native";
 import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ChevronRight, Plus } from "@tamagui/lucide-icons";
-import { H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
+import { keys } from "mobx";
+import { observer } from "mobx-react-lite";
+import { Button, H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
-import { Container } from "../../components/container";
-import { Header } from "../../components/header";
-import { ShadowCard } from "../../components/shadow.card";
+import { Container } from "../../../components/container";
+import { Header } from "../../../components/header";
+import { ShadowCard } from "../../../components/shadow.card";
+import { appSettings } from "../../../data/app.settings";
+import { appIcons } from "../../../data/apps";
 
-const apps = [
-  {
-    name: "Instagram",
-    time: "1h 30m",
-    color: "#E1306C",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174855.png",
-  },
-  {
-    name: "Facebook",
-    time: "1h 30m",
-    color: "#3B5998",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174848.png",
-  },
-  {
-    name: "Twitter",
-    time: "1h 30m",
-    color: "#1DA1F2",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174876.png",
-  },
-  {
-    name: "Youtube",
-    time: "1h 30m",
-    color: "#FF0000",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174883.png",
-  },
-  {
-    name: "TikTok",
-    time: "1h 30m",
-    color: "#010101",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174855.png",
-  },
-  {
-    name: "Snapchat",
-    time: "1h 30m",
-    color: "#FFFC00",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174848.png",
-  },
-  {
-    name: "Reddit",
-    time: "1h 30m",
-    color: "#FF4500",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174876.png",
-  },
-  {
-    name: "LinkedIn",
-    time: "1h 30m",
-    color: "#0A66C2",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174883.png",
-  },
-];
+const Apps = observer(() => {
+  const [refreshing, setRefreshing] = useState(false);
 
-const Apps = () => {
+  useEffect(() => {
+    const load = async () => {
+      await appSettings.init();
+    };
+    void load();
+  }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    void appSettings.init().then(() => setRefreshing(false));
+  };
   return (
-    <Container>
+    <Container refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
       <YStack space="$4">
         <Header />
         <H4 color="$text11">Apps</H4>
         <View flexDirection="row" flexWrap="wrap">
-          {apps.map((app, index) => (
+          {appSettings.apps.map((app, index) => (
             <View
               key={`${app.name}_${index}`}
               width="50%"
@@ -77,18 +46,18 @@ const Apps = () => {
                 pressStyle={{ backgroundColor: "$grey1" }}
                 position="relative"
                 onPress={() => {
-                  router.push(`/apps/${app.name}`);
+                  router.push(`/apps/${app.id}`);
                 }}
               >
                 <XStack space="$2" alignItems="center">
-                  <Image source={{ uri: app.icon }} width={20} height={20} />
+                  <Image source={{ uri: appIcons[app.iconKey] }} width={20} height={20} />
                   <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
                     {app.name}
                   </SizableText>
                 </XStack>
                 <SizableText color="#797979">Break</SizableText>
                 <SizableText color="$text11" fontWeight={"bold"} fontSize={"$6"} marginTop={-3}>
-                  10 sec
+                  {app.settings.breakDurationSeconds} sec
                 </SizableText>
                 <View justifyContent="flex-end" flexDirection="row">
                   <XStack
@@ -98,7 +67,7 @@ const Apps = () => {
                     paddingVertical="$0.5"
                   >
                     <Paragraph color="#67D65D" fontWeight={"bold"}>
-                      Active
+                      {app.active ? "Active" : "Inactive"}
                     </Paragraph>
                   </XStack>
                 </View>
@@ -115,6 +84,17 @@ const Apps = () => {
               </ShadowCard>
             </View>
           ))}
+          <Button
+            onPress={() => {
+              void AsyncStorage.setItem("openedApp", "instagram");
+              void AsyncStorage.getAllKeys().then((keys) => {
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                console.log(`keys: ${keys}`);
+              });
+            }}
+          >
+            keys
+          </Button>
         </View>
         <ShadowCard
           pressStyle={{
@@ -136,6 +116,6 @@ const Apps = () => {
       </YStack>
     </Container>
   );
-};
+});
 
 export default Apps;

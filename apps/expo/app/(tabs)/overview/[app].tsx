@@ -4,9 +4,9 @@ import { Link, useLocalSearchParams } from "expo-router";
 import { ChevronRight, Cog } from "@tamagui/lucide-icons";
 import { getTokenValue, H2, H4, Paragraph, SizableText, Text, View, XStack, YStack } from "tamagui";
 
-import { Container } from "../../components/container";
-import { Divider } from "../../components/divider";
-import { ShadowCard } from "../../components/shadow.card";
+import { Container } from "../../../components/container";
+import { Divider } from "../../../components/divider";
+import { ShadowCard } from "../../../components/shadow.card";
 
 export default function App() {
   const searchParams = useLocalSearchParams();

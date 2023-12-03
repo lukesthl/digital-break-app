@@ -2,10 +2,10 @@ import { router } from "expo-router";
 import { Check, ChevronRight, Plus, ShieldBan, TrendingUp } from "@tamagui/lucide-icons";
 import { H1, H2, H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
-import { Container } from "../../components/container";
-import { Divider } from "../../components/divider";
-import { Header } from "../../components/header";
-import { ShadowCard } from "../../components/shadow.card";
+import { Container } from "../../../components/container";
+import { Divider } from "../../../components/divider";
+import { Header } from "../../../components/header";
+import { ShadowCard } from "../../../components/shadow.card";
 import { WeeklySummary } from "./weekly.summary";
 
 const apps = [

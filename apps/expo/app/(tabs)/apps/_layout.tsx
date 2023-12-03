@@ -9,7 +9,7 @@ const OverviewLayout = observer(() => {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="[app]" options={{ headerBackVisible: true, headerBackTitle: "Back", title: "" }} />
+      <Stack.Screen name="[appId]" options={{ headerBackVisible: true, headerBackTitle: "Back", title: "" }} />
     </Stack>
   );
 });

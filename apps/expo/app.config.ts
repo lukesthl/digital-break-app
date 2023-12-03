@@ -30,7 +30,23 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     // output: 'static',
     favicon: "./assets/images/favicon.png",
   },
-  plugins: ["expo-router"],
+  plugins: [
+    "expo-router",
+    [
+      "expo-build-properties",
+      {
+        ios: {
+          deploymentTarget: "16.0",
+        },
+      },
+    ],
+    [
+      "./app.plugin",
+      {
+        appleTeamId: "3X5J8LXMDM",
+      },
+    ],
+  ],
   experiments: {
     typedRoutes: true,
   },

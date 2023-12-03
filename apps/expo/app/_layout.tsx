@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { useColorScheme } from "react-native";
+import { AppState, useColorScheme } from "react-native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Tabs } from "expo-router";
+import { router, SplashScreen, Stack } from "expo-router";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
-import { BarChart2, LayoutGrid } from "@tamagui/lucide-icons";
-import { getTokenValue, SizableText, TamaguiProvider, Theme } from "tamagui";
+import { getTokenValue, TamaguiProvider, Theme } from "tamagui";
 
+import { clearShortcutListener, listenForShortcut } from "../data/shortcut.listener";
 import config from "../tamagui.config";
 
 export { ErrorBoundary } from "expo-router";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -27,12 +26,6 @@ export default function RootLayout() {
     if (error) throw error;
   }, [error]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
   if (!loaded) {
     return null;
   }
@@ -45,6 +38,8 @@ function RootLayoutNav() {
   const [currentColorScheme, setCurrentColorScheme] = useState(colorScheme);
   const onColorSchemeChange = useRef<NodeJS.Timeout>();
 
+  const appState = useRef(AppState.currentState);
+
   useEffect(() => {
     if (colorScheme !== currentColorScheme) {
       onColorSchemeChange.current = setTimeout(() => setCurrentColorScheme(colorScheme), 1000);
@@ -52,6 +47,37 @@ function RootLayoutNav() {
       clearTimeout(onColorSchemeChange.current);
     }
   }, [colorScheme]);
+
+  useEffect(() => {
+    const checkShortcut = () => {
+      void listenForShortcut()
+        .then(({ app }) => {
+          console.log("shortcut", app);
+          router.replace(`/break/${app}`);
+        })
+        .catch((error) => {
+          console.log(JSON.stringify(error));
+        })
+        .finally(() => {
+          SplashScreen.hideAsync();
+        });
+    };
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (appState.current.match(/inactive|background/) && nextAppState === "active") {
+        checkShortcut();
+        console.log("App has come to the foreground!");
+      } else if (appState.current.match(/active/) && nextAppState === "background") {
+        clearShortcutListener();
+        console.log("App has come to the background!");
+      }
+      appState.current = nextAppState;
+    });
+    checkShortcut();
+    return () => {
+      clearShortcutListener();
+      subscription.remove();
+    };
+  }, []);
   return (
     <TamaguiProvider config={config}>
       <Theme name={currentColorScheme === "dark" ? "dark" : "light"}>
@@ -76,53 +102,10 @@ function RootLayoutNav() {
                 }
           }
         >
-          <Tabs screenOptions={{ tabBarStyle: { minHeight: 80 } }}>
-            <Tabs.Screen
-              name="overview"
-              options={{
-                tabBarIcon: ({ color, focused }) => (
-                  <BarChart2 size={20} color={color} strokeWidth={focused ? 2.5 : undefined} style={{ marginTop: 8 }} />
-                ),
-                tabBarLabel: ({ color, focused }) => (
-                  <SizableText color={color} fontWeight={focused ? "bold" : undefined} lineHeight={16}>
-                    Overview
-                  </SizableText>
-                ),
-                headerShown: false,
-              }}
-            />
-            <Tabs.Screen
-              name="apps"
-              options={{
-                tabBarIcon: ({ color, focused }) => (
-                  <LayoutGrid
-                    size={20}
-                    color={color}
-                    strokeWidth={focused ? 2.5 : undefined}
-                    style={{ marginTop: 8 }}
-                  />
-                ),
-                tabBarLabel: ({ color, focused }) => (
-                  <SizableText color={color} fontWeight={focused ? "bold" : undefined} lineHeight={16}>
-                    Apps
-                  </SizableText>
-                ),
-                headerShown: false,
-              }}
-            />
-            <Tabs.Screen
-              name="[...missing]"
-              options={{
-                href: null,
-              }}
-            />
-            <Tabs.Screen
-              name="index"
-              options={{
-                href: null,
-              }}
-            />
-          </Tabs>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="break" options={{ headerShown: false }} />
+          </Stack>
         </ThemeProvider>
       </Theme>
     </TamaguiProvider>

@@ -1,5 +1,6 @@
+import { useContext } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { BottomTabBarHeightContext } from "@react-navigation/bottom-tabs";
 import { ScrollView, View } from "tamagui";
 
 export const Container = ({
@@ -7,10 +8,16 @@ export const Container = ({
   ...viewProps
 }: { children: React.ReactNode } & React.ComponentProps<typeof ScrollView>) => {
   const insets = useSafeAreaInsets();
-  const tabBarHeight = useBottomTabBarHeight();
+
+  const tabBarHeight = useContext(BottomTabBarHeightContext);
   return (
-    <ScrollView paddingHorizontal="$4" paddingTop={insets.top} paddingBottom={tabBarHeight} {...viewProps}>
-      <View flex={1} paddingBottom={tabBarHeight}>
+    <ScrollView
+      paddingHorizontal="$4"
+      paddingTop={insets.top}
+      paddingBottom={tabBarHeight ?? insets.bottom}
+      {...viewProps}
+    >
+      <View flex={1} paddingBottom={tabBarHeight ?? insets.bottom}>
         {children}
       </View>
     </ScrollView>

@@ -18,7 +18,7 @@ import {
 } from "@tamagui/lucide-icons";
 import { H5, ListItem, Switch, View, YGroup, YStack } from "tamagui";
 
-import { Container } from "../../../components/container";
+import { Container } from "../../../../components/container";
 
 const Settings = () => (
   <Container paddingVertical={"$4"}>
