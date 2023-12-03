@@ -1,5 +1,5 @@
 {
-  "name": "supertokens-expo-template",
+  "name": "digital-break-app",
   "private": true,
   "scripts": {
     "native": "pnpm run --filter @acme/expo dev:client",

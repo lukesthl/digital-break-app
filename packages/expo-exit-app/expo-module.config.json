@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android", "web"],
+  "ios": {
+    "modules": ["ExpoExitAppModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.exitapp.ExpoExitAppModule"]
+  }
+}
