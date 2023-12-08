@@ -14,7 +14,7 @@ const Break = observer(() => {
     void BreakStore.init({ appShortcutName: searchParams.appShortcutName }).then(() => {
       setLoaded(true);
     });
-  }, []);
+  }, [loaded, searchParams.appShortcutName]);
   return (
     <Container scrollEnabled={false} backgroundColor={"$background2"} flex={1}>
       <View backgroundColor={"red"} flex={1} flexDirection="column" justifyContent="center">

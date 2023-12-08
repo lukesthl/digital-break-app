@@ -15,7 +15,7 @@ export const listenForShortcut = async (): Promise<{ app: string }> => {
         const dataPath = `${appPath}/Library/Application Support/com.lukesthl.digitalbreak/RCTAsyncLocalStorage_V1/manifest.json`;
         FileSystem.readAsStringAsync(dataPath)
           .then((string) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const manifest = JSON.parse(string);
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             const openedApp = manifest[storageKey] as string | undefined;
@@ -25,7 +25,7 @@ export const listenForShortcut = async (): Promise<{ app: string }> => {
               clearInterval(intervalId ?? 0);
               console.log(`took ${new Date().getTime() - time}ms`);
               console.log(`openedApp: ${openedApp}`);
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+               
               resolve({ app: openedApp });
               const withoutApp = manifest as Record<string, unknown>;
               delete withoutApp[storageKey];

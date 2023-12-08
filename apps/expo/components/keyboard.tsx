@@ -15,7 +15,7 @@ export const useSoftKeyboardEffect = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useFocusEffect(() => {
     const reactNativeAvoidSoftinput =
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/consistent-type-imports
       require("react-native-avoid-softinput") as typeof import("react-native-avoid-softinput");
     const { AvoidSoftInput } = reactNativeAvoidSoftinput;
     AvoidSoftInput.setShouldMimicIOSBehavior(true);

@@ -11,7 +11,9 @@ if (__DEV__) {
   const primitiveTypes = ["string", "number", "boolean"];
   const logLevels = ["log", "debug", "info", "warn", "error"];
 
+  // @ts-ignore
   const transformArgs = (args) => {
+    // @ts-ignore
     return args.map((arg) => {
       if (arg === undefined) return "undefined";
       if (arg instanceof Error) {
@@ -29,11 +31,15 @@ if (__DEV__) {
 
   const consoleProxy = new Proxy(console, {
     get: (target, prop) => {
+      // @ts-ignore
       const value = target[prop];
+      // @ts-ignore
       if (logLevels.includes(prop)) {
+        // @ts-ignore
         return (...args) => {
           // we proxy the call to itself, but we transform the arguments to strings before
           // so that they are printed in the terminal
+          // @ts-ignore
           return value.apply(this, transformArgs(args));
         };
       }

@@ -48,7 +48,7 @@ function RootLayoutNav() {
     } else if (onColorSchemeChange.current) {
       clearTimeout(onColorSchemeChange.current);
     }
-  }, [colorScheme]);
+  }, [colorScheme, currentColorScheme]);
 
   useEffect(() => {
     const checkShortcut = () => {
