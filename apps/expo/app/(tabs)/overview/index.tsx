@@ -1,11 +1,14 @@
+import { useEffect } from "react";
 import { router } from "expo-router";
 import { Check, ChevronRight, Plus, ShieldBan, TrendingUp } from "@tamagui/lucide-icons";
+import { observer } from "mobx-react-lite";
 import { H1, H2, H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../../components/container";
 import { Divider } from "../../../components/divider";
 import { Header } from "../../../components/header";
 import { ShadowCard } from "../../../components/shadow.card";
+import { OverviewStore } from "../../../data/overview.store";
 import { WeeklySummary } from "./weekly.summary";
 
 const apps = [
@@ -59,7 +62,10 @@ const apps = [
   },
 ];
 
-const Overview = () => {
+const Overview = observer(() => {
+  useEffect(() => {
+    void OverviewStore.init();
+  }, []);
   return (
     <Container>
       <YStack space="$4">
@@ -75,7 +81,7 @@ const Overview = () => {
               Interrupted
             </Paragraph>
             <H1 color="$text11" lineHeight={50} marginBottom={-6}>
-              129x
+              {OverviewStore.totalInterrupted}x
             </H1>
           </ShadowCard>
           <ShadowCard flex={1}>
@@ -86,7 +92,7 @@ const Overview = () => {
               Prevented
             </Paragraph>
             <H1 color="$text11" lineHeight={50} marginBottom={-6}>
-              65%
+              {OverviewStore.totalPreventedInPercentage}%
             </H1>
           </ShadowCard>
         </XStack>
@@ -173,6 +179,6 @@ const Overview = () => {
       </YStack>
     </Container>
   );
-};
+});
 
 export default Overview;

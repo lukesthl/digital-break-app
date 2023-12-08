@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { RefreshControl } from "react-native";
 import { router } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ChevronRight, Plus } from "@tamagui/lucide-icons";
-import { keys } from "mobx";
 import { observer } from "mobx-react-lite";
-import { Button, H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
+import { H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../../components/container";
 import { Header } from "../../../components/header";
 import { ShadowCard } from "../../../components/shadow.card";
-import { appSettings } from "../../../data/app.settings";
+import { AppSettings } from "../../../data/app.settings";
 import { appIcons } from "../../../data/apps";
 
 const Apps = observer(() => {
@@ -18,14 +16,14 @@ const Apps = observer(() => {
 
   useEffect(() => {
     const load = async () => {
-      await appSettings.init();
+      await AppSettings.init();
     };
     void load();
   }, []);
 
   const onRefresh = () => {
     setRefreshing(true);
-    void appSettings.init().then(() => setRefreshing(false));
+    void AppSettings.init().then(() => setRefreshing(false));
   };
   return (
     <Container refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
@@ -33,7 +31,7 @@ const Apps = observer(() => {
         <Header />
         <H4 color="$text11">Apps</H4>
         <View flexDirection="row" flexWrap="wrap">
-          {appSettings.apps.map((app, index) => (
+          {AppSettings.apps.map((app, index) => (
             <View
               key={`${app.name}_${index}`}
               width="50%"
@@ -84,17 +82,6 @@ const Apps = observer(() => {
               </ShadowCard>
             </View>
           ))}
-          <Button
-            onPress={() => {
-              void AsyncStorage.setItem("openedApp", "instagram");
-              void AsyncStorage.getAllKeys().then((keys) => {
-                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                console.log(`keys: ${keys}`);
-              });
-            }}
-          >
-            keys
-          </Button>
         </View>
         <ShadowCard
           pressStyle={{

@@ -1,18 +1,49 @@
+import * as Linking from "expo-linking";
 import { makeAutoObservable } from "mobx";
 
-import { appSettings } from "./app.settings";
+import * as ExpoExitApp from "../../../packages/expo-exit-app";
+import { AppStatisticsStore } from "./app.statistics";
+import type { App } from "./apps";
+import { AppsStore, deepLinks } from "./apps";
 
 export class BreakStoreSingleton {
+  private appStatisticsStore = new AppStatisticsStore();
+
+  private appsStore = new AppsStore();
+
+  private _app: App | null = null;
+
   constructor() {
     makeAutoObservable(this);
   }
 
   public async init({ appShortcutName }: { appShortcutName: string }) {
-    console.log("init digital break store");
-    console.log("appShortcutName", appShortcutName);
-    const app = await appSettings.getOrCreateAppSettings({ appShortcutName });
-    console.log("app", app);
-    await Promise.resolve();
+    const app = await this.appsStore.getOrCreateApp({ appShortcutName });
+    this.app = app;
+    void this.appStatisticsStore.trackEvent({ appId: app.id, type: "break-start" });
+  }
+
+  public async openApp(): Promise<void> {
+    if (!this.app) {
+      throw new Error("App not initialized");
+    }
+    await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-reopen" });
+    await Linking.openURL(deepLinks[this.app.key]);
+  }
+
+  public async exitApp(): Promise<void> {
+    if (!this.app) {
+      throw new Error("App not initialized");
+    }
+    await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-close" });
+    ExpoExitApp.exit();
+  }
+
+  public get app(): App | null {
+    return this._app;
+  }
+  public set app(value: App | null) {
+    this._app = value;
   }
 }
 

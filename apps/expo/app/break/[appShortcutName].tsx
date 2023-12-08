@@ -1,16 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { observer } from "mobx-react-lite";
 import { Button, H2, View } from "tamagui";
 
-import * as ExpoExitApp from "../../../../packages/expo-exit-app";
 import { Container } from "../../components/container";
 import { BreakStore } from "../../data/break.store";
 
 const Break = observer(() => {
+  const [loaded, setLoaded] = useState(false);
   const searchParams = useLocalSearchParams<{ appShortcutName: string }>();
   useEffect(() => {
-    void BreakStore.init({ appShortcutName: searchParams.appShortcutName });
+    if (loaded) return;
+    void BreakStore.init({ appShortcutName: searchParams.appShortcutName }).then(() => {
+      setLoaded(true);
+    });
   }, []);
   return (
     <Container scrollEnabled={false} backgroundColor={"$background2"} flex={1}>
@@ -23,11 +26,14 @@ const Break = observer(() => {
       <View flex={1} flexDirection="column" justifyContent="center">
         <Button
           onPress={() => {
-            try {
-              ExpoExitApp.exit();
-            } catch (error) {
-              console.log(error);
-            }
+            void BreakStore.openApp();
+          }}
+        >
+          Open {BreakStore.app?.name}
+        </Button>
+        <Button
+          onPress={() => {
+            void BreakStore.exitApp();
           }}
         >
           I don&apos;t want to open this app

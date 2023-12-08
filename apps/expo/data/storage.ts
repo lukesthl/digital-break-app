@@ -64,4 +64,12 @@ export class Storage<
     await AsyncStorage.setItem(this.storageKey, JSON.stringify(item));
     this.logger.log(`batchUpdate ${Date.now() - time}ms`);
   };
+
+  public delete = async ({ id }: { id: string }): Promise<void> => {
+    const time = Date.now();
+    const item = await this.getAll();
+    const filteredItems = item.filter((a) => a.id !== id);
+    await this.batchUpdate(filteredItems);
+    this.logger.log(`delete ${Date.now() - time}ms`);
+  };
 }

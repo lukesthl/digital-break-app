@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import { Check, ChevronDown, ChevronRight, ChevronUp, Trash } from "@tamagui/lucide-icons";
 import { observer } from "mobx-react-lite";
 import {
@@ -20,13 +19,11 @@ import {
 
 import { Container } from "../../../components/container";
 import { ShadowCard } from "../../../components/shadow.card";
-import { appSettings } from "../../../data/app.settings";
+import { AppSettings } from "../../../data/app.settings";
 
 const App = observer(() => {
   const searchParams = useLocalSearchParams<{ appId: string }>();
-  useEffect(() => {
-    void appSettings.selectApp(searchParams.appId);
-  }, []);
+  const selectedApp = AppSettings.apps.find((app) => app.id === searchParams.appId);
   return (
     <Container paddingTop={"$4"}>
       <YStack space="$4">
@@ -39,7 +36,7 @@ const App = observer(() => {
             </Link>
             <ChevronRight size={16} color="#797979" strokeWidth={3} />
             <Paragraph size="$5" fontWeight={"bold"}>
-              {appSettings.selectedApp?.name}
+              {selectedApp?.name}
             </Paragraph>
           </XStack>
         </XStack>
@@ -50,9 +47,11 @@ const App = observer(() => {
               <Label flex={1}>Status</Label>
               <View flex={2}>
                 <Switch
-                  checked={appSettings.selectedApp?.active}
+                  checked={selectedApp?.active}
                   onCheckedChange={(value) => {
-                    void appSettings.updateApp({ active: value });
+                    if (selectedApp) {
+                      void AppSettings.updateAppSettings({ active: value, id: selectedApp.id });
+                    }
                   }}
                 >
                   <Switch.Thumb />
@@ -62,13 +61,14 @@ const App = observer(() => {
             <XStack alignItems="center" space="$4">
               <Label flex={1}>Break Duration</Label>
               <View flex={2}>
-                {appSettings.selectedApp?.settings.breakDurationSeconds && (
+                {selectedApp?.settings.breakDurationSeconds && (
                   <Select
-                    value={appSettings.selectedApp?.settings.breakDurationSeconds.toString()}
+                    value={selectedApp?.settings.breakDurationSeconds.toString()}
                     onValueChange={(value) => {
-                      if (appSettings.selectedApp) {
-                        void appSettings.updateApp({
-                          settings: { ...appSettings.selectedApp.settings, breakDurationSeconds: parseInt(value) },
+                      if (selectedApp) {
+                        void AppSettings.updateAppSettings({
+                          id: selectedApp.id,
+                          settings: { ...selectedApp.settings, breakDurationSeconds: parseInt(value) },
                         });
                       }
                     }}
@@ -137,15 +137,16 @@ const App = observer(() => {
                   Custom Quick App Switch
                 </Label>
                 <View flex={2}>
-                  {appSettings.selectedApp?.settings.quickAppSwitchDurationMinutes && (
+                  {selectedApp?.settings.quickAppSwitchDurationMinutes && (
                     <Select
                       id="quickAppSwitch"
-                      value={appSettings.selectedApp?.settings.quickAppSwitchDurationMinutes.toString()}
+                      value={selectedApp?.settings.quickAppSwitchDurationMinutes.toString()}
                       onValueChange={(value) => {
-                        if (appSettings.selectedApp) {
-                          void appSettings.updateApp({
+                        if (selectedApp) {
+                          void AppSettings.updateAppSettings({
+                            id: selectedApp.id,
                             settings: {
-                              ...appSettings.selectedApp.settings,
+                              ...selectedApp.settings,
                               quickAppSwitchDurationMinutes: parseInt(value),
                             },
                           });
@@ -272,7 +273,11 @@ const App = observer(() => {
                       size="$3"
                       backgroundColor={"rgba(255,0,0,0.1)"}
                       onPress={() => {
-                        console.log("TODO: Delete App Data");
+                        if (selectedApp) {
+                          void AppSettings.deleteApp(selectedApp.id).then(() => {
+                            void router.back();
+                          });
+                        }
                       }}
                     >
                       <SizableText color="red" fontWeight={"bold"}>

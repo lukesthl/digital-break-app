@@ -5,6 +5,8 @@ import { router, SplashScreen, Stack } from "expo-router";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { getTokenValue, TamaguiProvider, Theme } from "tamagui";
 
+import "../data/logger";
+
 import { clearShortcutListener, listenForShortcut } from "../data/shortcut.listener";
 import config from "../tamagui.config";
 
