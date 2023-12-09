@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { LineChart as LineChartGifted, PieChart as PieChartGifted } from "react-native-gifted-charts";
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import { ChevronRight, Cog } from "@tamagui/lucide-icons";
+import { observer } from "mobx-react-lite";
 import { getTokenValue, H2, H4, Paragraph, SizableText, Text, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../../components/container";
 import { Divider } from "../../../components/divider";
 import { ShadowCard } from "../../../components/shadow.card";
+import { OverviewStore } from "../../../data/overview.store";
 
-export default function App() {
-  const searchParams = useLocalSearchParams();
+const App = observer(() => {
+  const searchParams = useLocalSearchParams<{ appId: string }>();
+  const selectedApp = OverviewStore.apps.find((app) => app.id === searchParams.appId);
 
   return (
     <Container paddingTop={"$4"}>
@@ -23,10 +26,17 @@ export default function App() {
             </Link>
             <ChevronRight size={16} color="#797979" strokeWidth={3} />
             <Paragraph size="$5" fontWeight={"bold"}>
-              {searchParams.app}
+              {selectedApp?.name}
             </Paragraph>
           </XStack>
-          <XStack space="$1.5" alignItems="center" padding="$2" backgroundColor={"rgba(0,0,0,0.05)"} borderRadius="$3">
+          <XStack
+            space="$1.5"
+            alignItems="center"
+            padding="$2"
+            backgroundColor={"rgba(0,0,0,0.05)"}
+            borderRadius="$3"
+            onPress={() => router.push(`/apps/${selectedApp?.id}`)}
+          >
             <Cog size={16} />
             <Paragraph>Settings</Paragraph>
           </XStack>
@@ -92,7 +102,8 @@ export default function App() {
       </YStack>
     </Container>
   );
-}
+});
+export default App;
 
 // const Chart2 = () => {
 //   return (

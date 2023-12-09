@@ -1,5 +1,5 @@
 import * as Crypto from "expo-crypto";
-import { observable } from "mobx";
+import { action, makeAutoObservable, observable } from "mobx";
 
 import { Storage } from "./storage";
 
@@ -15,6 +15,7 @@ export interface App {
 interface IAppSettings {
   breakDurationSeconds: number;
   quickAppSwitchDurationMinutes: number;
+  dailyTimeSpentMinutes: number;
 }
 
 export const deepLinks = {
@@ -54,12 +55,17 @@ export const appIcons = {
 export const defaultAppSettings: IAppSettings = {
   breakDurationSeconds: 10,
   quickAppSwitchDurationMinutes: 5,
+  dailyTimeSpentMinutes: 30,
 };
 
 export class AppsStore {
   private storage = new Storage<App>("apps");
 
   private _apps = observable<App>([]);
+
+  constructor() {
+    makeAutoObservable(this, { init: action });
+  }
 
   public async init() {
     try {
@@ -108,6 +114,11 @@ export class AppsStore {
 
   public deleteApp = async (appId: string): Promise<void> => {
     await this.storage.delete({ id: appId });
+    await this.init();
+  };
+
+  public deleteAll = async (): Promise<void> => {
+    await this.storage.deleteAll();
     await this.init();
   };
 

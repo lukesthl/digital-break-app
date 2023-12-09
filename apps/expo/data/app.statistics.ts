@@ -1,5 +1,5 @@
 import * as Crypto from "expo-crypto";
-import { observable } from "mobx";
+import { action, makeAutoObservable, observable } from "mobx";
 
 import { Storage } from "./storage";
 
@@ -11,21 +11,61 @@ interface Event {
 }
 
 export class AppStatisticsStore {
-  private events = observable<Event>([]);
+  private _events = observable<Event>([]);
+
+  public get events() {
+    return this._events;
+  }
+  public set events(value: Event[]) {
+    this._events.replace(value);
+  }
+
+  constructor() {
+    makeAutoObservable(this, { init: action });
+  }
 
   private storage = new Storage<Event>("app-statistics");
 
   public async init() {
     const events = await this.storage.getAll();
-    this.events.replace(events);
+    this.events = events;
   }
 
-  public getEventsByType({ type }: { type: Event["type"] }) {
-    return this.events.filter((e) => e.type === type);
+  public getEvents({ type, appId, id, timeRange }: Partial<Event> & { timeRange?: { from: number; to: number } }) {
+    return this.events.filter((e) => {
+      if (type && e.type !== type) {
+        return false;
+      }
+      if (appId && e.appId !== appId) {
+        return false;
+      }
+      if (id && e.id !== id) {
+        return false;
+      }
+      if (timeRange) {
+        if (timeRange.from && e.timestamp < timeRange.from) {
+          return false;
+        }
+        if (timeRange.to && e.timestamp > timeRange.to) {
+          return false;
+        }
+      }
+      return true;
+    });
   }
 
   public async trackEvent({ appId, type }: { appId: string; type: Event["type"] }) {
     const event = { appId, type, id: Crypto.randomUUID(), timestamp: Date.now() };
     await this.storage.create(event);
+  }
+
+  public async deleteEventsByAppId(appId: string) {
+    await this.storage.batchUpdate(this.events.filter((e) => e.appId !== appId));
+    await this.init();
+  }
+
+  public async deleteAll() {
+    await this.storage.deleteAll();
+    await this.init();
   }
 }

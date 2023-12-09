@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { router } from "expo-router";
-import { Check, ChevronRight, Plus, ShieldBan, TrendingUp } from "@tamagui/lucide-icons";
+import { AlertTriangle, Check, ChevronRight, Plus, ShieldBan, TrendingUp } from "@tamagui/lucide-icons";
 import { observer } from "mobx-react-lite";
 import { H1, H2, H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
@@ -8,59 +8,9 @@ import { Container } from "../../../components/container";
 import { Divider } from "../../../components/divider";
 import { Header } from "../../../components/header";
 import { ShadowCard } from "../../../components/shadow.card";
+import { appIcons } from "../../../data/apps";
 import { OverviewStore } from "../../../data/overview.store";
 import { WeeklySummary } from "./weekly.summary";
-
-const apps = [
-  {
-    name: "Instagram",
-    time: "1h 30m",
-    color: "#E1306C",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174855.png",
-  },
-  {
-    name: "Facebook",
-    time: "1h 30m",
-    color: "#3B5998",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174848.png",
-  },
-  {
-    name: "Twitter",
-    time: "1h 30m",
-    color: "#1DA1F2",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174876.png",
-  },
-  {
-    name: "Youtube",
-    time: "1h 30m",
-    color: "#FF0000",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174883.png",
-  },
-  {
-    name: "TikTok",
-    time: "1h 30m",
-    color: "#010101",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174855.png",
-  },
-  {
-    name: "Snapchat",
-    time: "1h 30m",
-    color: "#FFFC00",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174848.png",
-  },
-  {
-    name: "Reddit",
-    time: "1h 30m",
-    color: "#FF4500",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174876.png",
-  },
-  {
-    name: "LinkedIn",
-    time: "1h 30m",
-    color: "#0A66C2",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174883.png",
-  },
-];
 
 const Overview = observer(() => {
   useEffect(() => {
@@ -72,6 +22,23 @@ const Overview = observer(() => {
         <Header />
         <H4 color="$text11">Overview</H4>
         <WeeklySummary />
+        {OverviewStore.stillCollectingData && (
+          <ShadowCard>
+            <XStack space="$3">
+              <View backgroundColor="$yellow4" padding="$2" borderRadius={999} alignSelf="flex-start">
+                <AlertTriangle color="#F7B955" />
+              </View>
+              <YStack flex={1}>
+                <Paragraph color="$text11" fontWeight={"900"} marginTop="$1">
+                  Collecting data
+                </Paragraph>
+                <SizableText color="$text6" fontSize={"$3"} lineHeight={16}>
+                  We need more data to show you how much time you’ve saved.
+                </SizableText>
+              </YStack>
+            </XStack>
+          </ShadowCard>
+        )}
         <XStack space="$4">
           <ShadowCard flex={1}>
             <View backgroundColor="rgba(254,94,42,0.2)" padding="$2" borderRadius={999} alignSelf="flex-start">
@@ -96,10 +63,7 @@ const Overview = observer(() => {
             </H1>
           </ShadowCard>
         </XStack>
-        {apps.map((app, index) => {
-          const randomInterreption = Math.floor(Math.random() * 100) + 1;
-          const randomPrevention = Math.floor(Math.random() * 100) + 1;
-          const randomSaved = Math.floor(Math.random() * 10) + 1;
+        {OverviewStore.apps.map((app, index) => {
           return (
             <ShadowCard
               key={index}
@@ -107,12 +71,12 @@ const Overview = observer(() => {
                 backgroundColor: "$grey1",
               }}
               onPress={() => {
-                router.push(`/overview/${app.name}`);
+                router.push(`/overview/${app.id}`);
               }}
             >
               <XStack space="$2" justifyContent="space-between">
                 <XStack space="$2" alignItems="center">
-                  <Image source={{ uri: app.icon }} width={20} height={20} />
+                  <Image source={{ uri: appIcons[app.iconKey] }} width={20} height={20} />
                   <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
                     {app.name}
                   </SizableText>
@@ -126,7 +90,7 @@ const Overview = observer(() => {
                   paddingVertical="$1"
                 >
                   <Paragraph color="#67D65D" fontWeight={"bold"}>
-                    20% reduction
+                    x% reduction
                   </Paragraph>
                   <TrendingUp color="#67D65D" strokeWidth={2.5} size={16} />
                 </XStack>
@@ -134,21 +98,21 @@ const Overview = observer(() => {
               <XStack space="$4" marginTop="$2">
                 <YStack>
                   <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
-                    {randomSaved}h
+                    {OverviewStore.hoursSavedByApp(app)}h
                   </H2>
                   <Paragraph color="#797979">Saved</Paragraph>
                 </YStack>
                 <Divider />
                 <YStack>
                   <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
-                    {randomInterreption}x
+                    {OverviewStore.interruptionByApp(app)}x
                   </H2>
                   <Paragraph color="#797979">Interrupted</Paragraph>
                 </YStack>
                 <Divider />
                 <YStack>
                   <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
-                    {randomPrevention}%
+                    {OverviewStore.preventedByAppInPercentage(app)}%
                   </H2>
                   <Paragraph color="#797979">Prevented</Paragraph>
                 </YStack>

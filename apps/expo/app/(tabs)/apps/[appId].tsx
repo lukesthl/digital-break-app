@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { Check, ChevronDown, ChevronRight, ChevronUp, Trash } from "@tamagui/lucide-icons";
 import { observer } from "mobx-react-lite";
@@ -24,6 +25,11 @@ import { AppSettings } from "../../../data/app.settings";
 const App = observer(() => {
   const searchParams = useLocalSearchParams<{ appId: string }>();
   const selectedApp = AppSettings.apps.find((app) => app.id === searchParams.appId);
+  useEffect(() => {
+    if (!selectedApp) {
+      void AppSettings.init();
+    }
+  });
   return (
     <Container paddingTop={"$4"}>
       <YStack space="$4">

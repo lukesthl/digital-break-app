@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import {
   Box,
   ChevronRight,
@@ -13,10 +14,11 @@ import {
   Share,
   ShieldCheck,
   SunMoon,
+  Trash,
   Upload,
   Vibrate,
 } from "@tamagui/lucide-icons";
-import { H5, ListItem, Switch, View, YGroup, YStack } from "tamagui";
+import { Button, H5, ListItem, SizableText, Switch, View, YGroup, YStack } from "tamagui";
 
 import { Container } from "../../../../components/container";
 
@@ -190,6 +192,25 @@ const Settings = () => (
           </ListItem>
         </YGroup.Item>
       </YGroup>
+
+      <View flexDirection="row" justifyContent="flex-end">
+        <Button
+          variant="outlined"
+          icon={() => <Trash color="red" size={16} />}
+          borderWidth={0}
+          size="$3"
+          pressStyle={{
+            backgroundColor: "rgba(255,0,0,0.1)",
+          }}
+          onPress={() => {
+            router.push("/overview/settings/delete-app-data");
+          }}
+        >
+          <SizableText color="red" fontWeight={"bold"}>
+            Delete App Data
+          </SizableText>
+        </Button>
+      </View>
     </YStack>
   </Container>
 );

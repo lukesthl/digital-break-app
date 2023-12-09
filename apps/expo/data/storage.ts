@@ -72,4 +72,10 @@ export class Storage<
     await this.batchUpdate(filteredItems);
     this.logger.log(`delete ${Date.now() - time}ms`);
   };
+
+  public deleteAll = async (): Promise<void> => {
+    const time = Date.now();
+    await AsyncStorage.removeItem(this.storageKey);
+    this.logger.log(`deleteAll ${Date.now() - time}ms`);
+  };
 }
