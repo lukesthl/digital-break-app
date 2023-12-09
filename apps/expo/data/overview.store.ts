@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { makeAutoObservable } from "mobx";
 
 import { AppStatisticsStore } from "./app.statistics";
@@ -35,8 +36,40 @@ class OverviewStoreSingleton {
     return Math.max(0, percentage);
   }
 
-  public interruptionByApp(app: App): number {
-    return this.appStatisticsStore.getEvents({ type: "break-start", appId: app.id }).length;
+  public interruptionsByDay(
+    app: App,
+    timeRange = {
+      from: 0,
+      to: 0,
+    }
+  ): { value: number; dateUnix: number }[] {
+    const events = this.appStatisticsStore.getEvents({ type: "break-start", appId: app.id, timeRange });
+    const eventsByDay = events.reduce(
+      (acc, event) => {
+        const day = dayjs(event.timestamp).startOf("day").valueOf();
+        if (!acc[day]) {
+          acc[day] = 0;
+        }
+        acc[day] += 1;
+        return acc;
+      },
+      {} as Record<number, number>
+    );
+    const eventsByDayArray = Object.entries(eventsByDay).map(([dateUnix, value]) => ({
+      value,
+      dateUnix: Number(dateUnix),
+    }));
+    return eventsByDayArray;
+  }
+
+  public interruptionByApp(
+    app: App,
+    timeRange = {
+      from: 0,
+      to: 0,
+    }
+  ): number {
+    return this.appStatisticsStore.getEvents({ type: "break-start", appId: app.id, timeRange }).length;
   }
 
   public preventedByApp(

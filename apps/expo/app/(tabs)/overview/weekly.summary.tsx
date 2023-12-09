@@ -1,19 +1,19 @@
 import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
 import { SizableText, View, XStack, YStack } from "tamagui";
 
 import { ShadowCard } from "../../../components/shadow.card";
 import { OverviewStore } from "../../../data/overview.store";
 
+import "dayjs/locale/de";
+
+dayjs.extend(weekday);
+dayjs.locale("de");
+
 const calculateMaxHourSavedOnADay = () => {
   const weekDays = Array.from({ length: 7 }).map((_, day) => {
-    const dayStart = dayjs()
-      .day(day + 1)
-      .startOf("day")
-      .valueOf();
-    const dayEnd = dayjs()
-      .day(day + 1)
-      .endOf("day")
-      .valueOf();
+    const dayStart = dayjs().weekday(day).startOf("day").valueOf();
+    const dayEnd = dayjs().weekday(day).endOf("day").valueOf();
     const timeSaved = OverviewStore.hoursSaved({
       from: dayStart,
       to: dayEnd,
@@ -43,24 +43,13 @@ export const WeeklySummary = () => {
         </YStack>
         <XStack space="$2.5" flex={1} width={"100%"}>
           {Array.from({ length: 7 }).map((_, day) => {
-            const dayStart = dayjs()
-              .day(day + 1)
-              .startOf("day")
-              .valueOf();
-            const dayEnd = dayjs()
-              .day(day + 1)
-              .endOf("day")
-              .valueOf();
+            const dayStart = dayjs().weekday(day).startOf("day").valueOf();
+            const dayEnd = dayjs().weekday(day).endOf("day").valueOf();
             const timeSaved = OverviewStore.hoursSaved({
               from: dayStart,
               to: dayEnd,
             });
-            console.log(
-              dayjs()
-                .day(day + 1)
-                .format("ddd"),
-              timeSaved
-            );
+            // console.log(dayjs().weekday(day).format("ddd"), timeSaved);
             const padding = 10;
             const height = timeSaved === 0 ? 0 : (timeSaved / maxHourSavedOnADay) * (100 - padding);
             return (
@@ -89,7 +78,7 @@ export const WeeklySummary = () => {
                 <SizableText color="#797979" alignSelf="center">
                   {dayjs()
                     .day(day + 1)
-                    .format("ddd")}
+                    .format("dd")}
                 </SizableText>
               </YStack>
             );

@@ -1,7 +1,9 @@
 import { useState } from "react";
+import type { Text as ReactNativeText, TextProps } from "react-native";
 import { LineChart as LineChartGifted, PieChart as PieChartGifted } from "react-native-gifted-charts";
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { ChevronRight, Cog } from "@tamagui/lucide-icons";
+import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
 import { getTokenValue, H2, H4, Paragraph, SizableText, Text, View, XStack, YStack } from "tamagui";
 
@@ -10,10 +12,29 @@ import { Divider } from "../../../components/divider";
 import { ShadowCard } from "../../../components/shadow.card";
 import { OverviewStore } from "../../../data/overview.store";
 
+const labelTextStyle = { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 };
+
+const generateData = ({ statistic }: { statistic: { value: number; timestamp: number }[] }) => {
+  return statistic.map((item) => {
+    const date = dayjs(item.timestamp).format("DD MMM YYYY");
+
+    return {
+      value: item.value,
+      date: date,
+      label: dayjs(item.timestamp).date() % 10 === 1 || dayjs(item.timestamp).date() === 1 ? date : undefined,
+      labelTextStyle:
+        dayjs(item.timestamp).date() % 10 === 1 || dayjs(item.timestamp).date() === 1
+          ? labelTextStyle
+          : (undefined as TextProps["style"]),
+    };
+  });
+};
+
 const App = observer(() => {
   const searchParams = useLocalSearchParams<{ appId: string }>();
   const selectedApp = OverviewStore.apps.find((app) => app.id === searchParams.appId);
 
+  const openingAttempts = selectedApp ? OverviewStore.interruptionsByDay(selectedApp) : null;
   return (
     <Container paddingTop={"$4"}>
       <YStack space="$4">
@@ -48,7 +69,14 @@ const App = observer(() => {
             <SizableText fontWeight={"bold"}>3x more</SizableText>.
           </Paragraph>
           <View overflow="hidden" marginTop="$3">
-            <Chart />
+            <Chart
+              data={generateData({
+                statistic: (openingAttempts ?? []).map((attempt) => ({
+                  timestamp: attempt.dateUnix,
+                  value: attempt.value,
+                })),
+              })}
+            />
           </View>
         </ShadowCard>
         <ShadowCard>
@@ -87,7 +115,70 @@ const App = observer(() => {
             <SizableText fontWeight={"bold"}>3x more</SizableText>.
           </Paragraph>
           <View overflow="hidden" marginTop="$3">
-            <Chart />
+            <Chart
+              data={[
+                {
+                  value: 16,
+                  date: "1 Apr 2022",
+                  label: "1 Apr",
+                  labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
+                },
+                { value: 18, date: "2 Apr 2022" },
+                { value: 19, date: "3 Apr 2022" },
+                { value: 18, date: "4 Apr 2022" },
+                { value: 14, date: "5 Apr 2022" },
+                { value: 14, date: "6 Apr 2022" },
+                { value: 16, date: "7 Apr 2022" },
+                { value: 20, date: "8 Apr 2022" },
+
+                { value: 22, date: "9 Apr 2022" },
+                {
+                  value: 24,
+                  date: "10 Apr 2022",
+                  label: "10 Apr",
+                  labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
+                },
+                { value: 28, date: "11 Apr 2022" },
+                { value: 26, date: "12 Apr 2022" },
+                { value: 34, date: "13 Apr 2022" },
+                { value: 38, date: "14 Apr 2022" },
+                { value: 28, date: "15 Apr 2022" },
+                { value: 39, date: "16 Apr 2022" },
+
+                { value: 37, date: "17 Apr 2022" },
+                { value: 28, date: "18 Apr 2022" },
+                { value: 29, date: "19 Apr 2022" },
+                {
+                  value: 30,
+                  date: "20 Apr 2022",
+                  label: "20 Apr",
+
+                  labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
+                },
+                { value: 28, date: "21 Apr 2022" },
+                { value: 29, date: "22 Apr 2022" },
+                { value: 26, date: "23 Apr 2022" },
+                { value: 25, date: "24 Apr 2022" },
+
+                { value: 19, date: "25 Apr 2022" },
+                { value: 22, date: "26 Apr 2022" },
+                { value: 20, date: "27 Apr 2022" },
+                { value: 23, date: "28 Apr 2022" },
+                { value: 21, date: "29 Apr 2022" },
+                {
+                  value: 20,
+                  date: "30 Apr 2022",
+                  label: "30 Apr",
+
+                  labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
+                },
+                { value: 24, date: "1 May 2022" },
+                { value: 25, date: "2 May 2022" },
+                { value: 28, date: "3 May 2022" },
+                { value: 25, date: "4 May 2022" },
+                { value: 21, date: "5 May 2022" },
+              ]}
+            />
           </View>
         </ShadowCard>
         <ShadowCard>
@@ -105,113 +196,22 @@ const App = observer(() => {
 });
 export default App;
 
-// const Chart2 = () => {
-//   return (
-//     <LineGraph
-//       points={[
-//         { date: new Date(2021, 1, 1), value: 1 },
-//         { date: new Date(2021, 1, 2), value: 2 },
-//         { date: new Date(2021, 1, 3), value: 3 },
-//         { date: new Date(2021, 1, 4), value: 4 },
-//         { date: new Date(2021, 1, 5), value: 5 },
-//         { date: new Date(2021, 1, 6), value: 6 },
-//         { date: new Date(2021, 1, 7), value: 7 },
-//         { date: new Date(2021, 1, 8), value: 8 },
-//         { date: new Date(2021, 1, 9), value: 9 },
-//         { date: new Date(2021, 1, 10), value: 10 },
-//         { date: new Date(2021, 1, 11), value: 11 },
-//         { date: new Date(2021, 1, 12), value: 12 },
-//         { date: new Date(2021, 1, 13), value: 13 },
-//         { date: new Date(2021, 1, 14), value: 14 },
-//         { date: new Date(2021, 1, 15), value: 15 },
-//         { date: new Date(2021, 1, 16), value: 16 },
-//         { date: new Date(2021, 1, 17), value: 17 },
-//         { date: new Date(2021, 1, 18), value: 18 },
-//         { date: new Date(2021, 1, 19), value: 19 },
-//         { date: new Date(2021, 1, 20), value: 20 },
-//         { date: new Date(2021, 1, 21), value: 21 },
-//         { date: new Date(2021, 1, 22), value: 22 },
-//         { date: new Date(2021, 1, 23), value: 23 },
-//         { date: new Date(2021, 1, 24), value: 24 },
-//         { date: new Date(2021, 1, 25), value: 25 },
-//       ]}
-//       animated={true}
-//       color="#797979"
-//       style={{ height: 130 }}
-//       enablePanGesture={true}
-//     />
-//   );
-// };
-
-const Chart = () => {
-  const ptData = [
-    {
-      value: 16,
-      date: "1 Apr 2022",
-      label: "1 Apr",
-      labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
-    },
-    { value: 18, date: "2 Apr 2022" },
-    { value: 19, date: "3 Apr 2022" },
-    { value: 18, date: "4 Apr 2022" },
-    { value: 14, date: "5 Apr 2022" },
-    { value: 14, date: "6 Apr 2022" },
-    { value: 16, date: "7 Apr 2022" },
-    { value: 20, date: "8 Apr 2022" },
-
-    { value: 22, date: "9 Apr 2022" },
-    {
-      value: 24,
-      date: "10 Apr 2022",
-      label: "10 Apr",
-      labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
-    },
-    { value: 28, date: "11 Apr 2022" },
-    { value: 26, date: "12 Apr 2022" },
-    { value: 34, date: "13 Apr 2022" },
-    { value: 38, date: "14 Apr 2022" },
-    { value: 28, date: "15 Apr 2022" },
-    { value: 39, date: "16 Apr 2022" },
-
-    { value: 37, date: "17 Apr 2022" },
-    { value: 28, date: "18 Apr 2022" },
-    { value: 29, date: "19 Apr 2022" },
-    {
-      value: 30,
-      date: "20 Apr 2022",
-      label: "20 Apr",
-
-      labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
-    },
-    { value: 28, date: "21 Apr 2022" },
-    { value: 29, date: "22 Apr 2022" },
-    { value: 26, date: "23 Apr 2022" },
-    { value: 25, date: "24 Apr 2022" },
-
-    { value: 19, date: "25 Apr 2022" },
-    { value: 22, date: "26 Apr 2022" },
-    { value: 20, date: "27 Apr 2022" },
-    { value: 23, date: "28 Apr 2022" },
-    { value: 21, date: "29 Apr 2022" },
-    {
-      value: 20,
-      date: "30 Apr 2022",
-      label: "30 Apr",
-
-      labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
-    },
-    { value: 24, date: "1 May 2022" },
-    { value: 25, date: "2 May 2022" },
-    { value: 28, date: "3 May 2022" },
-    { value: 25, date: "4 May 2022" },
-    { value: 21, date: "5 May 2022" },
-  ];
+const Chart = ({
+  data,
+}: {
+  data: {
+    date: string;
+    value: number;
+    label?: string;
+    labelTextStyle?: React.ComponentProps<typeof ReactNativeText>["style"];
+  }[];
+}) => {
   const grey3 = getTokenValue("$grey3") as string;
   const grey4 = getTokenValue("$grey4") as string;
   return (
     <LineChartGifted
       areaChart
-      data={ptData}
+      data={data}
       hideDataPoints
       spacing={10}
       color="#797979"
