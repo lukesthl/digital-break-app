@@ -1,11 +1,11 @@
 import { useState } from "react";
-import type { Text as ReactNativeText, TextProps } from "react-native";
+import { Text, type Text as ReactNativeText, type TextProps } from "react-native";
 import { LineChart as LineChartGifted, PieChart as PieChartGifted } from "react-native-gifted-charts";
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { ChevronRight, Cog } from "@tamagui/lucide-icons";
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
-import { getTokenValue, H2, H4, Paragraph, SizableText, Text, View, XStack, YStack } from "tamagui";
+import { getTokenValue, H2, H4, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../../components/container";
 import { Divider } from "../../../components/divider";
@@ -70,12 +70,22 @@ const App = observer(() => {
           </Paragraph>
           <View overflow="hidden" marginTop="$3">
             <Chart
-              data={generateData({
-                statistic: (openingAttempts ?? []).map((attempt) => ({
-                  timestamp: attempt.dateUnix,
-                  value: attempt.value,
-                })),
-              })}
+              data={
+                openingAttempts && openingAttempts.length > 10
+                  ? generateData({
+                      statistic: (openingAttempts ?? []).map((attempt) => ({
+                        timestamp: attempt.dateUnix,
+                        value: attempt.value,
+                      })),
+                    })
+                  : generateData({
+                      statistic: Array.from({ length: 30 }).map((_, i) => ({
+                        timestamp: dayjs().subtract(i, "day").valueOf(),
+                        value: Math.floor(Math.random() * 30) + 10,
+                      })),
+                    })
+              }
+              dummy={openingAttempts ? openingAttempts?.length < 10 : false}
             />
           </View>
         </ShadowCard>
@@ -198,6 +208,7 @@ export default App;
 
 const Chart = ({
   data,
+  dummy,
 }: {
   data: {
     date: string;
@@ -205,79 +216,106 @@ const Chart = ({
     label?: string;
     labelTextStyle?: React.ComponentProps<typeof ReactNativeText>["style"];
   }[];
+  dummy?: boolean;
 }) => {
   const grey3 = getTokenValue("$grey3") as string;
   const grey4 = getTokenValue("$grey4") as string;
   return (
-    <LineChartGifted
-      areaChart
-      data={data}
-      hideDataPoints
-      spacing={10}
-      color="#797979"
-      thickness={3}
-      height={130}
-      startFillColor={grey4}
-      endFillColor={grey3}
-      startOpacity={0.9}
-      endOpacity={0.2}
-      initialSpacing={0}
-      noOfSections={2}
-      yAxisColor={grey3}
-      yAxisThickness={1}
-      rulesType="dashed"
-      rulesColor={grey3}
-      yAxisTextStyle={{ color: "#797979", fontFamily: "Satoshi", fontSize: 12 }}
-      yAxisLabelSuffix={"x"}
-      yAxisLabelWidth={30}
-      yAxisLabelContainerStyle={{}}
-      yAxisTextNumberOfLines={3}
-      rulesThickness={1}
-      dataPointLabelShiftX={2}
-      horizontalRulesStyle={{ color: "#121212" }}
-      xAxisColor={grey3}
-      animateOnDataChange
-      animationDuration={1000}
-      isAnimated
-      pointerConfig={{
-        pointerStripHeight: 160,
-        pointerStripColor: "#797979",
-        pointerStripWidth: 2,
-        pointerColor: "#797979",
-        radius: 6,
-        pointerLabelWidth: 100,
-        pointerLabelHeight: 90,
-        activatePointersOnLongPress: true,
-        autoAdjustPointerLabelPosition: false,
-        pointerLabelComponent: (items: [{ date: string; value: string }]) => {
-          return (
-            <View
-              style={{
-                height: 90,
-                width: 100,
-                justifyContent: "center",
-                marginTop: -30,
-                marginLeft: -40,
-              }}
-              backgroundColor={grey4}
-            >
-              <Text style={{ color: "white", fontSize: 14, marginBottom: 6, textAlign: "center" }}>
-                {items[0].date}
-              </Text>
-
+    <View position="relative">
+      {dummy && (
+        <View
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          backgroundColor={"rgba(255,255,255,0.7)"}
+          zIndex={99}
+          flexDirection="row"
+          alignItems="center"
+          paddingBottom={"$6"}
+          justifyContent="center"
+        >
+          <YStack flex={1}>
+            <H4 fontWeight={"bold"} fontSize={"$5"} textAlign="center">
+              Collecting data
+            </H4>
+            <Paragraph textAlign="center" lineHeight={20}>
+              We are collecting data for this chart. It will be available in a few days.
+            </Paragraph>
+          </YStack>
+        </View>
+      )}
+      <LineChartGifted
+        areaChart
+        data={data}
+        hideDataPoints
+        spacing={10}
+        color="#797979"
+        thickness={3}
+        height={130}
+        startFillColor={grey4}
+        endFillColor={grey3}
+        startOpacity={0.9}
+        endOpacity={0.2}
+        initialSpacing={0}
+        noOfSections={2}
+        yAxisColor={grey3}
+        yAxisThickness={1}
+        rulesType="dashed"
+        rulesColor={grey3}
+        yAxisTextStyle={{ color: "#797979", fontFamily: "Satoshi", fontSize: 12 }}
+        yAxisLabelSuffix={"x"}
+        yAxisLabelWidth={30}
+        yAxisLabelContainerStyle={{}}
+        yAxisTextNumberOfLines={3}
+        rulesThickness={1}
+        dataPointLabelShiftX={2}
+        horizontalRulesStyle={{ color: "#121212" }}
+        xAxisColor={grey3}
+        animateOnDataChange
+        animationDuration={1000}
+        isAnimated
+        pointerConfig={{
+          pointerStripHeight: 160,
+          pointerStripColor: "#797979",
+          pointerStripWidth: 2,
+          pointerColor: "#797979",
+          radius: 6,
+          pointerLabelWidth: 100,
+          pointerLabelHeight: 90,
+          activatePointersOnLongPress: true,
+          autoAdjustPointerLabelPosition: false,
+          pointerLabelComponent: (items: [{ date: string; value: string }]) => {
+            return (
               <View
-                style={{ paddingHorizontal: 14, paddingVertical: 6, borderRadius: 16, backgroundColor: "white" }}
-                backgroundColor={"white"}
+                style={{
+                  height: 90,
+                  width: 100,
+                  justifyContent: "center",
+                  marginTop: -30,
+                  marginLeft: -40,
+                }}
+                backgroundColor={grey4}
               >
-                <Text style={{ fontWeight: "bold", textAlign: "center", color: "black" }}>
-                  {"$" + items[0].value + ".0"}
+                <Text style={{ color: "white", fontSize: 14, marginBottom: 6, textAlign: "center" }}>
+                  {items[0].date}
                 </Text>
+
+                <View
+                  style={{ paddingHorizontal: 14, paddingVertical: 6, borderRadius: 16, backgroundColor: "white" }}
+                  backgroundColor={"white"}
+                >
+                  <Text style={{ fontWeight: "bold", textAlign: "center", color: "black" }}>
+                    {"$" + items[0].value + ".0"}
+                  </Text>
+                </View>
               </View>
-            </View>
-          );
-        },
-      }}
-    />
+            );
+          },
+        }}
+      />
+    </View>
   );
 };
 
