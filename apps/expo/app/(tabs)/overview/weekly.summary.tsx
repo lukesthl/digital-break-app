@@ -1,13 +1,11 @@
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
-import { Paragraph, SizableText, View, XStack, YStack } from "tamagui";
+import { SizableText, View, XStack, YStack } from "tamagui";
 
 import { ShadowCard } from "../../../components/shadow.card";
 import { OverviewStore } from "../../../data/overview.store";
 
 import "dayjs/locale/de";
-
-import { TrendingDown, TrendingUp } from "@tamagui/lucide-icons";
 
 import { PercentageTrend } from "../../../components/percentage.trend";
 

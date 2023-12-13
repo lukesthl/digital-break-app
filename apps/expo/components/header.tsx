@@ -1,4 +1,4 @@
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { Coffee, Cog } from "@tamagui/lucide-icons";
 import { Button, Heading, XStack } from "tamagui";
 
