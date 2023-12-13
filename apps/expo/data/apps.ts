@@ -108,6 +108,7 @@ export class AppsStore {
       if (!app) {
         throw new Error("App not created");
       }
+      this.apps.push(app);
       return app;
     }
   }

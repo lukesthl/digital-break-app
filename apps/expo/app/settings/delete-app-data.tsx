@@ -1,9 +1,9 @@
 import { router } from "expo-router";
 import { Button, Label, SizableText, View, XStack, YStack } from "tamagui";
 
-import { Container } from "../../../../components/container";
-import { AppSettings } from "../../../../data/app.settings";
-import { OverviewStore } from "../../../../data/overview.store";
+import { Container } from "../../components/container";
+import { AppSettings } from "../../data/app.settings";
+import { OverviewStore } from "../../data/overview.store";
 
 const DeleteAppData = () => (
   <Container paddingVertical={"$4"}>

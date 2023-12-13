@@ -37,7 +37,7 @@ const Apps = observer(() => {
               width="50%"
               paddingRight={index % 2 === 0 ? "$2" : 0}
               paddingLeft={index % 2 === 1 ? "$2" : 0}
-              paddingBottom="$3"
+              paddingBottom={index < AppSettings.apps.length - 2 ? "$3" : 0}
             >
               <ShadowCard
                 key={`${app.name}_${index}`}

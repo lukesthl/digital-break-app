@@ -3,6 +3,7 @@ import {
   Box,
   ChevronRight,
   Database,
+  Dices,
   ExternalLink,
   FileInput,
   Github,
@@ -20,7 +21,9 @@ import {
 } from "@tamagui/lucide-icons";
 import { Button, H5, ListItem, SizableText, Switch, View, YGroup, YStack } from "tamagui";
 
-import { Container } from "../../../../components/container";
+import { Container } from "../../components/container";
+import { OverviewStore } from "../../data/overview.store";
+import { SettingsStore } from "../../data/settings.store";
 
 const Settings = () => (
   <Container paddingVertical={"$4"}>
@@ -146,6 +149,26 @@ const Settings = () => (
             <ListItem.Text>{"Export Data"}</ListItem.Text>
           </ListItem>
         </YGroup.Item>
+        <YGroup.Item>
+          <ListItem
+            hoverTheme
+            pressTheme
+            icon={
+              <View backgroundColor="$gray5" borderRadius={"$3"} padding="$2">
+                <Database size={20} />
+              </View>
+            }
+            onPress={() => {
+              void SettingsStore.generateRandomTestData().then(() => {
+                router.back();
+                void OverviewStore.init();
+              });
+            }}
+            iconAfter={Dices}
+          >
+            <ListItem.Text>{"Generate Random Data"}</ListItem.Text>
+          </ListItem>
+        </YGroup.Item>
       </YGroup>
       <H5>{"Legal Information"}</H5>
       <YGroup alignSelf="center" bordered size="$4">
@@ -203,7 +226,7 @@ const Settings = () => (
             backgroundColor: "rgba(255,0,0,0.1)",
           }}
           onPress={() => {
-            router.push("/overview/settings/delete-app-data");
+            router.push("/settings/delete-app-data");
           }}
         >
           <SizableText color="red" fontWeight={"bold"}>

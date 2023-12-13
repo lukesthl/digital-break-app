@@ -83,9 +83,15 @@ class OverviewStoreSingleton {
     return preventedByApp;
   }
 
-  public preventedByAppInPercentage(app: App): number {
-    const interruptedByApp = this.interruptionByApp(app);
-    const preventedByApp = this.preventedByApp(app);
+  public preventedByAppInPercentage(
+    app: App,
+    timeRange = {
+      from: 0,
+      to: 0,
+    }
+  ): number {
+    const interruptedByApp = this.interruptionByApp(app, timeRange);
+    const preventedByApp = this.preventedByApp(app, timeRange);
     if (interruptedByApp === 0) {
       return 0;
     }
@@ -117,7 +123,6 @@ class OverviewStoreSingleton {
     const hoursSaved = apps.reduce((sum, app) => sum + this.hoursSavedByApp(app, timeRange), 0);
     return Math.round(hoursSaved * 100) / 100;
   }
-
   get stillCollectingData(): boolean {
     if (this.appStatisticsStore.events.length === 0) {
       return true;

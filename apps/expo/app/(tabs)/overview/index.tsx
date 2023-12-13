@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { router } from "expo-router";
-import { AlertTriangle, Check, ChevronRight, Plus, ShieldBan, TrendingUp } from "@tamagui/lucide-icons";
+import { AlertTriangle, Check, ChevronRight, Plus, ShieldBan } from "@tamagui/lucide-icons";
+import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
 import { H1, H2, H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../../components/container";
 import { Divider } from "../../../components/divider";
 import { Header } from "../../../components/header";
+import { PercentageTrend } from "../../../components/percentage.trend";
 import { ShadowCard } from "../../../components/shadow.card";
 import { appIcons } from "../../../data/apps";
 import { OverviewStore } from "../../../data/overview.store";
@@ -64,6 +66,18 @@ const Overview = observer(() => {
           </ShadowCard>
         </XStack>
         {OverviewStore.apps.map((app, index) => {
+          const preventedLastWeek = OverviewStore.preventedByAppInPercentage(app, {
+            from: dayjs().weekday(-7).startOf("week").valueOf(),
+            to: dayjs().weekday(-7).endOf("week").valueOf(),
+          });
+          const preventedThisWeek = OverviewStore.preventedByAppInPercentage(app, {
+            from: dayjs().weekday(0).startOf("week").valueOf(),
+            to: dayjs().valueOf(),
+          });
+
+          const difference = preventedThisWeek - preventedLastWeek;
+          const percentageSavedInComparisonToLastWeek =
+            difference > 0 && preventedLastWeek > 0 ? (difference / preventedLastWeek) * 100 : 0;
           return (
             <ShadowCard
               key={index}
@@ -81,19 +95,9 @@ const Overview = observer(() => {
                     {app.name}
                   </SizableText>
                 </XStack>
-                <XStack
-                  backgroundColor="rgba(103,214,93,0.2)"
-                  borderRadius={"$2"}
-                  alignItems="center"
-                  space="$1"
-                  paddingHorizontal="$2"
-                  paddingVertical="$1"
-                >
-                  <Paragraph color="#67D65D" fontWeight={"bold"}>
-                    x% reduction
-                  </Paragraph>
-                  <TrendingUp color="#67D65D" strokeWidth={2.5} size={16} />
-                </XStack>
+                {percentageSavedInComparisonToLastWeek !== 0 && (
+                  <PercentageTrend percentage={percentageSavedInComparisonToLastWeek} />
+                )}
               </XStack>
               <XStack space="$4" marginTop="$2">
                 <YStack>

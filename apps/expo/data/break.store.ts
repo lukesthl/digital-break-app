@@ -1,3 +1,4 @@
+import Constants, { AppOwnership } from "expo-constants";
 import * as Linking from "expo-linking";
 import { makeAutoObservable } from "mobx";
 
@@ -5,6 +6,8 @@ import * as ExpoExitApp from "../../../packages/expo-exit-app";
 import { AppStatisticsStore } from "./app.statistics";
 import type { App } from "./apps";
 import { AppsStore, deepLinks } from "./apps";
+
+const isRunningInExpoGo = Constants.appOwnership === AppOwnership.Expo;
 
 export class BreakStoreSingleton {
   private appStatisticsStore = new AppStatisticsStore();
@@ -32,7 +35,7 @@ export class BreakStoreSingleton {
   }
 
   public async exitApp(): Promise<void> {
-    if (!this.app) {
+    if (!this.app || isRunningInExpoGo) {
       throw new Error("App not initialized");
     }
     await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-close" });

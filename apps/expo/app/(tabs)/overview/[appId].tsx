@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Text, type Text as ReactNativeText, type TextProps } from "react-native";
+import { Text } from "react-native";
+import type { Text as ReactNativeText, TextProps } from "react-native";
 import { LineChart as LineChartGifted, PieChart as PieChartGifted } from "react-native-gifted-charts";
-import { Link, router, useLocalSearchParams } from "expo-router";
+import { Link, Redirect, router, useLocalSearchParams } from "expo-router";
 import { ChevronRight, Cog } from "@tamagui/lucide-icons";
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
@@ -33,6 +34,9 @@ const generateData = ({ statistic }: { statistic: { value: number; timestamp: nu
 const App = observer(() => {
   const searchParams = useLocalSearchParams<{ appId: string }>();
   const selectedApp = OverviewStore.apps.find((app) => app.id === searchParams.appId);
+  if (!selectedApp) {
+    return <Redirect href="/overview/" />;
+  }
 
   const openingAttempts = selectedApp ? OverviewStore.interruptionsByDay(selectedApp) : null;
   return (
@@ -92,27 +96,29 @@ const App = observer(() => {
         <ShadowCard>
           <H4>Time saved</H4>
           <Paragraph color="#797979" lineHeight={20}>
-            You tried to open this app <SizableText fontWeight={"bold"}>12x</SizableText> which prevented you from
-            spending <SizableText fontWeight={"bold"}>12h</SizableText> on it.
+            You tried to open this app{" "}
+            <SizableText fontWeight={"bold"}>{OverviewStore.interruptionByApp(selectedApp)}x</SizableText> which
+            prevented you from spending{" "}
+            <SizableText fontWeight={"bold"}>{OverviewStore.hoursSavedByApp(selectedApp)}h</SizableText> on it.
           </Paragraph>
           <XStack space="$4" marginTop="$2">
             <YStack>
               <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
-                {12}h
+                {OverviewStore.hoursSavedByApp(selectedApp)}h
               </H2>
               <Paragraph color="#797979">Saved</Paragraph>
             </YStack>
             <Divider />
             <YStack>
               <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
-                {"12"}x
+                {OverviewStore.interruptionByApp(selectedApp)}x
               </H2>
               <Paragraph color="#797979">Interrupted</Paragraph>
             </YStack>
             <Divider />
             <YStack>
               <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
-                {12}%
+                {OverviewStore.preventedByAppInPercentage(selectedApp)}%
               </H2>
               <Paragraph color="#797979">Prevented</Paragraph>
             </YStack>
