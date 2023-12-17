@@ -33,7 +33,7 @@ class SettingsStoreSingleton {
         for (let i = 0; i < 100; i++) {
           const eventTypes = ["break-start", "app-reopen", "app-close"] as const;
 
-          const timestamp = Date.now() - Math.floor(Math.random() * 14 * 24 * 60 * 60 * 1000);
+          const timestamp = Date.now() - Math.floor(Math.random() * 14 * 24 * 60 * 60 * 1000); // 14 days
 
           const type = eventTypes[Math.floor(Math.random() * eventTypes.length)];
           if (!type) {

@@ -44,7 +44,7 @@ const Overview = observer(() => {
         <XStack space="$4">
           <ShadowCard flex={1}>
             <View backgroundColor="rgba(254,94,42,0.2)" padding="$2" borderRadius={999} alignSelf="flex-start">
-              <ShieldBan color="#FE5E2A" />
+              <ShieldBan color="#FE5E2A" strokeWidth={2.25} />
             </View>
             <Paragraph color="#797979" marginTop="$1">
               Interrupted
@@ -55,7 +55,7 @@ const Overview = observer(() => {
           </ShadowCard>
           <ShadowCard flex={1}>
             <View backgroundColor="rgba(103,214,93,0.2)" padding="$2" borderRadius={999} alignSelf="flex-start">
-              <Check color="#67D65D" />
+              <Check color="#67D65D" strokeWidth={3} />
             </View>
             <Paragraph color="#797979" marginTop="$1">
               Prevented

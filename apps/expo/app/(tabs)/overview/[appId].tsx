@@ -13,22 +13,21 @@ import { Divider } from "../../../components/divider";
 import { ShadowCard } from "../../../components/shadow.card";
 import { OverviewStore } from "../../../data/overview.store";
 
-const labelTextStyle = { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 };
+const labelTextStyle = { color: "#797979", width: 100, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 };
 
 const generateData = ({ statistic }: { statistic: { value: number; timestamp: number }[] }) => {
-  return statistic.map((item) => {
-    const date = dayjs(item.timestamp).format("DD MMM YYYY");
-
-    return {
-      value: item.value,
-      date: date,
-      label: dayjs(item.timestamp).date() % 10 === 1 || dayjs(item.timestamp).date() === 1 ? date : undefined,
-      labelTextStyle:
-        dayjs(item.timestamp).date() % 10 === 1 || dayjs(item.timestamp).date() === 1
-          ? labelTextStyle
-          : (undefined as TextProps["style"]),
-    };
-  });
+  return statistic
+    .sort((a, b) => dayjs(a.timestamp).valueOf() - dayjs(b.timestamp).valueOf())
+    .map((item, index) => {
+      const date = dayjs(item.timestamp).format("DD MMM YYYY");
+      const showLabel = dayjs(item.timestamp).date() % 10 === 1 || index === 0 || index === statistic.length - 1;
+      return {
+        value: item.value,
+        date: date,
+        label: showLabel ? date : undefined,
+        labelTextStyle: showLabel ? labelTextStyle : (undefined as TextProps["style"]),
+      };
+    });
 };
 
 const App = observer(() => {
@@ -256,7 +255,7 @@ const Chart = ({
         areaChart
         data={data}
         hideDataPoints
-        spacing={10}
+        spacing={20}
         color="#797979"
         thickness={3}
         height={130}
@@ -273,6 +272,7 @@ const Chart = ({
         yAxisTextStyle={{ color: "#797979", fontFamily: "Satoshi", fontSize: 12 }}
         yAxisLabelSuffix={"x"}
         yAxisLabelWidth={30}
+        scrollToEnd
         yAxisLabelContainerStyle={{}}
         yAxisTextNumberOfLines={3}
         rulesThickness={1}

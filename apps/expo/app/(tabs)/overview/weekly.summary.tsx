@@ -69,7 +69,6 @@ export const WeeklySummary = () => {
               from: dayStart,
               to: dayEnd,
             });
-            console.log(dayjs().weekday(day).format("DD.MM.YYYY"));
             const padding = 5;
             const height = timeSaved === 0 ? 0 : (timeSaved / maxHourSavedOnADay) * (100 - padding);
             const isToday = dayjs().weekday(day).isSame(dayjs(), "day");
