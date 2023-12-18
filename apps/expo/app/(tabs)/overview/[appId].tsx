@@ -36,7 +36,16 @@ const App = observer(() => {
   if (!selectedApp) {
     return <Redirect href="/overview/" />;
   }
+  const interruptedLastWeek = OverviewStore.interruptionByApp(selectedApp, {
+    from: dayjs().weekday(-7).startOf("week").valueOf(),
+    to: dayjs().weekday(-7).endOf("day").valueOf(),
+  });
+  const interruptedThisWeek = OverviewStore.interruptionByApp(selectedApp, {
+    from: dayjs().weekday(0).startOf("week").valueOf(),
+    to: dayjs().valueOf(),
+  });
 
+  const interruptedMultiplierThisWeek = interruptedLastWeek !== 0 ? interruptedThisWeek / interruptedLastWeek : 0;
   const openingAttempts = selectedApp ? OverviewStore.interruptionsByDay(selectedApp) : null;
   return (
     <Container paddingTop={"$4"}>
@@ -69,7 +78,10 @@ const App = observer(() => {
           <H4>Opening attempts</H4>
           <Paragraph color="#797979" lineHeight={20}>
             In comparison to the last week you tried to open this app{" "}
-            <SizableText fontWeight={"bold"}>3x more</SizableText>.
+            <SizableText fontWeight={"bold"}>
+              {interruptedMultiplierThisWeek.toFixed(0)}x {interruptedMultiplierThisWeek >= 0 ? "more" : "less"}
+            </SizableText>
+            .
           </Paragraph>
           <View overflow="hidden" marginTop="$3">
             <Chart
@@ -127,7 +139,7 @@ const App = observer(() => {
           <H4>Effectiveness</H4>
           <Paragraph color="#797979" lineHeight={20}>
             In comparison to the last week you tried to open this app{" "}
-            <SizableText fontWeight={"bold"}>3x more</SizableText>.
+            <SizableText fontWeight={"bold"}>{interruptedMultiplierThisWeek}x more</SizableText>.
           </Paragraph>
           <View overflow="hidden" marginTop="$3">
             <Chart

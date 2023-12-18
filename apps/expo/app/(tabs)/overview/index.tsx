@@ -77,7 +77,7 @@ const Overview = observer(() => {
 
           const difference = preventedThisWeek - preventedLastWeek;
           const percentageSavedInComparisonToLastWeek =
-            difference > 0 && preventedLastWeek > 0 ? (difference / preventedLastWeek) * 100 : 0;
+            difference !== 0 && preventedLastWeek > 0 ? (difference / preventedLastWeek) * 100 : 0;
           return (
             <ShadowCard
               key={index}
