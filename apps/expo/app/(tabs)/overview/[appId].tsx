@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { Text } from "react-native";
-import type { Text as ReactNativeText, TextProps } from "react-native";
-import { LineChart as LineChartGifted, PieChart as PieChartGifted } from "react-native-gifted-charts";
+import type { TextProps } from "react-native";
 import { Link, Redirect, router, useLocalSearchParams } from "expo-router";
 import { ChevronRight, Cog } from "@tamagui/lucide-icons";
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
-import { getTokenValue, H2, H4, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
+import { H2, H4, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../../components/container";
 import { Divider } from "../../../components/divider";
+import { LineChart } from "../../../components/line.chart";
+import { PieChart } from "../../../components/pie.chart";
 import { ShadowCard } from "../../../components/shadow.card";
+import { socialMediaGradients } from "../../../data/apps";
 import { OverviewStore } from "../../../data/overview.store";
 
 const labelTextStyle = { color: "#797979", width: 100, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 };
@@ -46,7 +46,11 @@ const App = observer(() => {
   });
 
   const interruptedMultiplierThisWeek = interruptedLastWeek !== 0 ? interruptedThisWeek / interruptedLastWeek : 0;
-  const openingAttempts = selectedApp ? OverviewStore.interruptionsByDay(selectedApp) : null;
+  const openingAttemptsByDay = selectedApp ? OverviewStore.interruptionsByDay(selectedApp) : null;
+  const effectivenessByDayInPercentage = selectedApp ? OverviewStore.preventionsByDay(selectedApp) : null;
+
+  const interruptionsSplitUpByAppInPercentage = OverviewStore.interruptionsSplitUpByAppInPercentage();
+
   return (
     <Container paddingTop={"$4"}>
       <YStack space="$4">
@@ -84,11 +88,11 @@ const App = observer(() => {
             .
           </Paragraph>
           <View overflow="hidden" marginTop="$3">
-            <Chart
+            <LineChart
               data={
-                openingAttempts && openingAttempts.length > 10
+                openingAttemptsByDay && openingAttemptsByDay.length > 10
                   ? generateData({
-                      statistic: (openingAttempts ?? []).map((attempt) => ({
+                      statistic: (openingAttemptsByDay ?? []).map((attempt) => ({
                         timestamp: attempt.dateUnix,
                         value: attempt.value,
                       })),
@@ -100,7 +104,7 @@ const App = observer(() => {
                       })),
                     })
               }
-              dummy={openingAttempts ? openingAttempts?.length < 10 : false}
+              dummy={openingAttemptsByDay ? openingAttemptsByDay?.length < 10 : false}
             />
           </View>
         </ShadowCard>
@@ -137,84 +141,53 @@ const App = observer(() => {
         </ShadowCard>
         <ShadowCard>
           <H4>Effectiveness</H4>
-          <Paragraph color="#797979" lineHeight={20}>
-            In comparison to the last week you tried to open this app{" "}
-            <SizableText fontWeight={"bold"}>{interruptedMultiplierThisWeek}x more</SizableText>.
-          </Paragraph>
           <View overflow="hidden" marginTop="$3">
-            <Chart
-              data={[
-                {
-                  value: 16,
-                  date: "1 Apr 2022",
-                  label: "1 Apr",
-                  labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
-                },
-                { value: 18, date: "2 Apr 2022" },
-                { value: 19, date: "3 Apr 2022" },
-                { value: 18, date: "4 Apr 2022" },
-                { value: 14, date: "5 Apr 2022" },
-                { value: 14, date: "6 Apr 2022" },
-                { value: 16, date: "7 Apr 2022" },
-                { value: 20, date: "8 Apr 2022" },
-
-                { value: 22, date: "9 Apr 2022" },
-                {
-                  value: 24,
-                  date: "10 Apr 2022",
-                  label: "10 Apr",
-                  labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
-                },
-                { value: 28, date: "11 Apr 2022" },
-                { value: 26, date: "12 Apr 2022" },
-                { value: 34, date: "13 Apr 2022" },
-                { value: 38, date: "14 Apr 2022" },
-                { value: 28, date: "15 Apr 2022" },
-                { value: 39, date: "16 Apr 2022" },
-
-                { value: 37, date: "17 Apr 2022" },
-                { value: 28, date: "18 Apr 2022" },
-                { value: 29, date: "19 Apr 2022" },
-                {
-                  value: 30,
-                  date: "20 Apr 2022",
-                  label: "20 Apr",
-
-                  labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
-                },
-                { value: 28, date: "21 Apr 2022" },
-                { value: 29, date: "22 Apr 2022" },
-                { value: 26, date: "23 Apr 2022" },
-                { value: 25, date: "24 Apr 2022" },
-
-                { value: 19, date: "25 Apr 2022" },
-                { value: 22, date: "26 Apr 2022" },
-                { value: 20, date: "27 Apr 2022" },
-                { value: 23, date: "28 Apr 2022" },
-                { value: 21, date: "29 Apr 2022" },
-                {
-                  value: 20,
-                  date: "30 Apr 2022",
-                  label: "30 Apr",
-
-                  labelTextStyle: { color: "#797979", width: 60, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 },
-                },
-                { value: 24, date: "1 May 2022" },
-                { value: 25, date: "2 May 2022" },
-                { value: 28, date: "3 May 2022" },
-                { value: 25, date: "4 May 2022" },
-                { value: 21, date: "5 May 2022" },
-              ]}
+            <LineChart
+              labelSuffix="%"
+              data={
+                effectivenessByDayInPercentage && effectivenessByDayInPercentage.length > 10
+                  ? generateData({
+                      statistic: (effectivenessByDayInPercentage ?? []).map((attempt) => ({
+                        timestamp: attempt.dateUnix,
+                        value: attempt.value,
+                      })),
+                    })
+                  : generateData({
+                      statistic: Array.from({ length: 30 }).map((_, i) => ({
+                        timestamp: dayjs().subtract(i, "day").valueOf(),
+                        value: Math.floor(Math.random() * 30) + 10,
+                      })),
+                    })
+              }
+              dummy={effectivenessByDayInPercentage ? effectivenessByDayInPercentage?.length < 10 : false}
             />
           </View>
         </ShadowCard>
         <ShadowCard>
           <H4>Share of total apps</H4>
           <Paragraph color="#797979" lineHeight={20}>
-            <SizableText fontWeight={"bold"}>37%</SizableText> of your attempts were on this app.
+            <SizableText fontWeight={"bold"}>
+              {
+                interruptionsSplitUpByAppInPercentage.find((interruptions) => interruptions.app.id === selectedApp.id)
+                  ?.percentage
+              }
+              %
+            </SizableText>{" "}
+            of your attempts were on this app.
           </Paragraph>
           <View overflow="hidden" flexDirection="row" justifyContent="center">
-            <PieChart />
+            <PieChart
+              data={interruptionsSplitUpByAppInPercentage.map((interruptions) => {
+                return {
+                  color: socialMediaGradients[interruptions.app.key][0],
+                  gradientCenterColor:
+                    socialMediaGradients[interruptions.app.key][socialMediaGradients[interruptions.app.key].length - 1],
+                  value: interruptions.percentage,
+                  label: interruptions.app.name,
+                  focused: interruptions.app.id === selectedApp.id,
+                };
+              })}
+            />
           </View>
         </ShadowCard>
       </YStack>
@@ -222,158 +195,3 @@ const App = observer(() => {
   );
 });
 export default App;
-
-const Chart = ({
-  data,
-  dummy,
-}: {
-  data: {
-    date: string;
-    value: number;
-    label?: string;
-    labelTextStyle?: React.ComponentProps<typeof ReactNativeText>["style"];
-  }[];
-  dummy?: boolean;
-}) => {
-  const grey3 = getTokenValue("$grey3") as string;
-  const grey4 = getTokenValue("$grey4") as string;
-  return (
-    <View position="relative">
-      {dummy && (
-        <View
-          position="absolute"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          backgroundColor={"rgba(255,255,255,0.7)"}
-          zIndex={99}
-          flexDirection="row"
-          alignItems="center"
-          paddingBottom={"$6"}
-          justifyContent="center"
-        >
-          <YStack flex={1}>
-            <H4 fontWeight={"bold"} fontSize={"$5"} textAlign="center">
-              Collecting data
-            </H4>
-            <Paragraph textAlign="center" lineHeight={20}>
-              We are collecting data for this chart. It will be available in a few days.
-            </Paragraph>
-          </YStack>
-        </View>
-      )}
-      <LineChartGifted
-        areaChart
-        data={data}
-        hideDataPoints
-        spacing={20}
-        color="#797979"
-        thickness={3}
-        height={130}
-        startFillColor={grey4}
-        endFillColor={grey3}
-        startOpacity={0.9}
-        endOpacity={0.2}
-        initialSpacing={0}
-        noOfSections={2}
-        yAxisColor={grey3}
-        yAxisThickness={1}
-        rulesType="dashed"
-        rulesColor={grey3}
-        yAxisTextStyle={{ color: "#797979", fontFamily: "Satoshi", fontSize: 12 }}
-        yAxisLabelSuffix={"x"}
-        yAxisLabelWidth={30}
-        scrollToEnd
-        yAxisLabelContainerStyle={{}}
-        yAxisTextNumberOfLines={3}
-        rulesThickness={1}
-        dataPointLabelShiftX={2}
-        horizontalRulesStyle={{ color: "#121212" }}
-        xAxisColor={grey3}
-        animateOnDataChange
-        animationDuration={1000}
-        isAnimated
-        pointerConfig={{
-          pointerStripHeight: 160,
-          pointerStripColor: "#797979",
-          pointerStripWidth: 2,
-          pointerColor: "#797979",
-          radius: 6,
-          pointerLabelWidth: 100,
-          pointerLabelHeight: 90,
-          activatePointersOnLongPress: true,
-          autoAdjustPointerLabelPosition: false,
-          pointerLabelComponent: (items: [{ date: string; value: string }]) => {
-            return (
-              <View
-                style={{
-                  height: 90,
-                  width: 100,
-                  justifyContent: "center",
-                  marginTop: -30,
-                  marginLeft: -40,
-                }}
-                backgroundColor={grey4}
-              >
-                <Text style={{ color: "white", fontSize: 14, marginBottom: 6, textAlign: "center" }}>
-                  {items[0].date}
-                </Text>
-
-                <View
-                  style={{ paddingHorizontal: 14, paddingVertical: 6, borderRadius: 16, backgroundColor: "white" }}
-                  backgroundColor={"white"}
-                >
-                  <Text style={{ fontWeight: "bold", textAlign: "center", color: "black" }}>
-                    {"$" + items[0].value + ".0"}
-                  </Text>
-                </View>
-              </View>
-            );
-          },
-        }}
-      />
-    </View>
-  );
-};
-
-const PieChart = () => {
-  const grey3 = getTokenValue("$grey3") as string;
-  const grey4 = getTokenValue("$grey4") as string;
-  const pieData = [
-    {
-      value: 47,
-      color: grey4,
-      gradientCenterColor: grey3,
-      focused: true,
-    },
-    { value: 40, color: "#777777", gradientCenterColor: grey3 },
-    { value: 16, color: "#555555", gradientCenterColor: grey3 },
-    { value: 3, color: "#333333", gradientCenterColor: grey3 },
-  ];
-  const [focusedData, setFocusedData] = useState<(typeof pieData)[0] | null>(pieData[0] ? pieData[0] : null);
-
-  return (
-    <PieChartGifted
-      data={pieData}
-      donut
-      showGradient
-      toggleFocusOnPress={false}
-      sectionAutoFocus
-      innerCircleColor={"#797979"}
-      onPress={(data: (typeof pieData)[0]) => {
-        setFocusedData(data);
-      }}
-      innerCircleBorderColor={grey4}
-      focusOnPress
-      centerLabelComponent={() => {
-        return (
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <H4 color="white">{focusedData?.value}%</H4>
-            <SizableText color="white">{"TikTok"}</SizableText>
-          </View>
-        );
-      }}
-    />
-  );
-};

@@ -52,6 +52,22 @@ export const appIcons = {
   safari: "https://static-00.iconduck.com/assets.00/safari-ios-icon-512x512-v014xh8r.png",
 } as const;
 
+export const socialMediaGradients = {
+  instagram: ["#405DE6", "#5851DB", "#833AB4", "#C13584", "#E1306C", "#FD1D1D", "#F56040"],
+  twitter: ["#00C6FF", "#0072FF"],
+  facebook: ["#3A5894", "#898F9C"],
+  youtube: ["#FF0000", "#282828"],
+  whatsapp: ["#075E54", "#128C7E", "#25D366", "#DCF8C6"],
+  spotify: ["#1DB954", "#191414"],
+  linkedin: ["#0A66C2", "#FFFFFF"],
+  tiktok: ["#ff0050", "#00F2EA"],
+  reddit: ["#FF4500", "#FFFFFF"],
+  snapchat: ["#FFFC00", "#FFFFFF"],
+  twitch: ["#6441A4", "#FFFFFF"],
+  telegram: ["#0088CC", "#FFFFFF"],
+  discord: ["#5865F2", "#FFFFFF"],
+  safari: ["#0E60FE", "#FFFFFF"],
+} as const;
 export const defaultAppSettings: IAppSettings = {
   breakDurationSeconds: 10,
   quickAppSwitchDurationMinutes: 5,

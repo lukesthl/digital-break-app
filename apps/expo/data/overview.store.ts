@@ -62,6 +62,42 @@ class OverviewStoreSingleton {
     return eventsByDayArray;
   }
 
+  public preventionsByDay(
+    app: App,
+    timeRange = {
+      from: 0,
+      to: 0,
+    }
+  ): { value: number; dateUnix: number }[] {
+    const events = this.appStatisticsStore.getEvents({ type: "app-close", appId: app.id, timeRange });
+    const eventsByDay = events.reduce(
+      (acc, event) => {
+        const day = dayjs(event.timestamp).startOf("day").valueOf();
+        if (!acc[day]) {
+          acc[day] = 0;
+        }
+        acc[day] += 1;
+        return acc;
+      },
+      {} as Record<number, number>
+    );
+    const eventsByDayArray = Object.entries(eventsByDay).map(([dateUnix, value]) => ({
+      value,
+      dateUnix: Number(dateUnix),
+    }));
+    return eventsByDayArray;
+  }
+
+  public interruptionsSplitUpByAppInPercentage() {
+    const apps = this.appsStore.apps;
+    const totalInterrupted = this.totalInterrupted;
+    const splitUp = apps.map((app) => ({
+      app,
+      percentage: Math.round((this.interruptionByApp(app) / totalInterrupted) * 100),
+    }));
+    return splitUp;
+  }
+
   public interruptionByApp(
     app: App,
     timeRange = {
