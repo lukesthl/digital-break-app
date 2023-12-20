@@ -39,6 +39,9 @@ importers:
       '@acme/expo-exit-app':
         specifier: ^0.1.0
         version: link:../../packages/expo-exit-app
+      '@acme/socialmedia-icons':
+        specifier: ^0.1.0
+        version: link:../../packages/socialmedia-icons
       '@acme/target-plugin':
         specifier: ^0.1.0
         version: link:../../packages/target-plugin
@@ -322,6 +325,18 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
+
+  packages/socialmedia-icons:
+    dependencies:
+      expo:
+        specifier: '*'
+        version: 49.0.21(@babel/core@7.23.6)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-native:
+        specifier: '*'
+        version: 0.72.7(@babel/core@7.23.6)(@babel/preset-env@7.23.3)(react@18.2.0)
 
   packages/target-plugin:
     dependencies:

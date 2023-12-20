@@ -175,6 +175,10 @@ class OverviewStoreSingleton {
   get apps(): App[] {
     return this.appsStore.apps;
   }
+
+  public getIconUrl = (iconKey: string): string => {
+    return this.appsStore.getIconUrl(iconKey);
+  };
 }
 
 export const OverviewStore = new OverviewStoreSingleton();

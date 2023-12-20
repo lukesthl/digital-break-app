@@ -63,10 +63,10 @@ export const PieChart = ({
         centerLabelComponent={() => {
           return (
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <H4 color="white" textAlign="center">
+              <H4 color="$grey11" textAlign="center">
                 {focusedData?.value}%
               </H4>
-              <SizableText color="white">{focusedData?.label}</SizableText>
+              <SizableText color="$grey11">{focusedData?.label}</SizableText>
             </View>
           );
         }}

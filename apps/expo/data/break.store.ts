@@ -31,7 +31,7 @@ export class BreakStoreSingleton {
       throw new Error("App not initialized");
     }
     await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-reopen" });
-    await Linking.openURL(deepLinks[this.app.key]);
+    await Linking.openURL(deepLinks[this.app.key as keyof typeof deepLinks]);
   }
 
   public async exitApp(): Promise<void> {

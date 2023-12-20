@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { RefreshControl } from "react-native";
+import { SvgUri } from "react-native-svg";
 import { router } from "expo-router";
 import { ChevronRight, Plus } from "@tamagui/lucide-icons";
 import { observer } from "mobx-react-lite";
-import { H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
+import { H4, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../../components/container";
 import { Header } from "../../../components/header";
 import { ShadowCard } from "../../../components/shadow.card";
 import { AppSettings } from "../../../data/app.settings";
-import { appIcons } from "../../../data/apps";
 
 const Apps = observer(() => {
   const [refreshing, setRefreshing] = useState(false);
@@ -48,7 +48,7 @@ const Apps = observer(() => {
                 }}
               >
                 <XStack space="$2" alignItems="center">
-                  <Image source={{ uri: appIcons[app.iconKey] }} width={20} height={20} />
+                  <SvgUri uri={AppSettings.getIconUrl(app.iconKey)} width={20} height={20} />
                   <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
                     {app.name}
                   </SizableText>

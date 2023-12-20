@@ -1,16 +1,16 @@
 import { useEffect } from "react";
+import { SvgUri } from "react-native-svg";
 import { router } from "expo-router";
 import { AlertTriangle, Check, ChevronRight, Plus, ShieldBan } from "@tamagui/lucide-icons";
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
-import { H1, H2, H4, Image, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
+import { H1, H2, H4, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../../components/container";
 import { Divider } from "../../../components/divider";
 import { Header } from "../../../components/header";
 import { PercentageTrend } from "../../../components/percentage.trend";
 import { ShadowCard } from "../../../components/shadow.card";
-import { appIcons } from "../../../data/apps";
 import { OverviewStore } from "../../../data/overview.store";
 import { WeeklySummary } from "./weekly.summary";
 
@@ -90,7 +90,7 @@ const Overview = observer(() => {
             >
               <XStack space="$2" justifyContent="space-between">
                 <XStack space="$2" alignItems="center">
-                  <Image source={{ uri: appIcons[app.iconKey] }} width={20} height={20} />
+                  <SvgUri uri={OverviewStore.getIconUrl(app.iconKey)} width={20} height={20} />
                   <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
                     {app.name}
                   </SizableText>

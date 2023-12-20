@@ -8,8 +8,8 @@ export interface App {
   name: string;
   settings: IAppSettings;
   active: boolean;
-  iconKey: keyof typeof appIcons;
-  key: keyof typeof deepLinks;
+  iconKey: SupportedApp;
+  key: SupportedApp;
 }
 
 interface IAppSettings {
@@ -18,7 +18,8 @@ interface IAppSettings {
   dailyTimeSpentMinutes: number;
 }
 
-export const deepLinks = {
+// TODO add more apps / test all apps
+export const deepLinks: Record<SupportedApp, string> = {
   instagram: "instagram",
   twitter: "twitter://user?screen_name=USERNAME",
   facebook: "fb://profile/USER_ID",
@@ -33,41 +34,68 @@ export const deepLinks = {
   telegram: "tg://resolve?domain=USERNAME",
   discord: "discord://discord.com/channels/USER_ID",
   safari: "https://www.google.com",
-} as const;
+  bereal: "https://www.google.com",
+  clashofclans: "https://www.google.com",
+  clashroyale: "https://www.google.com",
+  imessage: "https://www.google.com",
+  netflix: "https://www.google.com",
+  candycrush: "https://www.google.com",
+  chrome: "https://www.google.com",
+  "disney+": "https://www.google.com",
+  firefox: "https://www.google.com",
+  gmail: "https://www.google.com",
+  mastodon: "https://www.google.com",
+  microsoftteams: "https://www.google.com",
+  outlook: "https://www.google.com",
+  pokemongo: "https://www.google.com",
+  roblox: "https://www.google.com",
+  signal: "https://www.google.com",
+  skype: "https://www.google.com",
+  sudoku: "https://www.google.com",
+  tinder: "https://www.google.com",
+  toonblast: "https://www.google.com",
+  tumblr: "https://www.google.com",
+  zalandofashion: "https://www.google.com",
+};
 
-export const appIcons = {
-  instagram: "https://cdn-icons-png.flaticon.com/512/174/174855.png",
-  twitter: "https://cdn-icons-png.flaticon.com/512/733/733579.png",
-  facebook: "https://cdn-icons-png.flaticon.com/512/733/733547.png",
-  youtube: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
-  whatsapp: "https://cdn-icons-png.flaticon.com/512/733/733585.png",
-  spotify: "https://cdn-icons-png.flaticon.com/512/174/174872.png",
-  linkedin: "https://cdn-icons-png.flaticon.com/512/174/174857.png",
-  tiktok: "https://cdn-icons-png.flaticon.com/512/733/733547.png",
-  reddit: "https://cdn-icons-png.flaticon.com/512/733/733579.png",
-  snapchat: "https://cdn-icons-png.flaticon.com/512/733/733585.png",
-  twitch: "https://cdn-icons-png.flaticon.com/512/733/733579.png",
-  telegram: "https://cdn-icons-png.flaticon.com/512/733/733585.png",
-  discord: "https://cdn-icons-png.flaticon.com/512/733/733547.png",
-  safari: "https://static-00.iconduck.com/assets.00/safari-ios-icon-512x512-v014xh8r.png",
-} as const;
+export type SupportedApp =
+  | "instagram"
+  | "twitter"
+  | "facebook"
+  | "youtube"
+  | "whatsapp"
+  | "spotify"
+  | "linkedin"
+  | "tiktok"
+  | "reddit"
+  | "snapchat"
+  | "twitch"
+  | "telegram"
+  | "discord"
+  | "safari"
+  | "bereal"
+  | "clashofclans"
+  | "clashroyale"
+  | "imessage"
+  | "netflix"
+  | "candycrush"
+  | "chrome"
+  | "disney+"
+  | "firefox"
+  | "gmail"
+  | "mastodon"
+  | "microsoftteams"
+  | "outlook"
+  | "pokemongo"
+  | "roblox"
+  | "signal"
+  | "skype"
+  | "sudoku"
+  | "tinder"
+  | "toonblast"
+  | "tumblr"
+  | "zalandofashion";
 
-export const socialMediaGradients = {
-  instagram: ["#405DE6", "#5851DB", "#833AB4", "#C13584", "#E1306C", "#FD1D1D", "#F56040"],
-  twitter: ["#00C6FF", "#0072FF"],
-  facebook: ["#3A5894", "#898F9C"],
-  youtube: ["#FF0000", "#282828"],
-  whatsapp: ["#075E54", "#128C7E", "#25D366", "#DCF8C6"],
-  spotify: ["#1DB954", "#191414"],
-  linkedin: ["#0A66C2", "#FFFFFF"],
-  tiktok: ["#ff0050", "#00F2EA"],
-  reddit: ["#FF4500", "#FFFFFF"],
-  snapchat: ["#FFFC00", "#FFFFFF"],
-  twitch: ["#6441A4", "#FFFFFF"],
-  telegram: ["#0088CC", "#FFFFFF"],
-  discord: ["#5865F2", "#FFFFFF"],
-  safari: ["#0E60FE", "#FFFFFF"],
-} as const;
 export const defaultAppSettings: IAppSettings = {
   breakDurationSeconds: 10,
   quickAppSwitchDurationMinutes: 5,
@@ -116,10 +144,10 @@ export class AppsStore {
       const app = await this.storage.create({
         name: appShortcutName,
         active: true,
-        iconKey: appShortcutName.toLowerCase().replace(" ", "") as keyof typeof appIcons,
+        iconKey: appShortcutName.toLowerCase().replace(" ", "") as SupportedApp,
         id: Crypto.randomUUID(),
         settings: defaultAppSettings,
-        key: appShortcutName.toLowerCase().replace(" ", "") as keyof typeof appIcons,
+        key: appShortcutName.toLowerCase().replace(" ", "") as SupportedApp,
       });
       if (!app) {
         throw new Error("App not created");
@@ -150,4 +178,9 @@ export class AppsStore {
   public set apps(value: App[]) {
     this._apps.replace(value);
   }
+
+  public getIconUrl = (iconKey: string) => {
+    const url = new URL(`https://cdn.simpleicons.org/${iconKey}`);
+    return url.toString();
+  };
 }

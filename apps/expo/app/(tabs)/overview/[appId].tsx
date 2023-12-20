@@ -3,14 +3,13 @@ import { Link, Redirect, router, useLocalSearchParams } from "expo-router";
 import { ChevronRight, Cog } from "@tamagui/lucide-icons";
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
-import { H2, H4, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
+import { H2, H4, Paragraph, SizableText, useTheme, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../../components/container";
 import { Divider } from "../../../components/divider";
 import { LineChart } from "../../../components/line.chart";
 import { PieChart } from "../../../components/pie.chart";
 import { ShadowCard } from "../../../components/shadow.card";
-import { socialMediaGradients } from "../../../data/apps";
 import { OverviewStore } from "../../../data/overview.store";
 
 const labelTextStyle = { color: "#797979", width: 100, marginTop: -2, fontFamily: "Satoshi", fontSize: 12 };
@@ -50,7 +49,14 @@ const App = observer(() => {
   const effectivenessByDayInPercentage = selectedApp ? OverviewStore.preventionsByDay(selectedApp) : null;
 
   const interruptionsSplitUpByAppInPercentage = OverviewStore.interruptionsSplitUpByAppInPercentage();
-
+  const theme = useTheme();
+  const greyColors: (string | undefined)[] = [
+    theme.grey3?.val as string,
+    theme.grey4?.val as string,
+    theme.grey5?.val as string,
+    theme.grey6?.val as string,
+    theme.grey7?.val as string,
+  ];
   return (
     <Container paddingTop={"$4"}>
       <YStack space="$4">
@@ -178,10 +184,9 @@ const App = observer(() => {
           <View overflow="hidden" flexDirection="row" justifyContent="center">
             <PieChart
               data={interruptionsSplitUpByAppInPercentage.map((interruptions) => {
+                const randomGrey = greyColors[Math.floor(Math.random() * greyColors.length)] ?? "#000";
                 return {
-                  color: socialMediaGradients[interruptions.app.key][0],
-                  gradientCenterColor:
-                    socialMediaGradients[interruptions.app.key][socialMediaGradients[interruptions.app.key].length - 1],
+                  color: randomGrey,
                   value: interruptions.percentage,
                   label: interruptions.app.name,
                   focused: interruptions.app.id === selectedApp.id,
