@@ -68,4 +68,9 @@ export class AppStatisticsStore {
     await this.storage.deleteAll();
     await this.init();
   }
+
+  public async importEvents(events: Event[]) {
+    await this.storage.batchUpdate(events);
+    await this.init();
+  }
 }

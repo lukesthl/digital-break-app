@@ -120,6 +120,12 @@ importers:
       expo-dev-launcher:
         specifier: ^3.1.0
         version: 3.1.0(expo@49.0.21)
+      expo-document-picker:
+        specifier: ~11.5.4
+        version: 11.5.4(expo@49.0.21)
+      expo-dynamic-app-icon:
+        specifier: ^1.2.0
+        version: 1.2.0(expo@49.0.21)(react-native@0.72.7)(react@18.2.0)
       expo-font:
         specifier: ~11.6.0
         version: 11.6.0(expo@49.0.21)
@@ -135,6 +141,9 @@ importers:
       expo-router:
         specifier: 2.0.14
         version: 2.0.14(expo-constants@14.4.2)(expo-linking@6.0.0)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.7.1)(expo@49.0.21)(metro@0.80.2)(react-dom@18.2.0)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.1)(react-native-screens@3.29.0)(react-native@0.72.7)(react@18.2.0)
+      expo-sharing:
+        specifier: ~11.5.0
+        version: 11.5.0(expo@49.0.21)
       expo-splash-screen:
         specifier: ~0.22.0
         version: 0.22.0(expo-modules-autolinking@1.5.1)(expo@49.0.21)
@@ -8649,6 +8658,26 @@ packages:
       semver: 7.5.4
     dev: false
 
+  /expo-document-picker@11.5.4(expo@49.0.21):
+    resolution: {integrity: sha512-4lpRixi33kjoQQy9lfrGs48yFRMOgBgdnqjYWVFe85WFy/WkEoFC2E8usxcFdrIigtfy9Z+HY3/je4lHEYqyLg==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.21(@babel/core@7.23.6)
+    dev: false
+
+  /expo-dynamic-app-icon@1.2.0(expo@49.0.21)(react-native@0.72.7)(react@18.2.0):
+    resolution: {integrity: sha512-l8qNUVl9lhADtdgyL6hf6xWFOaDayFCXdXnqDGzh1H3P58n380WkzibjVxbL/w0Nbu4FUUGVqMLAY1BETTzo9g==}
+    peerDependencies:
+      expo: '>=49'
+      react: ^18.2.0
+      react-native: '*'
+    dependencies:
+      expo: 49.0.21(@babel/core@7.23.6)
+      react: 18.2.0
+      react-native: 0.72.7(@babel/core@7.23.6)(@babel/preset-env@7.23.3)(react@18.2.0)
+    dev: false
+
   /expo-file-system@15.4.5(expo@49.0.21):
     resolution: {integrity: sha512-xy61KaTaDgXhT/dllwYDHm3ch026EyO8j4eC6wSVr/yE12MMMxAC09yGwy4f7kkOs6ztGVQF5j7ldRzNLN4l0Q==}
     peerDependencies:
@@ -8872,6 +8901,14 @@ packages:
       - react-dom
       - react-native
       - supports-color
+    dev: false
+
+  /expo-sharing@11.5.0(expo@49.0.21):
+    resolution: {integrity: sha512-uerM5YH1FKDZXfkP9ORebvlMVOPP/AfoYgYBez6a8G9fztNYHnRCA6mgK+3aQmpnb3ltmjnAZC39kH18bTNcVw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.21(@babel/core@7.23.6)
     dev: false
 
   /expo-splash-screen@0.20.5(expo-modules-autolinking@1.5.1)(expo@49.0.21):

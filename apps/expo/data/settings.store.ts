@@ -1,3 +1,5 @@
+import * as DocumentPicker from "expo-document-picker";
+import * as FileSystem from "expo-file-system";
 import { makeAutoObservable } from "mobx";
 
 import { AppStatisticsStore } from "./app.statistics";
@@ -10,6 +12,48 @@ class SettingsStoreSingleton {
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  public async importData(): Promise<void> {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({ type: "application/json" });
+      if (!result.canceled && result.assets.length > 0) {
+        const [file] = result.assets;
+        if (!file) {
+          throw new Error("No file uri");
+        }
+        const fileContents = await FileSystem.readAsStringAsync(file.uri);
+        const data = JSON.parse(fileContents) as {
+          apps: AppsStore["apps"];
+          appStatistics: AppStatisticsStore["events"];
+        };
+        await Promise.all([
+          this.appsStore.importApps(data.apps),
+          this.appStatisticsStore.importEvents(data.appStatistics),
+        ]);
+      } else {
+        throw new Error("No file selected");
+      }
+    } catch (err) {
+      console.error("Error reading JSON file", err);
+    }
+  }
+
+  public async generateExportFile(): Promise<string | undefined> {
+    const fileName = "digital-break-app.export.json";
+    const fileUri = FileSystem.documentDirectory + fileName;
+    await Promise.all([this.appsStore.init(), this.appStatisticsStore.init()]);
+    const jsonData = JSON.stringify({
+      apps: this.appsStore.apps,
+      appStatistics: this.appStatisticsStore.events,
+    });
+    try {
+      await FileSystem.writeAsStringAsync(fileUri, jsonData);
+      console.log("File saved successfully!");
+      return fileUri;
+    } catch (error) {
+      console.error("Error creating JSON file", error);
+    }
   }
 
   public async generateRandomTestData() {

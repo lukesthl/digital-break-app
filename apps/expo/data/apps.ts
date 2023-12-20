@@ -139,6 +139,11 @@ export class AppsStore {
     await this.init();
   };
 
+  public importApps = async (apps: App[]): Promise<void> => {
+    await this.storage.batchUpdate(apps);
+    await this.init();
+  };
+
   public get apps() {
     return this._apps;
   }

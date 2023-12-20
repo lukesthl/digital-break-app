@@ -1,4 +1,6 @@
+import { Share } from "react-native";
 import { router } from "expo-router";
+import * as Sharing from "expo-sharing";
 import {
   Box,
   ChevronRight,
@@ -12,7 +14,7 @@ import {
   Info,
   Mail,
   Repeat,
-  Share,
+  Share as ShareIcon,
   ShieldCheck,
   SunMoon,
   Trash,
@@ -119,7 +121,12 @@ const Settings = () => (
                 <Heart size={20} />
               </View>
             }
-            iconAfter={Share}
+            iconAfter={ShareIcon}
+            onPress={() => {
+              void Share.share({
+                url: "https://apps.apple.com/<country>/app/<app–name>/id<app-ID>", // TODO: Add app store link
+              });
+            }}
           >
             <ListItem.Text>{"Share Digital Break with friends"}</ListItem.Text>
           </ListItem>
@@ -137,6 +144,14 @@ const Settings = () => (
               </View>
             }
             iconAfter={Import}
+            onPress={async () => {
+              await SettingsStore.importData().then(() => {
+                void OverviewStore.init();
+                if (router.canGoBack()) {
+                  router.back();
+                }
+              });
+            }}
           >
             <ListItem.Text>{"Import Data"}</ListItem.Text>
           </ListItem>
@@ -151,30 +166,40 @@ const Settings = () => (
               </View>
             }
             iconAfter={Upload}
+            onPress={async () => {
+              const fileUri = await SettingsStore.generateExportFile();
+              if (fileUri) {
+                void Sharing.shareAsync(fileUri);
+              }
+            }}
           >
             <ListItem.Text>{"Export Data"}</ListItem.Text>
           </ListItem>
         </YGroup.Item>
-        <YGroup.Item>
-          <ListItem
-            hoverTheme
-            pressTheme
-            icon={
-              <View backgroundColor="$gray5" borderRadius={"$3"} padding="$2">
-                <Database size={20} />
-              </View>
-            }
-            onPress={() => {
-              void SettingsStore.generateRandomTestData().then(() => {
-                router.back();
-                void OverviewStore.init();
-              });
-            }}
-            iconAfter={Dices}
-          >
-            <ListItem.Text>{"Generate Random Data"}</ListItem.Text>
-          </ListItem>
-        </YGroup.Item>
+        {process.env.NODE_ENV === "development" && (
+          <YGroup.Item>
+            <ListItem
+              hoverTheme
+              pressTheme
+              icon={
+                <View backgroundColor="$gray5" borderRadius={"$3"} padding="$2">
+                  <Database size={20} />
+                </View>
+              }
+              onPress={() => {
+                void SettingsStore.generateRandomTestData().then(() => {
+                  void OverviewStore.init();
+                  if (router.canGoBack()) {
+                    router.back();
+                  }
+                });
+              }}
+              iconAfter={Dices}
+            >
+              <ListItem.Text>{"Generate Random Data"}</ListItem.Text>
+            </ListItem>
+          </YGroup.Item>
+        )}
       </YGroup>
       <H5>{"Legal Information"}</H5>
       <YGroup alignSelf="center" bordered size="$4">

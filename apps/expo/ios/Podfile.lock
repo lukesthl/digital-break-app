@@ -79,6 +79,8 @@ PODS:
     - ExpoModulesCore
   - ExpoCrypto (12.6.0):
     - ExpoModulesCore
+  - ExpoDocumentPicker (11.5.4):
+    - ExpoModulesCore
   - ExpoDynamicAppIcon (1.2.0):
     - ExpoModulesCore
   - ExpoExitApp (0.1.0):
@@ -97,6 +99,8 @@ PODS:
     - React-NativeModulesApple
     - React-RCTAppDelegate
     - ReactCommon/turbomodule/core
+  - ExpoSharing (11.5.0):
+    - ExpoModulesCore
   - ExpoSystemUI (2.6.0):
     - ExpoModulesCore
   - ExpoWebBrowser (12.5.0):
@@ -573,6 +577,7 @@ DEPENDENCIES:
   - expo-dev-menu-interface (from `../node_modules/expo-dev-menu-interface/ios`)
   - ExpoBlur (from `../../../node_modules/expo-blur/ios`)
   - ExpoCrypto (from `../../../node_modules/expo-crypto/ios`)
+  - ExpoDocumentPicker (from `../../../node_modules/expo-document-picker/ios`)
   - ExpoDynamicAppIcon (from `../../../node_modules/expo-dynamic-app-icon/ios`)
   - ExpoExitApp (from `../../../packages/expo-exit-app/ios`)
   - ExpoHead (from `../../../node_modules/expo-head/ios`)
@@ -580,6 +585,7 @@ DEPENDENCIES:
   - ExpoLinearGradient (from `../../../node_modules/expo-linear-gradient/ios`)
   - ExpoLocalization (from `../../../node_modules/expo-localization/ios`)
   - ExpoModulesCore (from `../../../node_modules/expo-modules-core`)
+  - ExpoSharing (from `../../../node_modules/expo-sharing/ios`)
   - ExpoSystemUI (from `../../../node_modules/expo-system-ui/ios`)
   - ExpoWebBrowser (from `../../../node_modules/expo-web-browser/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
@@ -671,6 +677,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/expo-blur/ios"
   ExpoCrypto:
     :path: "../../../node_modules/expo-crypto/ios"
+  ExpoDocumentPicker:
+    :path: "../../../node_modules/expo-document-picker/ios"
   ExpoDynamicAppIcon:
     :path: "../../../node_modules/expo-dynamic-app-icon/ios"
   ExpoExitApp:
@@ -685,6 +693,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/expo-localization/ios"
   ExpoModulesCore:
     :path: "../../../node_modules/expo-modules-core"
+  ExpoSharing:
+    :path: "../../../node_modules/expo-sharing/ios"
   ExpoSystemUI:
     :path: "../../../node_modules/expo-system-ui/ios"
   ExpoWebBrowser:
@@ -802,6 +812,7 @@ SPEC CHECKSUMS:
   expo-dev-menu-interface: 25a94ce9bead4668f624732d1f981b1791bbe8e2
   ExpoBlur: 9e6da7c2bd4a0c5de7e57124694d0a380d7962f7
   ExpoCrypto: 42485127a5968dda6f67ac5f2b42d3c0af31d7db
+  ExpoDocumentPicker: 5cb7389ff935b4addefdd466a606de51a512e922
   ExpoDynamicAppIcon: b0f96e53d0bf00412bbe97da0cfc15b8c94a54ce
   ExpoExitApp: 5ae87b4d35a0d3b28b5b26bdddcd734e0a41e7f3
   ExpoHead: ac95331e2a45cb94f6aee8ba6b8cb3d0a2cc6817
@@ -809,6 +820,7 @@ SPEC CHECKSUMS:
   ExpoLinearGradient: 5d18293f89c063036121281175c4653d6a7c34a2
   ExpoLocalization: 2d5f47577d67ce991ebdd951edf14fe1db85fa06
   ExpoModulesCore: c480fd4e3c7c8e81f0a6ba3a7c56869f25fe016d
+  ExpoSharing: 825b2b3fc919a2656f75def0069f584bbd6e359a
   ExpoSystemUI: e4afa05539f42fe3be09d21a6498e5495019a5b2
   ExpoWebBrowser: b6e56949734089d75f758f21cfe93fad02bd828c
   EXSplashScreen: 5ed09ea490155ef603d007d9f194c9e04a4b7980
