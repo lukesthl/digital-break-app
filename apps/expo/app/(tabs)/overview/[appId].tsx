@@ -173,7 +173,7 @@ const App = observer(() => {
               }
               %
             </SizableText>{" "}
-            of your attempts were on this app.
+            of your attempts were on {selectedApp.name}.
           </Paragraph>
           <View overflow="hidden" flexDirection="row" justifyContent="center">
             <PieChart

@@ -1,12 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import { AppState, useColorScheme } from "react-native";
+import { useEffect, useRef } from "react";
+import { AppState } from "react-native";
 import { useFonts } from "expo-font";
 import { router, SplashScreen, Stack } from "expo-router";
-import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
-import { getTokenValue, TamaguiProvider, Theme } from "tamagui";
+import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "@react-navigation/native";
+import { getTokenValue, TamaguiProvider } from "tamagui";
 
 import "../data/logger";
 
+import { ThemeProvider, useTheme } from "../components/theme-provider";
 import { clearShortcutListener, listenForShortcut } from "../data/shortcut.listener";
 import config from "../tamagui.config";
 
@@ -36,20 +37,7 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-  const [currentColorScheme, setCurrentColorScheme] = useState(colorScheme);
-  const onColorSchemeChange = useRef<NodeJS.Timeout>();
-
   const appState = useRef(AppState.currentState);
-
-  useEffect(() => {
-    if (colorScheme !== currentColorScheme) {
-      onColorSchemeChange.current = setTimeout(() => setCurrentColorScheme(colorScheme), 1000);
-    } else if (onColorSchemeChange.current) {
-      clearTimeout(onColorSchemeChange.current);
-    }
-  }, [colorScheme, currentColorScheme]);
-
   useEffect(() => {
     const checkShortcut = () => {
       void listenForShortcut()
@@ -82,35 +70,42 @@ function RootLayoutNav() {
   }, []);
   return (
     <TamaguiProvider config={config}>
-      <Theme name={currentColorScheme === "dark" ? "dark" : "light"}>
-        <ThemeProvider
-          value={
-            currentColorScheme === "light"
-              ? {
-                  ...DefaultTheme,
-                  colors: {
-                    ...DefaultTheme.colors,
-                    background: "#FFFFFF",
-                    text: getTokenValue("$text11") as string,
-                    primary: getTokenValue("$text11") as string,
-                    border: getTokenValue("$grey3") as string,
-                  },
-                }
-              : {
-                  ...DarkTheme,
-                  colors: {
-                    ...DarkTheme.colors,
-                  },
-                }
-          }
-        >
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="break" options={{ headerShown: false }} />
-            <Stack.Screen name="settings" options={{ headerShown: false, presentation: "modal" }} />
-          </Stack>
-        </ThemeProvider>
-      </Theme>
+      <ThemeProvider>
+        <NavigationStack />
+      </ThemeProvider>
     </TamaguiProvider>
   );
 }
+
+const NavigationStack = () => {
+  const { theme } = useTheme();
+  return (
+    <NavigationThemeProvider
+      value={
+        theme === "light"
+          ? {
+              ...DefaultTheme,
+              colors: {
+                ...DefaultTheme.colors,
+                background: "#FFFFFF",
+                text: getTokenValue("$text11") as string,
+                primary: getTokenValue("$text11") as string,
+                border: getTokenValue("$grey3") as string,
+              },
+            }
+          : {
+              ...DarkTheme,
+              colors: {
+                ...DarkTheme.colors,
+              },
+            }
+      }
+    >
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="break" options={{ headerShown: false }} />
+        <Stack.Screen name="settings" options={{ headerShown: false, presentation: "modal" }} />
+      </Stack>
+    </NavigationThemeProvider>
+  );
+};

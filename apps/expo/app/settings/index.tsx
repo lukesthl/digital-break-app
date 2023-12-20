@@ -38,6 +38,9 @@ const Settings = () => (
                 <Box size={20} />
               </View>
             }
+            onPress={() => {
+              router.push("/settings/app-icon");
+            }}
             iconAfter={ChevronRight}
           >
             <ListItem.Text>{"App Icon"}</ListItem.Text>
@@ -52,6 +55,9 @@ const Settings = () => (
                 <SunMoon size={20} />
               </View>
             }
+            onPress={() => {
+              router.push("/settings/theme");
+            }}
             iconAfter={ChevronRight}
           >
             <ListItem.Text>{"Theme"}</ListItem.Text>

@@ -77,7 +77,9 @@ PODS:
     - React-Core
   - ExpoBlur (12.6.0):
     - ExpoModulesCore
-  - ExpoCrypto (12.4.1):
+  - ExpoCrypto (12.6.0):
+    - ExpoModulesCore
+  - ExpoDynamicAppIcon (1.2.0):
     - ExpoModulesCore
   - ExpoExitApp (0.1.0):
     - ExpoModulesCore
@@ -418,9 +420,9 @@ PODS:
   - React-jsinspector (0.72.7)
   - React-logger (0.72.7):
     - glog
-  - react-native-safe-area-context (4.7.4):
+  - react-native-safe-area-context (4.8.1):
     - React-Core
-  - react-native-skia (0.1.222):
+  - react-native-skia (0.1.230):
     - RCT-Folly (= 2021.07.22.00)
     - React
     - React-callinvoker
@@ -537,41 +539,16 @@ PODS:
     - React-perflogger (= 0.72.7)
   - ReactNativeAvoidSoftinput (4.0.2):
     - React-Core
-  - RNCAsyncStorage (1.18.2):
+  - RNCAsyncStorage (1.21.0):
     - React-Core
   - RNGestureHandler (2.14.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
-  - RNReanimated (3.5.4):
-    - DoubleConversion
-    - FBLazyVector
-    - glog
-    - hermes-engine
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
-    - React-callinvoker
+  - RNReanimated (3.6.1):
+    - RCT-Folly (= 2021.07.22.00)
     - React-Core
-    - React-Core/DevSupport
-    - React-Core/RCTWebSocket
-    - React-CoreModules
-    - React-cxxreact
-    - React-hermes
-    - React-jsi
-    - React-jsiexecutor
-    - React-jsinspector
-    - React-RCTActionSheet
-    - React-RCTAnimation
-    - React-RCTAppDelegate
-    - React-RCTBlob
-    - React-RCTImage
-    - React-RCTLinking
-    - React-RCTNetwork
-    - React-RCTSettings
-    - React-RCTText
     - ReactCommon/turbomodule/core
-    - Yoga
-  - RNScreens (3.27.0):
+  - RNScreens (3.29.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - RNSVG (13.9.0):
@@ -596,6 +573,7 @@ DEPENDENCIES:
   - expo-dev-menu-interface (from `../node_modules/expo-dev-menu-interface/ios`)
   - ExpoBlur (from `../../../node_modules/expo-blur/ios`)
   - ExpoCrypto (from `../../../node_modules/expo-crypto/ios`)
+  - ExpoDynamicAppIcon (from `../../../node_modules/expo-dynamic-app-icon/ios`)
   - ExpoExitApp (from `../../../packages/expo-exit-app/ios`)
   - ExpoHead (from `../../../node_modules/expo-head/ios`)
   - ExpoKeepAwake (from `../../../node_modules/expo-keep-awake/ios`)
@@ -693,6 +671,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/expo-blur/ios"
   ExpoCrypto:
     :path: "../../../node_modules/expo-crypto/ios"
+  ExpoDynamicAppIcon:
+    :path: "../../../node_modules/expo-dynamic-app-icon/ios"
   ExpoExitApp:
     :path: "../../../packages/expo-exit-app/ios"
   ExpoHead:
@@ -821,7 +801,8 @@ SPEC CHECKSUMS:
   expo-dev-menu: 533fd5a1a9f9d717f193681afe0ffe91f4adef71
   expo-dev-menu-interface: 25a94ce9bead4668f624732d1f981b1791bbe8e2
   ExpoBlur: 9e6da7c2bd4a0c5de7e57124694d0a380d7962f7
-  ExpoCrypto: a382ab9a2fa91f0b511ce1fe4d6baecee40a1615
+  ExpoCrypto: 42485127a5968dda6f67ac5f2b42d3c0af31d7db
+  ExpoDynamicAppIcon: b0f96e53d0bf00412bbe97da0cfc15b8c94a54ce
   ExpoExitApp: 5ae87b4d35a0d3b28b5b26bdddcd734e0a41e7f3
   ExpoHead: ac95331e2a45cb94f6aee8ba6b8cb3d0a2cc6817
   ExpoKeepAwake: be4cbd52d9b177cde0fd66daa1913afa3161fc1d
@@ -853,8 +834,8 @@ SPEC CHECKSUMS:
   React-jsiexecutor: c49502e5d02112247ee4526bc3ccfc891ae3eb9b
   React-jsinspector: 8baadae51f01d867c3921213a25ab78ab4fbcd91
   React-logger: 8edc785c47c8686c7962199a307015e2ce9a0e4f
-  react-native-safe-area-context: 2cd91d532de12acdb0a9cbc8d43ac72a8e4c897c
-  react-native-skia: 495324a576f26b5fb8d0dee8cc5137c02a491656
+  react-native-safe-area-context: cd1169d797a2ef722a00bfc5af10748d5b6c94f9
+  react-native-skia: a395bbbb438d593e525f65d0886c36d1c30f0604
   React-NativeModulesApple: b6868ee904013a7923128892ee4a032498a1024a
   React-perflogger: 31ea61077185eb1428baf60c0db6e2886f141a5a
   React-RCTActionSheet: 392090a3abc8992eb269ef0eaa561750588fc39d
@@ -873,10 +854,10 @@ SPEC CHECKSUMS:
   React-utils: 56838edeaaf651220d1e53cd0b8934fb8ce68415
   ReactCommon: 5f704096ccf7733b390f59043b6fa9cc180ee4f6
   ReactNativeAvoidSoftinput: b4ec4c8084c397a91800d21170a9949a263d288a
-  RNCAsyncStorage: ddc4ee162bfd41b0d2c68bf2d95acd81dd7f1f93
+  RNCAsyncStorage: 618d03a5f52fbccb3d7010076bc54712844c18ef
   RNGestureHandler: 32a01c29ecc9bb0b5bf7bc0a33547f61b4dc2741
-  RNReanimated: 9633f8c2e214b721e35e371b473fbf3a1522948d
-  RNScreens: 3c2d122f5e08c192e254c510b212306da97d2581
+  RNReanimated: c114c031ecae76049ad03aeb0f94a2243498a88d
+  RNScreens: 3c5b9f4a9dcde752466854b6109b79c0e205dad3
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 4c3aa327e4a6a23eeacd71f61c81df1bcdf677d5

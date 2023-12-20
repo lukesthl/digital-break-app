@@ -63,6 +63,18 @@ const SettingsLayout = observer(() => {
           },
         }}
       />
+      <Stack.Screen
+        name="app-icon"
+        options={{
+          title: "App Icon",
+        }}
+      />
+      <Stack.Screen
+        name="theme"
+        options={{
+          title: "Theme",
+        }}
+      />
     </Stack>
   );
 });

@@ -1,0 +1,60 @@
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { useColorScheme } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Theme } from "tamagui";
+
+export const ThemeContext = createContext<{
+  theme: ThemeType;
+  setTheme: (theme: ThemeType | "auto") => void;
+  autoTheme: boolean;
+}>({
+  theme: "light",
+  setTheme: () => {
+    console.warn("Missing ThemeProvider");
+  },
+  autoTheme: false,
+});
+
+export type ThemeType = "light" | "dark";
+
+export const useTheme = () => useContext(ThemeContext);
+
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  const [theme, setThemeState] = useState<ThemeType>("light");
+  const [autoTheme, setAutoTheme] = useState<boolean>(false);
+
+  const colorScheme = useColorScheme();
+  const [currentColorScheme, setCurrentColorScheme] = useState(colorScheme);
+  const onColorSchemeChange = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    const init = async () => {
+      if (colorScheme !== currentColorScheme) {
+        onColorSchemeChange.current = setTimeout(() => setCurrentColorScheme(colorScheme), 1000);
+      } else if (onColorSchemeChange.current) {
+        clearTimeout(onColorSchemeChange.current);
+      }
+      const storedTheme = await AsyncStorage.getItem("theme");
+      setThemeState(storedTheme as ThemeType);
+      if (storedTheme === "auto") {
+        setThemeState(colorScheme === "dark" ? "dark" : "light");
+      }
+    };
+    void init();
+  }, [colorScheme, currentColorScheme]);
+
+  const setTheme = (theme: ThemeType | "auto") => {
+    if (theme === "auto") {
+      setThemeState(colorScheme === "dark" ? "dark" : "light");
+    } else {
+      setThemeState(theme);
+    }
+    setAutoTheme(theme === "auto");
+    void AsyncStorage.setItem("theme", theme);
+  };
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme, autoTheme }}>
+      <Theme name={theme}>{children}</Theme>
+    </ThemeContext.Provider>
+  );
+};

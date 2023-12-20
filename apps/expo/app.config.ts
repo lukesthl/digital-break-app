@@ -6,7 +6,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: "digitalbreak",
   version: "1.0.0",
   orientation: "portrait",
-  icon: "./assets/images/icon.png",
+  icon: "./assets/images/default.png",
   scheme: "myapp",
   userInterfaceStyle: "automatic",
   splash: {
@@ -32,6 +32,23 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   plugins: [
     "expo-router",
+    [
+      "expo-dynamic-app-icon",
+      {
+        default: {
+          image: "./assets/images/default.png",
+          prerendered: true,
+        },
+        light: {
+          image: "./assets/images/light.png",
+          prerendered: true,
+        },
+        dark: {
+          image: "./assets/images/dark.png",
+          prerendered: true,
+        },
+      },
+    ],
     [
       "expo-build-properties",
       {

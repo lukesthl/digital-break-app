@@ -3,18 +3,14 @@ import { componentThemeDefinitions, maskOptions, masks, palettes, shadows, templ
 
 import { darkColors, lightColors } from "./tokens";
 
-const colorThemeDefinition = (colorName: string) => [
-  {
-    parent: "light",
+export const themeTypes = ["light", "dark"] as const;
+
+const colorThemeDefinition = (colorName: string) =>
+  themeTypes.map((themeName) => ({
+    parent: themeName,
     palette: colorName,
-    template: "colorLight",
-  },
-  {
-    parent: "dark",
-    palette: colorName,
-    template: "base",
-  },
-];
+    template: themeName === "light" ? "colorLight" : "base",
+  }));
 
 const themesBuilder = createThemeBuilder()
   .addPalettes(palettes)
