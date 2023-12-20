@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PieChart as PieChartGifted } from "react-native-gifted-charts";
-import { getTokenValue, H4, Paragraph, SizableText, View, YStack } from "tamagui";
+import { H4, Paragraph, SizableText, useTheme, View, YStack } from "tamagui";
 
 export const PieChart = ({
   data,
@@ -16,7 +16,8 @@ export const PieChart = ({
   labelSuffix?: string;
   dummy?: boolean;
 }) => {
-  const grey4 = getTokenValue("$grey4") as string;
+  const theme = useTheme();
+  const grey4 = theme.grey4?.val as string;
   const [focusedData, setFocusedData] = useState<(typeof data)[0] | null>(null);
   useEffect(() => {
     setFocusedData(data.find((d) => d.focused) ?? data[0] ?? null);

@@ -20,7 +20,7 @@ const generateData = ({ statistic }: { statistic: { value: number; timestamp: nu
     .sort((a, b) => dayjs(a.timestamp).valueOf() - dayjs(b.timestamp).valueOf())
     .map((item, index) => {
       const date = dayjs(item.timestamp).format("DD MMM YYYY");
-      const showLabel = dayjs(item.timestamp).date() % 10 === 1 || index === 0 || index === statistic.length - 1;
+      const showLabel = dayjs(item.timestamp).date() % 11 === 1 || index === 0 || index === statistic.length - 1;
       return {
         value: item.value,
         date: date,

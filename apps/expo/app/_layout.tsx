@@ -3,7 +3,7 @@ import { AppState } from "react-native";
 import { useFonts } from "expo-font";
 import { router, SplashScreen, Stack } from "expo-router";
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "@react-navigation/native";
-import { getTokenValue, TamaguiProvider } from "tamagui";
+import { TamaguiProvider, useTheme as useThemeTamagui } from "tamagui";
 
 import "../data/logger";
 
@@ -79,6 +79,7 @@ function RootLayoutNav() {
 
 const NavigationStack = () => {
   const { theme } = useTheme();
+  const tamaguiTheme = useThemeTamagui();
   return (
     <NavigationThemeProvider
       value={
@@ -88,9 +89,9 @@ const NavigationStack = () => {
               colors: {
                 ...DefaultTheme.colors,
                 background: "#FFFFFF",
-                text: getTokenValue("$text11") as string,
-                primary: getTokenValue("$text11") as string,
-                border: getTokenValue("$grey3") as string,
+                text: tamaguiTheme.text11?.val as string,
+                primary: tamaguiTheme.text11?.val as string,
+                border: tamaguiTheme.grey3?.val as string,
               },
             }
           : {

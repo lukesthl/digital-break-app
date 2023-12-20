@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+ 
 import { Check, Moon, Smartphone, Sun } from "@tamagui/lucide-icons";
 import { ListItem, View, YGroup, YStack } from "tamagui";
 

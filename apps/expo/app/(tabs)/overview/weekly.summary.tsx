@@ -47,7 +47,9 @@ export const WeeklySummary = () => {
             : `Saved ${savedThisWeek}h this week`}
         </SizableText>
         <SizableText color="$text11" fontWeight={"bold"} fontSize={"$5"}>
-          {savedThisWeekInPercentage !== 0 && <PercentageTrend percentage={savedThisWeekInPercentage} />}
+          {savedThisWeekInPercentage !== 0 && (
+            <PercentageTrend percentage={savedThisWeekInPercentage} affix="hours saved" hideIcon />
+          )}
         </SizableText>
       </XStack>
       <XStack space="$2" marginTop="$3">

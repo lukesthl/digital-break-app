@@ -96,7 +96,7 @@ const Overview = observer(() => {
                   </SizableText>
                 </XStack>
                 {percentageSavedInComparisonToLastWeek !== 0 && (
-                  <PercentageTrend percentage={percentageSavedInComparisonToLastWeek} />
+                  <PercentageTrend percentage={percentageSavedInComparisonToLastWeek} affix="Prevented" />
                 )}
               </XStack>
               <XStack space="$4" marginTop="$2">

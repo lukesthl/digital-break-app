@@ -1,6 +1,6 @@
 import type { Text as ReactNativeText } from "react-native";
 import { LineChart as LineChartGifted } from "react-native-gifted-charts";
-import { getTokenValue, H4, Paragraph, Text, View, YStack } from "tamagui";
+import { H4, Paragraph, Text, useTheme, View, YStack } from "tamagui";
 
 export const LineChart = ({
   data,
@@ -16,8 +16,9 @@ export const LineChart = ({
   labelSuffix?: string;
   dummy?: boolean;
 }) => {
-  const grey3 = getTokenValue("$grey3") as string;
-  const grey4 = getTokenValue("$grey4") as string;
+  const theme = useTheme();
+  const grey3 = theme.grey3?.val as string;
+  const grey4 = theme.grey4?.val as string;
   return (
     <View position="relative">
       {dummy && (
