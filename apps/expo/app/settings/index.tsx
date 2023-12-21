@@ -1,4 +1,5 @@
 import { Share } from "react-native";
+import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import * as Sharing from "expo-sharing";
 import {
@@ -227,6 +228,9 @@ const Settings = () => (
               </View>
             }
             iconAfter={ExternalLink}
+            onPress={() => {
+              void Linking.openURL("https://github.com/lukesthl/digital-break-app");
+            }}
           >
             <ListItem.Text>{"Constribute to Digital Break"}</ListItem.Text>
           </ListItem>
@@ -241,6 +245,9 @@ const Settings = () => (
               </View>
             }
             iconAfter={ExternalLink}
+            onPress={() => {
+              void Linking.openURL("mailto:luke@lukestahl.de");
+            }}
           >
             <ListItem.Text>{"Support"}</ListItem.Text>
           </ListItem>

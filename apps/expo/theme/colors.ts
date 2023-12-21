@@ -114,3 +114,11 @@ export const colors = {
     },
   },
 };
+
+export const logoColors = {
+  "Berkeley Blue": "#012D59",
+  "Blue Green": "#02A2D4",
+  Cerulean: "#037DA6",
+  "Oxford Blue": "#002751",
+  "Indigo dye": "#00517F",
+};

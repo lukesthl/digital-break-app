@@ -1,6 +1,7 @@
+import type { ImageSourcePropType } from "react-native";
 import { router } from "expo-router";
-import { Coffee, Cog } from "@tamagui/lucide-icons";
-import { Button, Heading, XStack } from "tamagui";
+import { Cog } from "@tamagui/lucide-icons";
+import { Button, Heading, Image, XStack } from "tamagui";
 
 export const Header = () => (
   <XStack alignItems="center" justifyContent="space-between">
@@ -15,8 +16,18 @@ export const Header = () => (
         height={36}
         backgroundColor={"rgba(0,0,0,0.05)"}
         borderRadius="$3"
+        disabled
       >
-        <Coffee color="$text11" size={24} />
+        <Image
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          source={require("../assets/images/digital-break-hourglass-icon.png") as ImageSourcePropType}
+          //source={require("../assets/images/default.png") as any}
+          width={26}
+          height={26}
+          resizeMode="contain"
+        />
+        {/* <Coffee color="$text11" size={24} /> */}
+        {/* <Hourglass color="$text11" size={24} strokeWidth={2} /> */}
       </Button>
       <Heading color="$text11">Digital Break</Heading>
     </XStack>

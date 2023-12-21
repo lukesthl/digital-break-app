@@ -7,7 +7,7 @@ import { Image, ListItem, View, YGroup, YStack } from "tamagui";
 
 import { Container } from "../../components/container";
 
-const DarkIcon = require("../../assets/images/default.png") as ImageURISource;
+const DarkIcon = require("../../assets/images/dark.png") as ImageURISource;
 const DefaultIcon = require("../../assets/images/default.png") as ImageURISource;
 const LightIcon = require("../../assets/images/light.png") as ImageURISource;
 

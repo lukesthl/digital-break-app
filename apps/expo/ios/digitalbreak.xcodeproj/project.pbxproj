@@ -7,43 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0286CE11073C4D2498B22C82 /* dark-Icon-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91CF5364FA2F4BC4BED19C2C /* dark-Icon-60x60@2x.png */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2FAD3E6EC2B5420FBD418B87 /* intents.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 554346899AFE4B89832B1E81 /* intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		14E7BF012B5C4300AA2BB7FD /* default-Icon-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D46F91599534D7EAA06072B /* default-Icon-60x60@2x.png */; };
+		2518FA29B6524FBCBDABF17B /* light-Icon-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D658E3253B846688E94CFFC /* light-Icon-60x60@2x.png */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		48A6E22D5DB6447F9EA8AB95 /* DigitalBreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA6A305BE24FC89E8A245B /* DigitalBreak.swift */; };
-		7660B33B1D544CCBB6976770 /* AppIntents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC838653C7D4986A1FE0B74 /* AppIntents.framework */; };
-		7A665944C6064575B80FBDA5 /* dark-Icon-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8CD83983CC0A4D21AB39DFEE /* dark-Icon-60x60@3x.png */; };
-		90E4887F1A5E48FD8375DC3E /* light-Icon-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D5D04E3364740A8B1759494 /* light-Icon-60x60@3x.png */; };
+		4D18787C9F6042D29F143011 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3405700EDACC4E47B4551260 /* noop-file.swift */; };
+		6C6713C927324E949B11B112 /* intents.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = C71F8812DF404C1BA19587D5 /* intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7E7ACC639D8A41BFAEA32C34 /* light-Icon-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845566795BBF4435997064D2 /* light-Icon-60x60@3x.png */; };
 		96905EF65AED1B983A6B3ABC /* libPods-digitalbreak.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-digitalbreak.a */; };
-		974A1B48957E46AC81362DC5 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C16DE68AA1C49438FEA7C46 /* noop-file.swift */; };
-		AF794342B2CE41E48CC283DE /* default-Icon-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE680FFD290A435DA88F5FF4 /* default-Icon-60x60@2x.png */; };
+		AADE0C62BDAB43E6BCE7B36A /* default-Icon-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E010027DFA04DA9BA17DB2E /* default-Icon-60x60@3x.png */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		C54E0D0231B74179B5812FEF /* default-Icon-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B1BA4ED51CD44748805E0821 /* default-Icon-60x60@3x.png */; };
-		FE7DC0C21C704A83BA159BF8 /* light-Icon-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F30FEEFC000549B5AAF7E982 /* light-Icon-60x60@2x.png */; };
+		CECA5A5A8B1F420EB58B16E0 /* dark-Icon-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA23B4E76A7C413593F8BBA9 /* dark-Icon-60x60@2x.png */; };
+		D0FF88B0DA1545B1A5334980 /* AppIntents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 397C79B55DCC4C189BEC5357 /* AppIntents.framework */; };
+		D4A63134FCE74DA69A697D25 /* DigitalBreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD098462266445E9A7422E4 /* DigitalBreak.swift */; };
+		F3C61727709A4E75930E4F33 /* dark-Icon-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA5BFB5708F940AAAB3397C5 /* dark-Icon-60x60@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D6C45556A28146ACBB297EA9 /* PBXContainerItemProxy */ = {
+		0E090A30A4CE4C349B2E72B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = FC5BE8E742F84D84B399D6B7;
+			remoteGlobalIDString = A91C615EDCEB4674BA13FACA;
 			remoteInfo = intents;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F4F0316D58E94016B04CFB8B /* Embed ExtensionKit Extensions */ = {
+		1F911A64A3554C80B2B66D71 /* Embed ExtensionKit Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
 			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
 			dstSubfolderSpec = 16;
 			files = (
-				2FAD3E6EC2B5420FBD418B87 /* intents.appex in Embed ExtensionKit Extensions */,
+				6C6713C927324E949B11B112 /* intents.appex in Embed ExtensionKit Extensions */,
 			);
 			name = "Embed ExtensionKit Extensions";
 			runOnlyForDeploymentPostprocessing = 1;
@@ -57,24 +57,24 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = digitalbreak/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = Info.plist; path = digitalbreak/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = main.m; path = digitalbreak/main.m; sourceTree = "<group>"; };
-		1BC838653C7D4986A1FE0B74 /* AppIntents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; fileEncoding = 4; includeInIndex = 1; name = AppIntents.framework; path = System/Library/Frameworks/AppIntents.framework; sourceTree = SDKROOT; };
-		2D5D04E3364740A8B1759494 /* light-Icon-60x60@3x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "light-Icon-60x60@3x.png"; path = "digitalbreak/DynamicAppIcons/light-Icon-60x60@3x.png"; sourceTree = "<group>"; };
-		3C16DE68AA1C49438FEA7C46 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "digitalbreak/noop-file.swift"; sourceTree = "<group>"; };
-		554346899AFE4B89832B1E81 /* intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; fileEncoding = 4; includeInIndex = 0; path = intents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3405700EDACC4E47B4551260 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "digitalbreak/noop-file.swift"; sourceTree = "<group>"; };
+		397C79B55DCC4C189BEC5357 /* AppIntents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; fileEncoding = 4; includeInIndex = 1; name = AppIntents.framework; path = System/Library/Frameworks/AppIntents.framework; sourceTree = SDKROOT; };
+		3D658E3253B846688E94CFFC /* light-Icon-60x60@2x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "light-Icon-60x60@2x.png"; path = "digitalbreak/DynamicAppIcons/light-Icon-60x60@2x.png"; sourceTree = "<group>"; };
+		4E010027DFA04DA9BA17DB2E /* default-Icon-60x60@3x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "default-Icon-60x60@3x.png"; path = "digitalbreak/DynamicAppIcons/default-Icon-60x60@3x.png"; sourceTree = "<group>"; };
+		4FD098462266445E9A7422E4 /* DigitalBreak.swift */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; path = DigitalBreak.swift; sourceTree = "<group>"; };
+		530CF8C51E3748248DB7DB77 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-digitalbreak.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; fileEncoding = 4; includeInIndex = 0; path = "libPods-digitalbreak.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-digitalbreak.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-digitalbreak.debug.xcconfig"; path = "Target Support Files/Pods-digitalbreak/Pods-digitalbreak.debug.xcconfig"; sourceTree = "<group>"; };
+		6D46F91599534D7EAA06072B /* default-Icon-60x60@2x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "default-Icon-60x60@2x.png"; path = "digitalbreak/DynamicAppIcons/default-Icon-60x60@2x.png"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-digitalbreak.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-digitalbreak.release.xcconfig"; path = "Target Support Files/Pods-digitalbreak/Pods-digitalbreak.release.xcconfig"; sourceTree = "<group>"; };
-		8BD8FA6226FB456086FC1623 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8CD83983CC0A4D21AB39DFEE /* dark-Icon-60x60@3x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "dark-Icon-60x60@3x.png"; path = "digitalbreak/DynamicAppIcons/dark-Icon-60x60@3x.png"; sourceTree = "<group>"; };
-		91CF5364FA2F4BC4BED19C2C /* dark-Icon-60x60@2x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "dark-Icon-60x60@2x.png"; path = "digitalbreak/DynamicAppIcons/dark-Icon-60x60@2x.png"; sourceTree = "<group>"; };
-		98EA6A305BE24FC89E8A245B /* DigitalBreak.swift */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; path = DigitalBreak.swift; sourceTree = "<group>"; };
+		845566795BBF4435997064D2 /* light-Icon-60x60@3x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "light-Icon-60x60@3x.png"; path = "digitalbreak/DynamicAppIcons/light-Icon-60x60@3x.png"; sourceTree = "<group>"; };
+		AA23B4E76A7C413593F8BBA9 /* dark-Icon-60x60@2x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "dark-Icon-60x60@2x.png"; path = "digitalbreak/DynamicAppIcons/dark-Icon-60x60@2x.png"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = digitalbreak/SplashScreen.storyboard; sourceTree = "<group>"; };
-		B1BA4ED51CD44748805E0821 /* default-Icon-60x60@3x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "default-Icon-60x60@3x.png"; path = "digitalbreak/DynamicAppIcons/default-Icon-60x60@3x.png"; sourceTree = "<group>"; };
+		B6137DEF0476431080AF9AA8 /* digitalbreak-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "digitalbreak-Bridging-Header.h"; path = "digitalbreak/digitalbreak-Bridging-Header.h"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		C584B4737FA1432792D9E538 /* digitalbreak-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "digitalbreak-Bridging-Header.h"; path = "digitalbreak/digitalbreak-Bridging-Header.h"; sourceTree = "<group>"; };
+		C71F8812DF404C1BA19587D5 /* intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; fileEncoding = 4; includeInIndex = 0; path = intents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA5BFB5708F940AAAB3397C5 /* dark-Icon-60x60@3x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "dark-Icon-60x60@3x.png"; path = "digitalbreak/DynamicAppIcons/dark-Icon-60x60@3x.png"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EE680FFD290A435DA88F5FF4 /* default-Icon-60x60@2x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "default-Icon-60x60@2x.png"; path = "digitalbreak/DynamicAppIcons/default-Icon-60x60@2x.png"; sourceTree = "<group>"; };
-		F30FEEFC000549B5AAF7E982 /* light-Icon-60x60@2x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "light-Icon-60x60@2x.png"; path = "digitalbreak/DynamicAppIcons/light-Icon-60x60@2x.png"; sourceTree = "<group>"; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-digitalbreak/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,11 +87,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EA9C669808F4291AE231055 /* Frameworks */ = {
+		4A63B4C7DFF74E3BACE767BD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7660B33B1D544CCBB6976770 /* AppIntents.framework in Frameworks */,
+				D0FF88B0DA1545B1A5334980 /* AppIntents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,11 +108,29 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				3C16DE68AA1C49438FEA7C46 /* noop-file.swift */,
-				C584B4737FA1432792D9E538 /* digitalbreak-Bridging-Header.h */,
-				FD82CECE80704193B6196BA8 /* DynamicAppIcons */,
+				3405700EDACC4E47B4551260 /* noop-file.swift */,
+				B6137DEF0476431080AF9AA8 /* digitalbreak-Bridging-Header.h */,
+				CDB721F4CF5A4E5896B48DFA /* DynamicAppIcons */,
 			);
 			name = digitalbreak;
+			sourceTree = "<group>";
+		};
+		21E496E1406B4C359529A4B8 /* expo:targets */ = {
+			isa = PBXGroup;
+			children = (
+				2A253F291C8E4C8397B7A6E0 /* intents */,
+			);
+			name = "expo:targets";
+			sourceTree = "<group>";
+		};
+		2A253F291C8E4C8397B7A6E0 /* intents */ = {
+			isa = PBXGroup;
+			children = (
+				4FD098462266445E9A7422E4 /* DigitalBreak.swift */,
+				530CF8C51E3748248DB7DB77 /* Info.plist */,
+			);
+			name = intents;
+			path = ../targets/intents;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -120,7 +138,7 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-digitalbreak.a */,
-				1BC838653C7D4986A1FE0B74 /* AppIntents.framework */,
+				397C79B55DCC4C189BEC5357 /* AppIntents.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -135,7 +153,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				B88160DAD9AF4BD6A1997B66 /* expo:targets */,
+				21E496E1406B4C359529A4B8 /* expo:targets */,
 				13B07FAE1A68108700A75B9A /* digitalbreak */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -152,7 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* digitalbreak.app */,
-				554346899AFE4B89832B1E81 /* intents.appex */,
+				C71F8812DF404C1BA19587D5 /* intents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,14 +183,6 @@
 			name = digitalbreak;
 			sourceTree = "<group>";
 		};
-		B88160DAD9AF4BD6A1997B66 /* expo:targets */ = {
-			isa = PBXGroup;
-			children = (
-				F508963B7FB94B289802F01A /* intents */,
-			);
-			name = "expo:targets";
-			sourceTree = "<group>";
-		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +190,19 @@
 			);
 			name = Supporting;
 			path = digitalbreak/Supporting;
+			sourceTree = "<group>";
+		};
+		CDB721F4CF5A4E5896B48DFA /* DynamicAppIcons */ = {
+			isa = PBXGroup;
+			children = (
+				6D46F91599534D7EAA06072B /* default-Icon-60x60@2x.png */,
+				4E010027DFA04DA9BA17DB2E /* default-Icon-60x60@3x.png */,
+				3D658E3253B846688E94CFFC /* light-Icon-60x60@2x.png */,
+				845566795BBF4435997064D2 /* light-Icon-60x60@3x.png */,
+				AA23B4E76A7C413593F8BBA9 /* dark-Icon-60x60@2x.png */,
+				CA5BFB5708F940AAAB3397C5 /* dark-Icon-60x60@3x.png */,
+			);
+			name = DynamicAppIcons;
 			sourceTree = "<group>";
 		};
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
@@ -199,29 +222,6 @@
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
-		F508963B7FB94B289802F01A /* intents */ = {
-			isa = PBXGroup;
-			children = (
-				98EA6A305BE24FC89E8A245B /* DigitalBreak.swift */,
-				8BD8FA6226FB456086FC1623 /* Info.plist */,
-			);
-			name = intents;
-			path = ../targets/intents;
-			sourceTree = "<group>";
-		};
-		FD82CECE80704193B6196BA8 /* DynamicAppIcons */ = {
-			isa = PBXGroup;
-			children = (
-				EE680FFD290A435DA88F5FF4 /* default-Icon-60x60@2x.png */,
-				B1BA4ED51CD44748805E0821 /* default-Icon-60x60@3x.png */,
-				F30FEEFC000549B5AAF7E982 /* light-Icon-60x60@2x.png */,
-				2D5D04E3364740A8B1759494 /* light-Icon-60x60@3x.png */,
-				91CF5364FA2F4BC4BED19C2C /* dark-Icon-60x60@2x.png */,
-				8CD83983CC0A4D21AB39DFEE /* dark-Icon-60x60@3x.png */,
-			);
-			name = DynamicAppIcons;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -231,32 +231,32 @@
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
-				1712F04C278E1CC457A1C805 /* [Expo] Configure project */,
+				B64023B4B232A40AE10D1353 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				F4F0316D58E94016B04CFB8B /* Embed ExtensionKit Extensions */,
-				BFFE7928A87255B08BD62F1B /* [CP] Embed Pods Frameworks */,
+				1F911A64A3554C80B2B66D71 /* Embed ExtensionKit Extensions */,
+				1D856CC4F7A207A684C3DBD9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				187C545CF7D845408597E681 /* PBXTargetDependency */,
+				E2502E39FDF14D27BAD9ED12 /* PBXTargetDependency */,
 			);
 			name = digitalbreak;
 			productName = digitalbreak;
 			productReference = 13B07F961A680F5B00A75B9A /* digitalbreak.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FC5BE8E742F84D84B399D6B7 /* intents */ = {
+		A91C615EDCEB4674BA13FACA /* intents */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 760BEDB1335E478C8502118D /* Build configuration list for PBXNativeTarget "intents" */;
+			buildConfigurationList = C55DCD7240874B078C03E1E5 /* Build configuration list for PBXNativeTarget "intents" */;
 			buildPhases = (
-				6BAE06EDD02F46418056BF14 /* Sources */,
-				4EA9C669808F4291AE231055 /* Frameworks */,
-				C96A8DF6D6AC46E4AFBD865E /* Resources */,
+				DD180EE23FA5412595AE794F /* Sources */,
+				4A63B4C7DFF74E3BACE767BD /* Frameworks */,
+				304A871305B542169803C2F6 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -264,7 +264,7 @@
 			);
 			name = intents;
 			productName = intents;
-			productReference = 554346899AFE4B89832B1E81 /* intents.appex */;
+			productReference = C71F8812DF404C1BA19587D5 /* intents.appex */;
 			productType = "com.apple.product-type.extensionkit-extension";
 		};
 /* End PBXNativeTarget section */
@@ -278,7 +278,7 @@
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1250;
 					};
-					FC5BE8E742F84D84B399D6B7 = {
+					A91C615EDCEB4674BA13FACA = {
 						CreatedOnToolsVersion = 14.3;
 						DevelopmentTeam = 3X5J8LXMDM;
 						ProvisioningStyle = Automatic;
@@ -299,7 +299,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* digitalbreak */,
-				FC5BE8E742F84D84B399D6B7 /* intents */,
+				A91C615EDCEB4674BA13FACA /* intents */,
 			);
 		};
 /* End PBXProject section */
@@ -312,16 +312,16 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				AF794342B2CE41E48CC283DE /* default-Icon-60x60@2x.png in Resources */,
-				C54E0D0231B74179B5812FEF /* default-Icon-60x60@3x.png in Resources */,
-				FE7DC0C21C704A83BA159BF8 /* light-Icon-60x60@2x.png in Resources */,
-				90E4887F1A5E48FD8375DC3E /* light-Icon-60x60@3x.png in Resources */,
-				0286CE11073C4D2498B22C82 /* dark-Icon-60x60@2x.png in Resources */,
-				7A665944C6064575B80FBDA5 /* dark-Icon-60x60@3x.png in Resources */,
+				14E7BF012B5C4300AA2BB7FD /* default-Icon-60x60@2x.png in Resources */,
+				AADE0C62BDAB43E6BCE7B36A /* default-Icon-60x60@3x.png in Resources */,
+				2518FA29B6524FBCBDABF17B /* light-Icon-60x60@2x.png in Resources */,
+				7E7ACC639D8A41BFAEA32C34 /* light-Icon-60x60@3x.png in Resources */,
+				CECA5A5A8B1F420EB58B16E0 /* dark-Icon-60x60@2x.png in Resources */,
+				F3C61727709A4E75930E4F33 /* dark-Icon-60x60@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C96A8DF6D6AC46E4AFBD865E /* Resources */ = {
+		304A871305B542169803C2F6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -371,24 +371,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1712F04C278E1CC457A1C805 /* [Expo] Configure project */ = {
+		1D856CC4F7A207A684C3DBD9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-digitalbreak/Pods-digitalbreak-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
 			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-digitalbreak/expo-configure-project.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-digitalbreak/Pods-digitalbreak-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -414,23 +413,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-digitalbreak/Pods-digitalbreak-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BFFE7928A87255B08BD62F1B /* [CP] Embed Pods Frameworks */ = {
+		B64023B4B232A40AE10D1353 /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-digitalbreak/Pods-digitalbreak-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			inputFileListPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-digitalbreak/Pods-digitalbreak-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-digitalbreak/expo-configure-project.sh\"\n";
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -461,12 +461,12 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				974A1B48957E46AC81362DC5 /* noop-file.swift in Sources */,
-				48A6E22D5DB6447F9EA8AB95 /* DigitalBreak.swift in Sources */,
+				4D18787C9F6042D29F143011 /* noop-file.swift in Sources */,
+				D4A63134FCE74DA69A697D25 /* DigitalBreak.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6BAE06EDD02F46418056BF14 /* Sources */ = {
+		DD180EE23FA5412595AE794F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -476,56 +476,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		187C545CF7D845408597E681 /* PBXTargetDependency */ = {
+		E2502E39FDF14D27BAD9ED12 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FC5BE8E742F84D84B399D6B7 /* intents */;
-			targetProxy = D6C45556A28146ACBB297EA9 /* PBXContainerItemProxy */;
+			target = A91C615EDCEB4674BA13FACA /* intents */;
+			targetProxy = 0E090A30A4CE4C349B2E72B2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		11628F30DFE04BA69E3DB310 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3X5J8LXMDM;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ../targets/intents/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = intents;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0.0;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lukesthl.digitalbreak.intents;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C2E3173556A471DD304B334 /* Pods-digitalbreak.debug.xcconfig */;
@@ -728,7 +686,7 @@
 			};
 			name = Release;
 		};
-		A807625EE8DD4BD1BA12E95D /* Debug */ = {
+		8B7F040591574380ACA9D33B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -775,6 +733,48 @@
 			};
 			name = Debug;
 		};
+		C639E90472ED40BA95CD13AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 3X5J8LXMDM;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ../targets/intents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = intents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0.0;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lukesthl.digitalbreak.intents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -787,20 +787,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		760BEDB1335E478C8502118D /* Build configuration list for PBXNativeTarget "intents" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A807625EE8DD4BD1BA12E95D /* Debug */,
-				11628F30DFE04BA69E3DB310 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "digitalbreak" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C55DCD7240874B078C03E1E5 /* Build configuration list for PBXNativeTarget "intents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B7F040591574380ACA9D33B /* Debug */,
+				C639E90472ED40BA95CD13AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

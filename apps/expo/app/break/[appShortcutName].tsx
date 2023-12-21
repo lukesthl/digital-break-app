@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
+import type { AnimationObject } from "lottie-react-native";
+import LottieView from "lottie-react-native";
 import { observer } from "mobx-react-lite";
-import { Button, H2, View } from "tamagui";
+import { Button, View, YStack } from "tamagui";
 
 import { Container } from "../../components/container";
 import { BreakStore } from "../../data/break.store";
@@ -16,21 +18,29 @@ const Break = observer(() => {
     });
   }, [loaded, searchParams.appShortcutName]);
   return (
-    <Container scrollEnabled={false} backgroundColor={"$background2"} flex={1}>
-      <View backgroundColor={"red"} flex={1} flexDirection="column" justifyContent="center">
-        <H2>Take a break</H2>
+    <Container scroll={false} flex={1} paddingBottom={0}>
+      <View flex={1}>
+        <LottieView
+          autoPlay
+          loop
+          // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment
+          source={require("../../assets/water-drop-animation.json") as AnimationObject}
+        />
       </View>
-      <View flex={1} flexDirection="column" justifyContent="center">
-        <Button onPress={() => router.replace("/overview/")}>Reset</Button>
-      </View>
-      <View flex={1} flexDirection="column" justifyContent="center">
-        <Button
-          onPress={() => {
-            void BreakStore.openApp();
-          }}
-        >
-          Open {BreakStore.app?.name}
-        </Button>
+      <YStack space="$2">
+        {process.env.NODE_ENV === "development" && (
+          <>
+            <Button onPress={() => router.replace("/overview/")}>Reset</Button>
+            <Button
+              onPress={() => {
+                router.replace("/overview/");
+                router.replace(`/break/${BreakStore.app?.name}`);
+              }}
+            >
+              Restart
+            </Button>
+          </>
+        )}
         <Button
           onPress={() => {
             void BreakStore.exitApp();
@@ -38,7 +48,15 @@ const Break = observer(() => {
         >
           I don&apos;t want to open this app
         </Button>
-      </View>
+        <Button
+          onPress={() => {
+            void BreakStore.openApp();
+          }}
+          variant="outlined"
+        >
+          {`Open ${BreakStore.app?.name}`}
+        </Button>
+      </YStack>
     </Container>
   );
 });
