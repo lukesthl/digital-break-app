@@ -9,6 +9,26 @@ import { AppsStore, deepLinks } from "./apps";
 
 const isRunningInExpoGo = Constants.appOwnership === AppOwnership.Expo;
 
+const funnyBreakMessages = [
+  "Screen break alert: Don't scroll, just stroll!",
+  "Feeling the breathless media chase? Pause, Breathe. Repeat.",
+  "And now, for your regularly scheduled deep breath...",
+  "ScreenDetox Alert: Inhale the good stuff, exhale the bad stuff, and hit play!",
+  "Alert: Your screen says it misses your blinking. Time for a breather!",
+  "Congratulations! You’ve earned a serene moment. Please collect your tranquility now.",
+  "Time for a Scroll-Free Serenity minute! Don't worry, the memes will be there when you get back.",
+  "Your screen says: 'We need a little time apart... to breathe!'",
+  "Reality check: Did you breathe today?",
+  "Time for a commercial break: Brought to you by Your Well-being.",
+  "Did you know humans have to blink AND breathe? Weird, right? Time for both!",
+  "Your reward for winning our 'Scroller of the Year'? A mindful break!",
+  "Surprise! You've unlocked a secret level: 'The Land of Breaths and Blinks'. Enjoy!",
+  "One small pause for a man, one giant relief for mankind's wall-posting addiction.",
+  "Incoming call from: Relaxation. Will you accept the call?",
+  "Time for a sponsored message from Oxygen: 'Breathe in, Breathe out!'",
+  "Alert: You've reached the end of the internet! Just kidding, but let's take a short break.",
+];
+
 export class BreakStoreSingleton {
   private appStatisticsStore = new AppStatisticsStore();
 
@@ -40,6 +60,10 @@ export class BreakStoreSingleton {
     }
     await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-close" });
     ExpoExitApp.exit();
+  }
+
+  public getRandomBreakMessage(): string {
+    return funnyBreakMessages[Math.floor(Math.random() * funnyBreakMessages.length)]!;
   }
 
   public get app(): App | null {

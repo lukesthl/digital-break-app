@@ -2,6 +2,8 @@ import type { Text as ReactNativeText } from "react-native";
 import { LineChart as LineChartGifted } from "react-native-gifted-charts";
 import { H4, Paragraph, Text, useTheme, View, YStack } from "tamagui";
 
+import { useTheme as useThemeBase } from "./theme-provider";
+
 export const LineChart = ({
   data,
   dummy,
@@ -17,6 +19,7 @@ export const LineChart = ({
   dummy?: boolean;
 }) => {
   const theme = useTheme();
+  const themeBase = useThemeBase();
   const grey3 = theme.grey3?.val as string;
   const grey4 = theme.grey4?.val as string;
   return (
@@ -28,7 +31,7 @@ export const LineChart = ({
           left={0}
           right={0}
           bottom={0}
-          backgroundColor={"rgba(255,255,255,0.7)"}
+          backgroundColor={themeBase.theme === "light" ? "rgba(255,255,255,0.7)" : "rgba(20,20,20,0.7)"}
           zIndex={99}
           flexDirection="row"
           alignItems="center"

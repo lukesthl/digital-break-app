@@ -1101,12 +1101,12 @@ async function applyXcodeChanges(
               explicitFileType: file.endsWith(".js")
                 ? "sourcecode.javascript"
                 : file.endsWith(".json")
-                ? "text.json"
-                : file.endsWith(".html")
-                ? "text.html"
-                : file.endsWith(".css")
-                ? "text.css"
-                : "text",
+                  ? "text.json"
+                  : file.endsWith(".html")
+                    ? "text.html"
+                    : file.endsWith(".css")
+                      ? "text.css"
+                      : "text",
               sourceTree: "<group>",
             }),
           })
@@ -1190,10 +1190,10 @@ async function applyXcodeChanges(
     props.type === "clip"
       ? "Embed App Clips"
       : props.type === "watch"
-      ? "Embed Watch Content"
-      : props.type === "appintent"
-      ? "Embed ExtensionKit Extensions"
-      : "Embed Foundation Extensions";
+        ? "Embed Watch Content"
+        : props.type === "appintent"
+          ? "Embed ExtensionKit Extensions"
+          : "Embed Foundation Extensions";
   // Could exist from a Share Extension
   const copyFilesBuildPhase = mainAppTarget.props.buildPhases.find((phase) => {
     if (PBXCopyFilesBuildPhase.is(phase)) {
@@ -1219,7 +1219,7 @@ async function applyXcodeChanges(
         buildActionMask: 2147483647,
         files: [alphaExtensionAppexBf],
         name: WELL_KNOWN_COPY_EXTENSIONS_NAME,
-        runOnlyForDeploymentPostprocessing: 0,
+        runOnlyForDeploymentPostprocessing: 1,
       });
     } else {
       mainAppTarget.createBuildPhase(PBXCopyFilesBuildPhase, {

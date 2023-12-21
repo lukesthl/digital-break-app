@@ -1,4 +1,4 @@
-import { createAnimations } from "@tamagui/animations-react-native";
+import { createAnimations } from "@tamagui/animations-moti";
 import { createMedia } from "@tamagui/react-native-media-driver";
 import { shorthands } from "@tamagui/shorthands";
 import { createTamagui } from "tamagui";
@@ -24,6 +24,10 @@ const animations = createAnimations({
     damping: 20,
     mass: 1.2,
     stiffness: 250,
+  },
+  fadeIn: {
+    type: "spring",
+    duration: 20000,
   },
 });
 const headingFont = createSatoshiFont({ family: "SatoshiBlack" });

@@ -924,7 +924,7 @@ async function applyXcodeChanges(config, project, props) {
                 buildActionMask: 2147483647,
                 files: [alphaExtensionAppexBf],
                 name: WELL_KNOWN_COPY_EXTENSIONS_NAME,
-                runOnlyForDeploymentPostprocessing: 0,
+                runOnlyForDeploymentPostprocessing: 1,
             });
         }
         else {

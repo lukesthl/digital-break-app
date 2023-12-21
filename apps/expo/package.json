@@ -26,6 +26,7 @@
     "@shopify/react-native-skia": "0.1.230",
     "@tamagui-extras/core": "^1.8.6",
     "@tamagui-extras/form": "^1.13.4",
+    "@tamagui/animations-moti": "^1.79.13",
     "@tamagui/animations-react-native": "^1.79.12",
     "@tamagui/babel-plugin": "^1.79.12",
     "@tamagui/checkbox": "^1.79.12",
