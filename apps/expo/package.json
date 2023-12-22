@@ -93,9 +93,7 @@
     "typescript": "^5.3.3"
   },
   "overrides": {
-    "react-refresh": "~0.14.0",
-    "metro": "0.76.0",
-    "metro-resolver": "0.76.0"
+    "react-refresh": "~0.14.0"
   },
   "eslintConfig": {
     "root": true,

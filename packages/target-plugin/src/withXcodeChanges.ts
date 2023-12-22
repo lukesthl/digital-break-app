@@ -1206,9 +1206,7 @@ async function applyXcodeChanges(
     // Assume that this is the first run if there is no matching target that we identified from a previous run.
     copyFilesBuildPhase.props.files.push(alphaExtensionAppexBf);
   } else {
-    const dstPath = (
-      { clip: "AppClips", watch: "Watch", appintent: "any" } as any
-    )[props.type];
+    const dstPath = ({ clip: "AppClips", watch: "Watch" } as any)[props.type];
     if (dstPath) {
       mainAppTarget.createBuildPhase(PBXCopyFilesBuildPhase, {
         dstPath:

@@ -914,7 +914,7 @@ async function applyXcodeChanges(config, project, props) {
         copyFilesBuildPhase.props.files.push(alphaExtensionAppexBf);
     }
     else {
-        const dstPath = { clip: "AppClips", watch: "Watch", appintent: "any" }[props.type];
+        const dstPath = { clip: "AppClips", watch: "Watch" }[props.type];
         if (dstPath) {
             mainAppTarget.createBuildPhase(xcode_1.PBXCopyFilesBuildPhase, {
                 dstPath: props.type === "appintent"
