@@ -6,6 +6,7 @@ import * as ExpoExitApp from "../../../packages/expo-exit-app";
 import { AppStatisticsStore } from "./app.statistics";
 import type { App } from "./apps";
 import { AppsStore, deepLinks } from "./apps";
+import { clearOpenedApp, updateOpenedApp } from "./shortcut.listener";
 
 const isRunningInExpoGo = Constants.appOwnership === AppOwnership.Expo;
 
@@ -51,6 +52,8 @@ export class BreakStoreSingleton {
       throw new Error("App not initialized");
     }
     await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-reopen" });
+    await updateOpenedApp(this.app.key, "app-reopen");
+    // await AsyncStorage.setItem("openedApp", `${this.app.key}_${Date.now()}_app-reopen`);
     await Linking.openURL(deepLinks[this.app.key as keyof typeof deepLinks]);
   }
 
@@ -59,6 +62,8 @@ export class BreakStoreSingleton {
       throw new Error("App not initialized");
     }
     await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-close" });
+    // await AsyncStorage.setItem("openedApp", `${this.app.key}_${Date.now()}_app-reopen`);
+    await clearOpenedApp();
     ExpoExitApp.exit();
   }
 

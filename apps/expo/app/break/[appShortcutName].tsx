@@ -53,7 +53,7 @@ const Break = observer(() => {
       <View flex={1} marginBottom={"$12"} justifyContent="center" alignItems="center">
         <AnimatedLottieView
           progress={animationProgress.current}
-          // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
           source={require("../../assets/water-drop-animation.json") as AnimationObject}
           style={{
             height: 300,

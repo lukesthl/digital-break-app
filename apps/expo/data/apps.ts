@@ -20,7 +20,7 @@ interface IAppSettings {
 
 // TODO add more apps / test all apps
 export const deepLinks: Record<SupportedApp, string> = {
-  instagram: "instagram",
+  instagram: "instagram://",
   twitter: "twitter://user?screen_name=USERNAME",
   facebook: "fb://profile/USER_ID",
   youtube: "youtube://www.youtube.com/channel/CHANNEL_ID",
@@ -56,6 +56,7 @@ export const deepLinks: Record<SupportedApp, string> = {
   toonblast: "https://www.google.com",
   tumblr: "https://www.google.com",
   zalandofashion: "https://www.google.com",
+  applenews: "applenews://",
 };
 
 export type SupportedApp =
@@ -94,7 +95,8 @@ export type SupportedApp =
   | "tinder"
   | "toonblast"
   | "tumblr"
-  | "zalandofashion";
+  | "zalandofashion"
+  | "applenews";
 
 export const defaultAppSettings: IAppSettings = {
   breakDurationSeconds: 10,

@@ -2,12 +2,12 @@ import type { ConfigContext, ExpoConfig } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "digitalbreak",
+  name: "Digital Break",
   slug: "digitalbreak",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/images/default.png",
-  scheme: "myapp",
+  scheme: "digitalbreak",
   userInterfaceStyle: "automatic",
   splash: {
     image: "./assets/images/splash.png",

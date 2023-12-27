@@ -37,7 +37,7 @@ export const WeeklySummary = () => {
     to: dayjs().weekday(-7).endOf("week").valueOf(),
   });
   const difference = savedThisWeek - savedLastWeek;
-  const savedThisWeekInPercentage = difference !== 0 ? (difference / savedLastWeek) * 100 : 0;
+  const savedThisWeekInPercentage = difference !== 0 && savedLastWeek !== 0 ? (difference / savedLastWeek) * 100 : 0;
   return (
     <ShadowCard>
       <XStack justifyContent="space-between">

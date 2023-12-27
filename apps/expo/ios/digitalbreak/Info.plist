@@ -107,7 +107,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>myapp</string>
+          <string>digitalbreak</string>
           <string>com.lukesthl.digitalbreak</string>
         </array>
       </dict>
