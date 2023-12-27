@@ -5,11 +5,11 @@ enum MyError: Error {
   case runtimeError(String)
 }
 struct DigitalBreak: AppIntent {
-  static var title: LocalizedStringResource = "Activate Digital Break when an app opens"
+  static var title: LocalizedStringResource = "Check Digital Break"
 
   static var description =
     IntentDescription(
-      "This shortcut starts a breathing exercise and asks if you really want to continue in the selected app"
+      "This shortcut checks if you need a digital break and returns true."
     )
 
   static var openAppWhenRun: Bool = false

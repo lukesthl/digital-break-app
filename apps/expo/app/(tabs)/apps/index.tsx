@@ -87,6 +87,9 @@ const Apps = observer(() => {
           pressStyle={{
             backgroundColor: "$grey1",
           }}
+          onPress={() => {
+            router.push("/setup");
+          }}
         >
           <View borderWidth={1} borderColor={"$grey3"} borderRadius={"$2"} padding="$4" borderStyle="dashed">
             <XStack justifyContent="center" alignItems="center" space="$2">

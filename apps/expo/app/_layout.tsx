@@ -106,6 +106,7 @@ const NavigationStack = () => {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="break" options={{ headerShown: false }} />
         <Stack.Screen name="settings" options={{ headerShown: false, presentation: "modal" }} />
+        <Stack.Screen name="setup" options={{ headerShown: false, presentation: "modal" }} />
       </Stack>
     </NavigationThemeProvider>
   );
