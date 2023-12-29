@@ -12,7 +12,11 @@
     "dev:client": "npx expo start --dev-client",
     "lint": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\"",
-    "generate-themes": "tamagui generate-themes ./theme/theme-builder.ts ./theme/theme-output.ts"
+    "generate-themes": "tamagui generate-themes ./theme/theme-builder.ts ./theme/theme-output.ts",
+    "build:development": "eas build --profile development --platform ios --local",
+    "build:simulator": "eas build --profile simulator --platform ios --local",
+    "build:production": "eas build --profile production --platform ios --local",
+    "prebuild": " expo prebuild --clean -p ios"
   },
   "jest": {
     "preset": "jest-expo"
@@ -50,6 +54,7 @@
     "expo-document-picker": "~11.5.4",
     "expo-dynamic-app-icon": "^1.2.0",
     "expo-font": "~11.6.0",
+    "expo-haptics": "~12.4.0",
     "expo-linear-gradient": "~12.5.0",
     "expo-linking": "~6.0.0",
     "expo-localization": "^14.5.0",

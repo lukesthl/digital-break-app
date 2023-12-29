@@ -24,7 +24,7 @@ struct DigitalBreak: AppIntent {
   @MainActor
   func perform() async throws -> some IntentResult & ReturnsValue<Bool> {
     let RCTStorageDirectory = "RCTAsyncLocalStorage_V1"
-    let RCTManifestFileName = "manifest.json"
+    let RCTManifestFileName = "appintent.json"
 
     let fileManager = FileManager.default
 

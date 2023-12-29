@@ -1,5 +1,8 @@
+import { Vibration } from "react-native";
 import Constants, { AppOwnership } from "expo-constants";
+import * as Haptics from "expo-haptics";
 import * as Linking from "expo-linking";
+import { router } from "expo-router";
 import { makeAutoObservable } from "mobx";
 
 import * as ExpoExitApp from "../../../packages/expo-exit-app";
@@ -35,16 +38,68 @@ export class BreakStoreSingleton {
 
   private appsStore = new AppsStore();
 
+  private lastBreakTimestamp = Date.now();
+
   private _app: App | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  public async init({ appShortcutName }: { appShortcutName: string }) {
+  public async init({ appShortcutName, timestamp }: { appShortcutName: string; timestamp: number }) {
     const app = await this.appsStore.getOrCreateApp({ appShortcutName });
     this.app = app;
-    void this.appStatisticsStore.trackEvent({ appId: app.id, type: "break-start" });
+    if (timestamp !== this.lastBreakTimestamp) {
+      this.lastBreakTimestamp = timestamp;
+      void this.appStatisticsStore.trackEvent({ appId: app.id, type: "break-start" });
+    }
+    //  void this.hapticImpact();
+  }
+  private getHapticImpactEnum = (impact: string): Haptics.ImpactFeedbackStyle | undefined => {
+    switch (impact) {
+      case "heavy":
+        return Haptics.ImpactFeedbackStyle.Heavy;
+      case "medium":
+        return Haptics.ImpactFeedbackStyle.Medium;
+      case "light":
+        return Haptics.ImpactFeedbackStyle.Light;
+    }
+  };
+
+  public async hapticImpact(): Promise<void> {
+    const pattern: ("light" | "medium" | "heavy" | "vibrate" | number)[] = [];
+    const duration = this.app?.settings.breakDurationSeconds ?? 0;
+    const durationInMs = duration * 1;
+    for (let i = 0; i < durationInMs; ++i) {
+      if (i < duration / 2) {
+        pattern.push("light");
+      } else {
+        pattern.push("medium");
+      }
+      pattern.push(100);
+    }
+    console.log("Haptic pattern", pattern);
+    for (let i = 0; i < pattern.length; ++i) {
+      const e = pattern[i];
+      if (i % 2 === 0) {
+        // Vibration length, always 400 for iOS
+        if (typeof e === "number") {
+          Vibration.vibrate(e);
+          await new Promise((res) => setTimeout(res, e));
+          // Default
+        } else if (e === "vibrate" || !e) {
+          Vibration.vibrate();
+          // Use native impact type
+        } else {
+          console.log("Haptic impact", e);
+          await Haptics.impactAsync(this.getHapticImpactEnum(e) ?? Haptics.ImpactFeedbackStyle.Medium);
+        }
+        // Await for the pause
+      } else {
+        if (typeof e !== "number") return;
+        await new Promise((res) => setTimeout(res, e));
+      }
+    }
   }
 
   public async openApp(): Promise<void> {
@@ -53,8 +108,10 @@ export class BreakStoreSingleton {
     }
     await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-reopen" });
     await updateOpenedApp(this.app.key, "app-reopen");
+    await new Promise((resolve) => setTimeout(resolve, 500));
     // await AsyncStorage.setItem("openedApp", `${this.app.key}_${Date.now()}_app-reopen`);
     await Linking.openURL(deepLinks[this.app.key as keyof typeof deepLinks]);
+    router.replace("/");
   }
 
   public async exitApp(): Promise<void> {

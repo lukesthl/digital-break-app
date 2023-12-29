@@ -35,8 +35,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         clearTimeout(onColorSchemeChange.current);
       }
       const storedTheme = await AsyncStorage.getItem("theme");
-      setAutoTheme(storedTheme === "auto");
-      if (storedTheme === "auto") {
+      setAutoTheme(storedTheme === "auto" || !storedTheme);
+      if (storedTheme === "auto" || !storedTheme) {
         setThemeState(colorScheme === "dark" ? "dark" : "light");
       } else {
         setThemeState(storedTheme as ThemeType);

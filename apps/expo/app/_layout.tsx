@@ -41,9 +41,9 @@ function RootLayoutNav() {
   useEffect(() => {
     const checkShortcut = () => {
       void listenForShortcut()
-        .then(({ app }) => {
-          console.log("shortcut", app);
-          router.replace(`/break/${app}`);
+        .then(({ app, timestamp }) => {
+          console.log("shortcut", app, timestamp);
+          router.replace(`/break/${app}?timestamp=${timestamp}`);
         })
         .catch((error) => {
           console.log(JSON.stringify(error));

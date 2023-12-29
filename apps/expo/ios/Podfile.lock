@@ -85,6 +85,8 @@ PODS:
     - ExpoModulesCore
   - ExpoExitApp (0.1.0):
     - ExpoModulesCore
+  - ExpoHaptics (12.4.0):
+    - ExpoModulesCore
   - ExpoHead (0.0.20):
     - ExpoModulesCore
   - ExpoKeepAwake (12.3.0):
@@ -584,6 +586,7 @@ DEPENDENCIES:
   - ExpoDocumentPicker (from `../../../node_modules/expo-document-picker/ios`)
   - ExpoDynamicAppIcon (from `../../../node_modules/expo-dynamic-app-icon/ios`)
   - ExpoExitApp (from `../../../packages/expo-exit-app/ios`)
+  - ExpoHaptics (from `../../../node_modules/expo-haptics/ios`)
   - ExpoHead (from `../../../node_modules/expo-head/ios`)
   - ExpoKeepAwake (from `../../../node_modules/expo-keep-awake/ios`)
   - ExpoLinearGradient (from `../../../node_modules/expo-linear-gradient/ios`)
@@ -689,6 +692,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/expo-dynamic-app-icon/ios"
   ExpoExitApp:
     :path: "../../../packages/expo-exit-app/ios"
+  ExpoHaptics:
+    :path: "../../../node_modules/expo-haptics/ios"
   ExpoHead:
     :path: "../../../node_modules/expo-head/ios"
   ExpoKeepAwake:
@@ -823,6 +828,7 @@ SPEC CHECKSUMS:
   ExpoDocumentPicker: 5cb7389ff935b4addefdd466a606de51a512e922
   ExpoDynamicAppIcon: b0f96e53d0bf00412bbe97da0cfc15b8c94a54ce
   ExpoExitApp: 5ae87b4d35a0d3b28b5b26bdddcd734e0a41e7f3
+  ExpoHaptics: 360af6898407ee4e8265d30a1a8fb16491a660eb
   ExpoHead: ac95331e2a45cb94f6aee8ba6b8cb3d0a2cc6817
   ExpoKeepAwake: be4cbd52d9b177cde0fd66daa1913afa3161fc1d
   ExpoLinearGradient: 5d18293f89c063036121281175c4653d6a7c34a2
@@ -884,6 +890,6 @@ SPEC CHECKSUMS:
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 4c3aa327e4a6a23eeacd71f61c81df1bcdf677d5
 
-PODFILE CHECKSUM: 88e1cd7e497076ca7caf6b80c9ced4948b93e976
+PODFILE CHECKSUM: 1aa58fa68befae1c918a8ebb53b1c1431742077d
 
 COCOAPODS: 1.12.1

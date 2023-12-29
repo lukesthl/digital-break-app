@@ -7,11 +7,11 @@ let intervalId: NodeJS.Timeout | null = null;
 const storageKey = "openedApp";
 const pathSplitted = FileSystem.documentDirectory?.split("/");
 const appPath = pathSplitted?.slice(0, pathSplitted.length - 2).join("/");
-const dataPath = `${appPath}/Library/Application Support/${appConfig.bundleIdentifier}/RCTAsyncLocalStorage_V1/manifest.json`;
+const dataPath = `${appPath}/Library/Application Support/${appConfig.bundleIdentifier}/RCTAsyncLocalStorage_V1/appintent.json`;
 
 // why FileSystem? because AsyncStorage doesnt work in combination with the App Intent.
 // It seems like AsyncStorage caches the value and not directly writes it to the file system.
-export const listenForShortcut = async (): Promise<{ app: string }> => {
+export const listenForShortcut = async (): Promise<{ app: string; timestamp: number }> => {
   let tryCount = 0;
   return new Promise((resolve, reject) => {
     const time = new Date().getTime();
@@ -24,7 +24,7 @@ export const listenForShortcut = async (): Promise<{ app: string }> => {
               console.log(`took ${new Date().getTime() - time}ms`);
               console.log(`openedApp: ${appPayload.app}`);
 
-              resolve({ app: appPayload.app });
+              resolve({ app: appPayload.app, timestamp: parseInt(appPayload.timestamp, 10) });
             } else {
               throw new Error("no app");
             }

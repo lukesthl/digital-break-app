@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Animated, Easing } from "react-native";
+import * as Haptics from "expo-haptics";
 import { router, useLocalSearchParams } from "expo-router";
 import type { AnimationObject } from "lottie-react-native";
 import LottieView from "lottie-react-native";
@@ -11,14 +12,21 @@ import { BreakStore } from "../../data/break.store";
 import { OverviewStore } from "../../data/overview.store";
 
 const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
+const peakProgress = 0.65;
+let lastProgress = 0;
+let progressStep = 0.05;
+const floatingProgress = 0.75;
 
 const Break = observer(() => {
   const [loaded, setLoaded] = useState(false);
   const [breakStatus, setBreakStatus] = useState<"running" | "finished">("finished");
-  const searchParams = useLocalSearchParams<{ appShortcutName: string }>();
+  const searchParams = useLocalSearchParams<{ appShortcutName: string; timestamp: string }>();
   useEffect(() => {
     if (loaded) return;
-    void BreakStore.init({ appShortcutName: searchParams.appShortcutName }).then(() => {
+    void BreakStore.init({
+      appShortcutName: searchParams.appShortcutName,
+      timestamp: parseInt(searchParams.timestamp),
+    }).then(() => {
       setLoaded(true);
     });
     void OverviewStore.init();
@@ -38,7 +46,23 @@ const Break = observer(() => {
       setBreakStatus("running");
 
       animationProgress.current.addListener(({ value }) => {
+        if (value > lastProgress + progressStep && value < peakProgress) {
+          lastProgress = value;
+          void Haptics.impactAsync(
+            value < peakProgress / 3 ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Medium
+          );
+          progressStep -= 0.002;
+        }
+        if (value > peakProgress && value > floatingProgress && value > lastProgress + progressStep) {
+          lastProgress = value;
+          void Haptics.impactAsync(
+            value > 0.8 ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Medium
+          );
+          progressStep += 0.0015;
+        }
         if (value === 1) {
+          lastProgress = 0;
+          progressStep = 0.05;
           setBreakStatus("finished");
         }
       });
@@ -128,6 +152,7 @@ const Break = observer(() => {
               void BreakStore.openApp();
             }}
             variant="outlined"
+            color="$text11"
           >
             {`Open ${selectedApp.name}`}
           </Button>

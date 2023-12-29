@@ -80,7 +80,7 @@ const config = createTamagui({
       borderColor: "#cccccc",
       background: "#fff",
     },
-  },
+  } as unknown as Record<string, Record<string, string>>,
   tokens,
   media: createMedia({
     xs: { maxWidth: 660 },

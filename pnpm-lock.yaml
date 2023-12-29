@@ -132,6 +132,9 @@ importers:
       expo-font:
         specifier: ~11.6.0
         version: 11.6.0(expo@49.0.21)
+      expo-haptics:
+        specifier: ~12.4.0
+        version: 12.4.0(expo@49.0.21)
       expo-linear-gradient:
         specifier: ~12.5.0
         version: 12.5.0(expo@49.0.21)
@@ -8824,6 +8827,14 @@ packages:
     dependencies:
       expo: 49.0.21(@babel/core@7.23.6)
       fontfaceobserver: 2.3.0
+    dev: false
+
+  /expo-haptics@12.4.0(expo@49.0.21):
+    resolution: {integrity: sha512-eELhZOO64oJa6AtEUxosatjSENE/tQgF2rVJxDsvRdx8Vgd3uFC+FRoM3nbMVJkxDgAaP3EKOPT1zVM41sNurw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.21(@babel/core@7.23.6)
     dev: false
 
   /expo-head@0.0.20(expo@49.0.21)(react-dom@18.2.0)(react-native@0.72.7)(react@18.2.0):
