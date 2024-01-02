@@ -51,5 +51,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Build
+        run: "pnpm run build"
+
       - name: Run linters
         run: "pnpm run lint && pnpm run format"

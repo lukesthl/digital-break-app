@@ -53,7 +53,6 @@ export class BreakStoreSingleton {
       this.lastBreakTimestamp = timestamp;
       void this.appStatisticsStore.trackEvent({ appId: app.id, type: "break-start" });
     }
-    //  void this.hapticImpact();
   }
   private getHapticImpactEnum = (impact: string): Haptics.ImpactFeedbackStyle | undefined => {
     switch (impact) {
