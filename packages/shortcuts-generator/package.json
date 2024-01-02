@@ -1,0 +1,19 @@
+{
+  "name": "@acme/shortcuts-generator",
+  "version": "1.0.0",
+  "description": "Generates shortcuts",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "scripts": {
+    "build": "rm -rf build && tsc",
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check \"**/*.{mjs,ts,md,json}\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@acme/prettier-config": "^0.1.0",
+    "@acme/tsconfig": "^0.1.0",
+    "typescript": "^5.3.3"
+  },
+  "prettier": "@acme/prettier-config"
+}

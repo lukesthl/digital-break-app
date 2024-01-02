@@ -1,0 +1,122 @@
+[
+  {
+    "key": "instagram",
+    "name": "Instagram",
+    "scheme": "instagram://"
+  },
+  {
+    "key": "facebook",
+    "name": "Facebook",
+    "scheme": "fb://"
+  },
+  {
+    "key": "twitter",
+    "name": "Twitter",
+    "scheme": "twitter://"
+  },
+  {
+    "key": "snapchat",
+    "name": "Snapchat",
+    "scheme": "snapchat://"
+  },
+  {
+    "key": "linkedin",
+    "name": "LinkedIn",
+    "scheme": "linkedin://"
+  },
+  {
+    "key": "pinterest",
+    "name": "Pinterest",
+    "scheme": "pinterest://"
+  },
+  {
+    "key": "youtube",
+    "name": "YouTube",
+    "scheme": "youtube://"
+  },
+  {
+    "key": "whatsapp",
+    "name": "WhatsApp",
+    "scheme": "whatsapp://"
+  },
+  {
+    "key": "tiktok",
+    "name": "TikTok",
+    "scheme": "tiktok://"
+  },
+  {
+    "key": "spotify",
+    "name": "Spotify",
+    "scheme": "spotify://"
+  },
+  {
+    "key": "twitch",
+    "name": "Twitch",
+    "scheme": "twitch://"
+  },
+  {
+    "key": "reddit",
+    "name": "Reddit",
+    "scheme": "reddit://"
+  },
+  {
+    "key": "telegram",
+    "name": "Telegram",
+    "scheme": "telegram://"
+  },
+  {
+    "key": "discord",
+    "name": "Discord",
+    "scheme": "discord://"
+  },
+  {
+    "key": "safari",
+    "name": "Safari",
+    "scheme": "https://google.com"
+  },
+  {
+    "key": "breal",
+    "name": "Breal",
+    "scheme": "breal://"
+  },
+  {
+    "key": "clashroyale",
+    "name": "Clash Royale",
+    "scheme": "clashroyale://"
+  },
+  {
+    "key": "clashofclans",
+    "name": "Clash of Clans",
+    "scheme": "clashofclans://"
+  },
+  {
+    "key": "netflix",
+    "name": "Netflix",
+    "scheme": "netflix://"
+  },
+  {
+    "key": "tinder",
+    "name": "Tinder",
+    "scheme": "tinder://"
+  },
+  {
+    "key": "candycrushsaga",
+    "name": "Candy Crush Saga",
+    "scheme": "candycrushsaga://"
+  },
+  {
+    "key": "disney+",
+    "name": "Disney+",
+    "scheme": "disney+://"
+  },
+  {
+    "key": "outlook",
+    "name": "Outlook",
+    "scheme": "ms-outlook://"
+  },
+  {
+    "key": "mastodon",
+    "name": "Mastodon",
+    "scheme": "mastodon://"
+  }
+]

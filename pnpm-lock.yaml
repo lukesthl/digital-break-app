@@ -39,6 +39,9 @@ importers:
       '@acme/expo-exit-app':
         specifier: ^0.1.0
         version: link:../../packages/expo-exit-app
+      '@acme/shortcuts':
+        specifier: ^1.0.0
+        version: link:../../packages/shortcuts
       '@acme/target-plugin':
         specifier: ^0.1.0
         version: link:../../packages/target-plugin
@@ -325,6 +328,18 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
     devDependencies:
+      '@acme/tsconfig':
+        specifier: ^0.1.0
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+
+  packages/shortcuts:
+    devDependencies:
+      '@acme/prettier-config':
+        specifier: ^0.1.0
+        version: link:../prettier-config
       '@acme/tsconfig':
         specifier: ^0.1.0
         version: link:../tsconfig

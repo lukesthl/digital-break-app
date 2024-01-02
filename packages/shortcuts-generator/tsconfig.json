@@ -1,0 +1,20 @@
+{
+  "exclude": ["lib/**/*.spec.tsx", "lib/**/*.stories.tsx", "lib/**/*.styles.tsx", "build/**/*"],
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "target": "es6",
+    "module": "es6",
+    "lib": ["es6", "dom"],
+    "jsx": "react",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "build",
+    "rootDirs": ["src"],
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
