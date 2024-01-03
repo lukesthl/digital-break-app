@@ -2,10 +2,9 @@
   "exclude": ["lib/**/*.spec.tsx", "lib/**/*.stories.tsx", "lib/**/*.styles.tsx", "build/**/*"],
   "compilerOptions": {
     "skipLibCheck": true,
-    "target": "es6",
-    "module": "es6",
-    "lib": ["es6", "dom"],
-    "jsx": "react",
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["es2022"],
     "resolveJsonModule": true,
     "declaration": true,
     "declarationMap": true,
@@ -13,7 +12,7 @@
     "outDir": "build",
     "rootDirs": ["src"],
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   }

@@ -2,10 +2,9 @@
   "name": "@acme/shortcuts-generator",
   "version": "1.0.0",
   "description": "Generates shortcuts",
-  "main": "build/src/index.js",
-  "types": "build/src/index.d.ts",
   "scripts": {
-    "build": "rm -rf build && tsc",
+    "build": "tsup src/index.ts --format cjs --dts --minify --clean --legacy-output --outDir build",
+    "generate": "node ./build/index.js",
     "clean": "rm -rf .turbo node_modules",
     "format": "prettier --check \"**/*.{mjs,ts,md,json}\"",
     "typecheck": "tsc --noEmit"
@@ -13,6 +12,7 @@
   "devDependencies": {
     "@acme/prettier-config": "^0.1.0",
     "@acme/tsconfig": "^0.1.0",
+    "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   },
   "prettier": "@acme/prettier-config"

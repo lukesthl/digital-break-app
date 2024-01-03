@@ -75,9 +75,9 @@
     "scheme": "https://google.com"
   },
   {
-    "key": "breal",
-    "name": "Breal",
-    "scheme": "breal://"
+    "key": "bereal",
+    "name": "Bereal",
+    "scheme": "bereal://"
   },
   {
     "key": "clashroyale",
