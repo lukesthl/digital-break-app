@@ -100,9 +100,9 @@ const Setup = observer(() => {
             </View>
             <View marginTop={"$1.5"}>
               <H4 color="$text11" lineHeight={20}>
-                Select "App"-Trigger
+                Select &quot;App&quot;-Trigger
               </H4>
-              <Paragraph color="$text11">Scroll down and select "App" as the trigger.</Paragraph>
+              <Paragraph color="$text11">Scroll down and select &quot;App&quot; as the trigger.</Paragraph>
             </View>
           </XStack>
         </ShadowCard>
@@ -125,10 +125,10 @@ const Setup = observer(() => {
               <H4 color="$text11" lineHeight={20}>
                 Configure the trigger
               </H4>
-              <Paragraph color="$text11">Select "Choose" and search for the app you want to use.</Paragraph>
+              <Paragraph color="$text11">Select &quot;Choose&quot; and search for the app you want to use.</Paragraph>
               <Paragraph color="$text11">Info: You need to create a trigger for every app you want to use.</Paragraph>
-              <Paragraph color="$text11">Select "open directly"</Paragraph>
-              <Paragraph color="$text11">Select "Next" when you are done.</Paragraph>
+              <Paragraph color="$text11">Select &quot;open directly&quot;</Paragraph>
+              <Paragraph color="$text11">Select &quot;Next&quot; when you are done.</Paragraph>
             </View>
           </XStack>
         </ShadowCard>
@@ -149,9 +149,9 @@ const Setup = observer(() => {
             </View>
             <View marginTop={"$1.5"}>
               <H4 color="$text11" lineHeight={22}>
-                Select "digital break" as the action
+                Select &quot;digital break&quot; as the action
               </H4>
-              <Paragraph color="$text11">Search for "digital break" and select it.</Paragraph>
+              <Paragraph color="$text11">Search for &quot;digital break&quot; and select it.</Paragraph>
             </View>
           </XStack>
         </ShadowCard>

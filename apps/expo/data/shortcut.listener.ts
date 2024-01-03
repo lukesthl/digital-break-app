@@ -1,23 +1,17 @@
-import * as FileSystem from "expo-file-system";
-
-import { appConfig } from "../constants/app.config";
+import { ShortCutPayload } from "./shortcut.payload";
 
 const MAX_TRY_COUNT = 10;
 let intervalId: NodeJS.Timeout | null = null;
-const storageKey = "openedApp";
-const pathSplitted = FileSystem.documentDirectory?.split("/");
-const appPath = pathSplitted?.slice(0, pathSplitted.length - 2).join("/");
-const dataPath = `${appPath}/Library/Application Support/${appConfig.bundleIdentifier}/RCTAsyncLocalStorage_V1/appintent.json`;
 
 // why FileSystem? because AsyncStorage doesnt work in combination with the App Intent.
-// It seems like AsyncStorage caches the value and not directly writes it to the file system.
+// It seems like AsyncStorage caches the value in memory and not directly writes it to the file system.
 export const listenForShortcut = async (): Promise<{ app: string; timestamp: number }> => {
   let tryCount = 0;
   return new Promise((resolve, reject) => {
     const time = new Date().getTime();
     intervalId = setInterval(() => {
       try {
-        getOpenedApp()
+        ShortCutPayload.getPayload()
           .then((appPayload) => {
             if (appPayload && appPayload.event === "break-start") {
               clearInterval(intervalId ?? 0);
@@ -41,11 +35,9 @@ export const listenForShortcut = async (): Promise<{ app: string; timestamp: num
             }
           });
       } catch (error) {
-        console.log("maybe something went wrong");
-        console.log(JSON.stringify(error));
+        console.log(error);
       }
     }, 500);
-    console.log("interval after interval", JSON.stringify(intervalId));
   });
 };
 
@@ -53,36 +45,4 @@ export const clearShortcutListener = () => {
   if (intervalId) {
     clearInterval(intervalId);
   }
-};
-
-export const getOpenedApp = async (): Promise<{ app: string; timestamp: string; event: string } | null> => {
-  const string = await FileSystem.readAsStringAsync(dataPath);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const manifest = JSON.parse(string);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const openedAppPayload = manifest[storageKey] as string | undefined;
-  if (openedAppPayload) {
-    const [openedApp, timestamp, event] = openedAppPayload.split("_") as [string, string, string];
-    return { app: openedApp, timestamp, event };
-  } else {
-    return null;
-  }
-};
-
-export const updateOpenedApp = async (app: string, event: string) => {
-  const string = await FileSystem.readAsStringAsync(dataPath);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const manifest = JSON.parse(string);
-  const withoutApp = manifest as Record<string, unknown>;
-  withoutApp.openedApp = `${app}_${Date.now()}_${event}`;
-  await FileSystem.writeAsStringAsync(dataPath, JSON.stringify(withoutApp));
-};
-
-export const clearOpenedApp = async () => {
-  const string = await FileSystem.readAsStringAsync(dataPath);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const manifest = JSON.parse(string);
-  const withoutApp = manifest as Record<string, unknown>;
-  delete withoutApp.openedApp;
-  await FileSystem.writeAsStringAsync(dataPath, JSON.stringify(withoutApp));
 };

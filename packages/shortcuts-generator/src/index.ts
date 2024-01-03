@@ -23,7 +23,13 @@ const generateShortcuts = async () => {
   );
 };
 
+if (os.platform() !== "darwin") {
+  console.error("ERROR: shortcut generation stopped because you are not on macOS. Signing shortcuts requires macOS.");
+  process.exit(0);
+}
+
 const time = new Date().getTime();
+
 void generateShortcuts().then(() => {
   console.log(`took ${new Date().getTime() - time}ms`);
 });

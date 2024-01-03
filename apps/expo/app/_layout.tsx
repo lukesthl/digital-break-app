@@ -8,7 +8,8 @@ import { TamaguiProvider, useTheme as useThemeTamagui } from "tamagui";
 import "../data/logger";
 
 import { ThemeProvider, useTheme } from "../components/theme-provider";
-import { clearOpenedApp, clearShortcutListener, listenForShortcut } from "../data/shortcut.listener";
+import { clearShortcutListener, listenForShortcut } from "../data/shortcut.listener";
+import { ShortCutPayload } from "../data/shortcut.payload";
 import config from "../tamagui.config";
 
 export { ErrorBoundary } from "expo-router";
@@ -58,7 +59,7 @@ function RootLayoutNav() {
         console.log("App has come to the foreground!");
       } else if (appState.current.match(/active/) && nextAppState === "background") {
         clearShortcutListener();
-        void clearOpenedApp();
+        void ShortCutPayload.clear();
         console.log("App has come to the background!");
       }
       appState.current = nextAppState;

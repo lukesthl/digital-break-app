@@ -30,7 +30,7 @@ const Break = observer(() => {
       setLoaded(true);
     });
     void OverviewStore.init();
-  }, [loaded, searchParams.appShortcutName]);
+  }, [loaded, searchParams.appShortcutName, searchParams.timestamp]);
 
   const animationProgress = useRef(new Animated.Value(0));
   const selectedApp = BreakStore.app;
