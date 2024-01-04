@@ -12,8 +12,7 @@ const BreakLayout = observer(() => {
       <Stack.Screen
         name="index"
         options={{
-          title: "Instructions",
-          presentation: "modal",
+          title: "Select App",
           headerRight: () => {
             return (
               <Button
@@ -22,6 +21,33 @@ const BreakLayout = observer(() => {
                   borderWidth: 0,
                 }}
                 onPress={() => {
+                  router.back();
+                }}
+                borderWidth={0}
+                size="$4"
+                backgroundColor={"transparent"}
+              >
+                <SizableText color="$text11" size="$4">
+                  Skip
+                </SizableText>
+              </Button>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="steps"
+        options={{
+          title: "Instructions",
+          headerRight: () => {
+            return (
+              <Button
+                pressStyle={{
+                  backgroundColor: "transparent",
+                  borderWidth: 0,
+                }}
+                onPress={() => {
+                  router.back();
                   router.back();
                 }}
                 borderWidth={0}

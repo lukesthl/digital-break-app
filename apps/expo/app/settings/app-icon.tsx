@@ -48,7 +48,7 @@ const AppIcon = () => {
                 pressTheme
                 icon={
                   <View backgroundColor="$gray5" borderRadius={"$3"} padding="$2">
-                    <Image source={icon.source} style={{ width: 36, height: 36 }} />
+                    <Image source={icon.source} style={{ width: 36, height: 36 }} borderRadius={"$3"} />
                   </View>
                 }
                 onPress={() => {

@@ -19,12 +19,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     supportsTablet: true,
     bundleIdentifier: "com.lukesthl.digitalbreak",
   },
-  android: {
-    adaptiveIcon: {
-      foregroundImage: "./assets/images/adaptive-icon.png",
-      backgroundColor: "#ffffff",
-    },
-  },
   web: {
     bundler: "metro",
     // output: 'static',

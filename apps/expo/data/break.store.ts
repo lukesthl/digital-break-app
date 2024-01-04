@@ -60,7 +60,9 @@ export class BreakStoreSingleton {
     await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-reopen" });
     await ShortCutPayload.update(this.app.key, "app-reopen");
     await new Promise((resolve) => setTimeout(resolve, 500)); // app intent isnt fast enough
-    await Linking.openURL(deepLinks[this.app.key as keyof typeof deepLinks]);
+    await Linking.openURL(deepLinks[this.app.key as keyof typeof deepLinks]).catch(() => {
+      throw new Error("Failed to open app. Are you sure it's installed?");
+    });
     router.replace("/");
   }
 

@@ -50,7 +50,7 @@ export class Storage<
     const time = Date.now();
     const item = await this.getAll();
     if (!item.find((a) => a.id === updateItem.id)) {
-      throw new Error("Itme not found");
+      throw new Error("item not found");
     }
     const filteredItems = item.filter((a) => a.id !== updateItem.id);
     filteredItems.push(updateItem);

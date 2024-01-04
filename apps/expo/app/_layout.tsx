@@ -25,7 +25,6 @@ export default function RootLayout() {
     SatoshiBlack: require("../assets/fonts/satoshi/Satoshi-Black.otf"),
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
   }, [error]);

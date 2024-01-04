@@ -42,7 +42,6 @@
     "@tamagui/shorthands": "^1.79.12",
     "@tamagui/theme-base": "^1.79.12",
     "@tamagui/themes": "^1.79.12",
-    "@tamagui/toast": "^1.79.12",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "dayjs": "^1.11.10",
     "expo": "49.0.21",

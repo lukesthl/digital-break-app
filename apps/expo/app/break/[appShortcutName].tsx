@@ -5,7 +5,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import type { AnimationObject } from "lottie-react-native";
 import LottieView from "lottie-react-native";
 import { observer } from "mobx-react-lite";
-import { Button, H3, Paragraph, View, YStack } from "tamagui";
+import { AlertDialog, Button, H3, Paragraph, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../components/container";
 import { BreakStore } from "../../data/break.store";
@@ -19,6 +19,7 @@ const floatingProgress = 0.75;
 
 const Break = observer(() => {
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [breakStatus, setBreakStatus] = useState<"running" | "finished">("finished");
   const searchParams = useLocalSearchParams<{ appShortcutName: string; timestamp: string }>();
   useEffect(() => {
@@ -73,92 +74,127 @@ const Break = observer(() => {
     return null;
   }
   return (
-    <Container scroll={false} flex={1} paddingBottom={0}>
-      <View flex={1} marginBottom={"$12"} justifyContent="center" alignItems="center">
-        <AnimatedLottieView
-          progress={animationProgress.current}
-          // eslint-disable-next-line @typescript-eslint/no-var-requires
-          source={require("../../assets/water-drop-animation.json") as AnimationObject}
-          style={{
-            height: 300,
-            marginBottom: -50,
-          }}
-        />
-        <H3
-          animation={"fadeIn"}
-          enterStyle={{
-            opacity: 0,
-          }}
-          marginTop="$5"
-          opacity={1}
-        >
-          {breakStatus === "running" ? (
-            BreakStore.getRandomBreakMessage()
-          ) : (
-            <YStack space="$1">
-              <H3 textAlign="center">{selectedApp.name}</H3>
-              <Paragraph
-                size="$5"
-                textAlign="center"
-                fontWeight={"bold"}
-                color="#797979"
-              >{`Don't break your streak!`}</Paragraph>
-              {OverviewStore.preventedByApp(selectedApp) > 0 && (
+    <>
+      <Container scroll={false} flex={1} paddingBottom={0}>
+        <View flex={1} marginBottom={"$12"} justifyContent="center" alignItems="center">
+          <AnimatedLottieView
+            progress={animationProgress.current}
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            source={require("../../assets/water-drop-animation.json") as AnimationObject}
+            style={{
+              height: 300,
+              marginBottom: -50,
+            }}
+          />
+          <H3
+            animation={"fadeIn"}
+            enterStyle={{
+              opacity: 0,
+            }}
+            marginTop="$5"
+            opacity={1}
+          >
+            {breakStatus === "running" ? (
+              BreakStore.getRandomBreakMessage()
+            ) : (
+              <YStack space="$1">
+                <H3 textAlign="center">{selectedApp.name}</H3>
                 <Paragraph
                   size="$5"
+                  textAlign="center"
                   fontWeight={"bold"}
                   color="#797979"
-                  textAlign="center"
-                >{`You have prevented yourself from opening this app ${OverviewStore.preventedByApp(
-                  selectedApp
-                )}x`}</Paragraph>
-              )}
-            </YStack>
-          )}
-        </H3>
-      </View>
-      {breakStatus === "finished" && (
-        <YStack
-          space="$2"
-          marginTop="$6"
-          animation={"fadeIn"}
-          enterStyle={{
-            opacity: 0,
-          }}
-          opacity={1}
-        >
-          {process.env.NODE_ENV === "development" && (
-            <YStack space="$2">
-              <Button onPress={() => router.replace("/overview/")}>Reset</Button>
-              <Button
-                onPress={() => {
-                  router.replace("/overview/");
-                  router.replace(`/break/${selectedApp.name}`);
-                }}
-              >
-                Restart
-              </Button>
-            </YStack>
-          )}
-          <Button
-            onPress={() => {
-              void BreakStore.exitApp();
+                >{`Don't break your streak!`}</Paragraph>
+                {OverviewStore.preventedByApp(selectedApp) > 0 && (
+                  <Paragraph
+                    size="$5"
+                    fontWeight={"bold"}
+                    color="#797979"
+                    textAlign="center"
+                  >{`You have prevented yourself from opening this app ${OverviewStore.preventedByApp(
+                    selectedApp
+                  )}x`}</Paragraph>
+                )}
+              </YStack>
+            )}
+          </H3>
+        </View>
+        {breakStatus === "finished" && (
+          <YStack
+            space="$2"
+            marginTop="$6"
+            animation={"fadeIn"}
+            enterStyle={{
+              opacity: 0,
             }}
+            opacity={1}
           >
-            {`I don't want to open ${selectedApp.name}`}
-          </Button>
-          <Button
-            onPress={() => {
-              void BreakStore.openApp();
-            }}
-            variant="outlined"
-            color="$text11"
-          >
-            {`Open ${selectedApp.name}`}
-          </Button>
-        </YStack>
-      )}
-    </Container>
+            {process.env.NODE_ENV === "development" && (
+              <YStack space="$2">
+                <Button onPress={() => router.replace("/overview/")}>Reset</Button>
+                <Button
+                  onPress={() => {
+                    router.replace("/overview/");
+                    router.replace(`/break/${selectedApp.name}`);
+                  }}
+                >
+                  Restart
+                </Button>
+              </YStack>
+            )}
+            <Button
+              onPress={() => {
+                void BreakStore.exitApp();
+              }}
+            >
+              {`I don't want to open ${selectedApp.name}`}
+            </Button>
+            <Button
+              onPress={async () => {
+                try {
+                  await BreakStore.openApp();
+                } catch (error) {
+                  console.log(error);
+                  if (error instanceof Error) {
+                    setError(error.message);
+                  } else {
+                    setError(JSON.stringify(error));
+                  }
+                }
+              }}
+              variant="outlined"
+              color="$text11"
+            >
+              {`Open ${selectedApp.name}`}
+            </Button>
+          </YStack>
+        )}
+      </Container>
+      <AlertDialog open={!!error}>
+        <AlertDialog.Portal>
+          <AlertDialog.Overlay key="overlay" />
+          <AlertDialog.Content bordered elevate key="content">
+            <YStack space>
+              <AlertDialog.Title>Error</AlertDialog.Title>
+              <AlertDialog.Description>{error}</AlertDialog.Description>
+
+              <XStack space="$3" justifyContent="flex-end">
+                <AlertDialog.Cancel>
+                  <Button
+                    onPress={() => {
+                      setError(null);
+                      router.replace("/");
+                    }}
+                  >
+                    Back
+                  </Button>
+                </AlertDialog.Cancel>
+              </XStack>
+            </YStack>
+          </AlertDialog.Content>
+        </AlertDialog.Portal>
+      </AlertDialog>
+    </>
   );
 });
 
