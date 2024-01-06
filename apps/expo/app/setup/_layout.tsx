@@ -55,7 +55,7 @@ const BreakLayout = observer(() => {
                 backgroundColor={"transparent"}
               >
                 <SizableText color="$text11" size="$4">
-                  Skip
+                  Done
                 </SizableText>
               </Button>
             );

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { SvgUri } from "react-native-svg";
 import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { observer } from "mobx-react-lite";
 import { Button, H4, Input, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
+import { AppIcon } from "../../components/app.icon";
 import { Container } from "../../components/container";
 import { ShadowCard } from "../../components/shadow.card";
-import { AppSettings } from "../../data/app.settings";
 
 const Setup = observer(() => {
   const [apps, setApps] = useState<{ key: string; name: string }[]>([]);
@@ -54,36 +53,37 @@ const Setup = observer(() => {
                     router.push(`/setup/steps?appName=${app.name}`);
                   }}
                 >
-                  <XStack space="$2" alignItems="center">
-                    <SvgUri uri={AppSettings.getIconUrl(app.key)} width={20} height={20} key={app.key} />
-                    <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
+                  <XStack space="$3" alignItems="center">
+                    <AppIcon appKey={app.key} />
+                    <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"} flexWrap="wrap" flex={1}>
                       {app.name}
                     </SizableText>
                   </XStack>
                 </ShadowCard>
               </View>
             ))}
-          {apps.filter((app) => app.name.toLowerCase().includes(search.toLowerCase())).length === 0 && (
-            <XStack space="$3" flexDirection="column" alignItems="center" flex={1}>
-              <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
-                App not found
-              </SizableText>
-              <SizableText color="$text11" fontSize={"$3"} textAlign="center" lineHeight={16}>
-                Your app is not found in our database. Please contact us to add your app.
-              </SizableText>
-              <Button
-                onPress={() => {
-                  void Linking.openURL(
-                    `mailto:luke@lukestahl.de?subject=${encodeURIComponent(
-                      `Digital Break: App Request ${search}`
-                    )}&body=${encodeURIComponent(`Please add ${search} to the app list. Thanks!`)}`
-                  );
-                }}
-              >
-                Mail us
-              </Button>
-            </XStack>
-          )}
+          {apps.length > 0 &&
+            apps.filter((app) => app.name.toLowerCase().includes(search.toLowerCase())).length === 0 && (
+              <XStack space="$3" flexDirection="column" alignItems="center" flex={1}>
+                <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
+                  App not found
+                </SizableText>
+                <SizableText color="$text11" fontSize={"$3"} textAlign="center" lineHeight={16}>
+                  Your app is not found in our database. Please contact us to add your app.
+                </SizableText>
+                <Button
+                  onPress={() => {
+                    void Linking.openURL(
+                      `mailto:luke@lukestahl.de?subject=${encodeURIComponent(
+                        `Digital Break: App Request ${search}`
+                      )}&body=${encodeURIComponent(`Please add ${search} to the app list. Thanks!`)}`
+                    );
+                  }}
+                >
+                  Mail us
+                </Button>
+              </XStack>
+            )}
         </View>
       </YStack>
     </Container>

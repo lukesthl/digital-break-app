@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
 import { H1, H2, H4, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
+import { AppIcon } from "../../../components/app.icon";
 import { Container } from "../../../components/container";
 import { Divider } from "../../../components/divider";
 import { Header } from "../../../components/header";
@@ -90,7 +91,7 @@ const Overview = observer(() => {
             >
               <XStack space="$2" justifyContent="space-between">
                 <XStack space="$2" alignItems="center">
-                  <SvgUri uri={OverviewStore.getIconUrl(app.iconKey)} width={20} height={20} />
+                  <AppIcon appKey={app.iconKey} />
                   <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
                     {app.name}
                   </SizableText>

@@ -13,11 +13,12 @@ const generateShortcuts = async () => {
   await Promise.all(
     apps.map(async (app) => {
       const shortcut = templatePlist.replace("{{appKey}}", app.key);
-      await fs.writeFile(path.join(shortcutDir, `/${app.name}.shortcut`), shortcut);
+      await fs.writeFile(path.join(shortcutDir, `/${app.name} Digital Break.shortcut`), shortcut);
       return execShellCommand(
-        `shortcuts sign -i ${path.join(shortcutDir, `/${app.name}.shortcut`.replace(/(\s+)/g, "\\$1"))} -o ${path
-          .join(shortcutDir, `/${app.name}.shortcut`)
-          .replace(/(\s+)/g, "\\$1")}`
+        `shortcuts sign -i ${path.join(
+          shortcutDir,
+          `/${app.name} Digital Break.shortcut`.replace(/(\s+)/g, "\\$1")
+        )} -o ${path.join(shortcutDir, `/${app.name} Digital Break.shortcut`).replace(/(\s+)/g, "\\$1")}`
       );
     })
   );

@@ -6,6 +6,7 @@ import { ChevronRight, Plus } from "@tamagui/lucide-icons";
 import { observer } from "mobx-react-lite";
 import { H4, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
+import { AppIcon } from "../../../components/app.icon";
 import { Container } from "../../../components/container";
 import { Header } from "../../../components/header";
 import { ShadowCard } from "../../../components/shadow.card";
@@ -48,7 +49,7 @@ const Apps = observer(() => {
                 }}
               >
                 <XStack space="$2" alignItems="center">
-                  <SvgUri uri={AppSettings.getIconUrl(app.iconKey)} width={20} height={20} />
+                  <AppIcon appKey={app.iconKey} />
                   <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
                     {app.name}
                   </SizableText>
