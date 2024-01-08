@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { SvgUri } from "react-native-svg";
 import { router } from "expo-router";
 import { AlertTriangle, Check, ChevronRight, Plus, ShieldBan } from "@tamagui/lucide-icons";
 import dayjs from "dayjs";
