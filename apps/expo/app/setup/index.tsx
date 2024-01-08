@@ -50,7 +50,7 @@ const Setup = observer(() => {
                   pressStyle={{ backgroundColor: "$grey1" }}
                   position="relative"
                   onPress={() => {
-                    router.push(`/setup/steps?appName=${app.name}`);
+                    router.push(`/setup/steps?appName=${app.name}&appKey=${app.key}`);
                   }}
                 >
                   <XStack space="$3" alignItems="center">

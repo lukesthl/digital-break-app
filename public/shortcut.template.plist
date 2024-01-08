@@ -27,7 +27,7 @@
 				<key>UUID</key>
 				<string>63E357CB-003D-4D34-B5A8-2C4EC6D73D81</string>
 				<key>appPrompt</key>
-				<string>{{appKey}}</string>
+				<string>{{appName}}</string>
 			</dict>
 		</dict>
 		<dict>

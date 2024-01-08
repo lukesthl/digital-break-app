@@ -12,7 +12,7 @@ const generateShortcuts = async () => {
   const templatePlist = await fs.readFile(templateDir, "utf-8");
   await Promise.all(
     apps.map(async (app) => {
-      const shortcut = templatePlist.replace("{{appKey}}", app.key);
+      const shortcut = templatePlist.replace("{{appName}}", app.name);
       await fs.writeFile(path.join(shortcutDir, `/${app.name} Digital Break.shortcut`), shortcut);
       return execShellCommand(
         `shortcuts sign -i ${path.join(
