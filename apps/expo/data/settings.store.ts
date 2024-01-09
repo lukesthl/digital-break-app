@@ -1,5 +1,6 @@
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { makeAutoObservable } from "mobx";
 
 import { AppStatisticsStore } from "./app.statistics";
@@ -10,8 +11,22 @@ class SettingsStoreSingleton {
 
   private appsStore = new AppsStore();
 
+  public hapticsEnabled = true;
+
   constructor() {
     makeAutoObservable(this);
+  }
+
+  public async init() {
+    const hapticsEnabled = await AsyncStorage.getItem("hapticsEnabled");
+    if (hapticsEnabled === "false") {
+      this.hapticsEnabled = false;
+    }
+  }
+
+  public async setHapticsEnabled(enabled: boolean) {
+    this.hapticsEnabled = enabled;
+    await AsyncStorage.setItem("hapticsEnabled", enabled.toString());
   }
 
   public async importData(): Promise<void> {

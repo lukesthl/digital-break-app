@@ -7,6 +7,7 @@ import * as ExpoExitApp from "../../../packages/expo-exit-app";
 import { AppStatisticsStore } from "./app.statistics";
 import type { App } from "./apps";
 import { AppsStore, deepLinks } from "./apps";
+import { SettingsStore } from "./settings.store";
 import { ShortCutPayload } from "./shortcut.payload";
 
 const isRunningInExpoGo = Constants.appOwnership === AppOwnership.Expo;
@@ -45,7 +46,7 @@ export class BreakStoreSingleton {
   }
 
   public async init({ appShortcutName, timestamp }: { appShortcutName: string; timestamp: number }) {
-    const app = await this.appsStore.getOrCreateApp({ appShortcutName });
+    const [app] = await Promise.all([this.appsStore.getOrCreateApp({ appShortcutName }), SettingsStore.init()]);
     this.app = app;
     if (timestamp !== this.lastBreakTimestamp) {
       this.lastBreakTimestamp = timestamp;

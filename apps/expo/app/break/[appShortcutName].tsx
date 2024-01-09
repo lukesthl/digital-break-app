@@ -10,6 +10,7 @@ import { AlertDialog, Button, H3, Paragraph, View, XStack, YStack } from "tamagu
 import { Container } from "../../components/container";
 import { BreakStore } from "../../data/break.store";
 import { OverviewStore } from "../../data/overview.store";
+import { SettingsStore } from "../../data/settings.store";
 
 const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
 const peakProgress = 0.65;
@@ -47,19 +48,21 @@ const Break = observer(() => {
       setBreakStatus("running");
 
       animationProgress.current.addListener(({ value }) => {
-        if (value > lastProgress + progressStep && value < peakProgress) {
-          lastProgress = value;
-          void Haptics.impactAsync(
-            value < peakProgress / 3 ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Medium
-          );
-          progressStep -= 0.002;
-        }
-        if (value > peakProgress && value > floatingProgress && value > lastProgress + progressStep) {
-          lastProgress = value;
-          void Haptics.impactAsync(
-            value > 0.8 ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Medium
-          );
-          progressStep += 0.0015;
+        if (SettingsStore.hapticsEnabled) {
+          if (value > lastProgress + progressStep && value < peakProgress) {
+            lastProgress = value;
+            void Haptics.impactAsync(
+              value < peakProgress / 3 ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Medium
+            );
+            progressStep -= 0.002;
+          }
+          if (value > peakProgress && value > floatingProgress && value > lastProgress + progressStep) {
+            lastProgress = value;
+            void Haptics.impactAsync(
+              value > 0.8 ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Medium
+            );
+            progressStep += 0.0015;
+          }
         }
         if (value === 1) {
           lastProgress = 0;
