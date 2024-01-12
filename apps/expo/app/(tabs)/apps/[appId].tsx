@@ -6,6 +6,7 @@ import {
   Adapt,
   Button,
   H4,
+  Input,
   Label,
   Paragraph,
   Popover,
@@ -198,7 +199,7 @@ const App = observer(() => {
                             <Select.Label />
                             {[1, 3, 5, 10].map((breakTime, index) => (
                               <Select.Item debug="verbose" index={index} key={breakTime} value={breakTime.toString()}>
-                                <Select.ItemText>{`Quick App Switch for ${breakTime} min`}</Select.ItemText>
+                                <Select.ItemText>{`${breakTime} min`}</Select.ItemText>
                                 <Select.ItemIndicator marginLeft="auto">
                                   <Check size={16} />
                                 </Select.ItemIndicator>
@@ -217,7 +218,39 @@ const App = observer(() => {
                 </View>
               </XStack>
               <Paragraph color="#797979" fontSize="$3" lineHeight={16}>
-                When you switch to another app and come back to this app, you will not be promted to take a break.
+                When you switch to another app and come back to this app, you won&apos;t be promted to take a break.
+              </Paragraph>
+            </YStack>
+            <YStack space="$2">
+              <XStack alignItems="center" space="$4">
+                <Label flex={1} lineHeight={20}>
+                  Daily Time Spent
+                </Label>
+                <XStack flex={2} alignItems="center" space="$3">
+                  <Input
+                    flex={2}
+                    id="dailyTimeSpent"
+                    value={(selectedApp?.settings.dailyTimeSpentMinutes ?? 0).toString()}
+                    onChangeText={(value) => {
+                      if (selectedApp) {
+                        void AppSettings.updateAppSettings({
+                          id: selectedApp.id,
+                          settings: {
+                            ...selectedApp.settings,
+                            dailyTimeSpentMinutes: parseInt(value.replace(/[^0-9]/g, "")) || 0,
+                          },
+                        });
+                      }
+                    }}
+                    keyboardType="numeric"
+                  />
+                  <Label flex={1} lineHeight={20}>
+                    minutes
+                  </Label>
+                </XStack>
+              </XStack>
+              <Paragraph color="#797979" fontSize="$3" lineHeight={16}>
+                This time is used to calculate how much time you saved by not using this app.
               </Paragraph>
             </YStack>
           </YStack>

@@ -16,8 +16,19 @@ const OverviewLayout = observer(() => {
           tabBarIcon: ({ color, focused }) => (
             <BarChart2 size={20} color={color} strokeWidth={focused ? 2.5 : undefined} style={{ marginTop: 8 }} />
           ),
-          tabBarLabel: ({ color, focused }) => (
-            <SizableText color={color} fontWeight={focused ? "bold" : undefined} lineHeight={16}>
+          tabBarLabel: ({ color, focused, position }) => (
+            <SizableText
+              color={color}
+              fontWeight={focused ? "bold" : undefined}
+              lineHeight={16}
+              {...(position === "beside-icon"
+                ? {
+                    textAlign: "center",
+                    marginLeft: 20,
+                    marginTop: "$2.5",
+                  }
+                : undefined)}
+            >
               Overview
             </SizableText>
           ),
@@ -30,8 +41,19 @@ const OverviewLayout = observer(() => {
           tabBarIcon: ({ color, focused }) => (
             <LayoutGrid size={20} color={color} strokeWidth={focused ? 2.5 : undefined} style={{ marginTop: 8 }} />
           ),
-          tabBarLabel: ({ color, focused }) => (
-            <SizableText color={color} fontWeight={focused ? "bold" : undefined} lineHeight={16}>
+          tabBarLabel: ({ color, focused, position }) => (
+            <SizableText
+              color={color}
+              fontWeight={focused ? "bold" : undefined}
+              lineHeight={16}
+              {...(position === "beside-icon"
+                ? {
+                    textAlign: "center",
+                    marginLeft: 20,
+                    marginTop: "$2.5",
+                  }
+                : undefined)}
+            >
               Apps
             </SizableText>
           ),

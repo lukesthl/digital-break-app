@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { RefreshControl } from "react-native";
 import { router } from "expo-router";
 import { AlertTriangle, Check, ChevronRight, Plus, ShieldBan } from "@tamagui/lucide-icons";
 import dayjs from "dayjs";
@@ -18,8 +19,14 @@ const Overview = observer(() => {
   useEffect(() => {
     void OverviewStore.init();
   }, []);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    void OverviewStore.init().then(() => setRefreshing(false));
+  };
   return (
-    <Container>
+    <Container refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
       <YStack space="$4">
         <Header />
         <H4 color="$text11">Overview</H4>

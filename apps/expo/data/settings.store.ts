@@ -11,7 +11,7 @@ class SettingsStoreSingleton {
 
   private appsStore = new AppsStore();
 
-  public hapticsEnabled = true;
+  private _hapticsEnabled = true;
 
   constructor() {
     makeAutoObservable(this);
@@ -112,6 +112,13 @@ class SettingsStoreSingleton {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  public get hapticsEnabled() {
+    return this._hapticsEnabled;
+  }
+  public set hapticsEnabled(value) {
+    this._hapticsEnabled = value;
   }
 }
 

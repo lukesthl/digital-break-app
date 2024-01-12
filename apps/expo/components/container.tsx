@@ -7,7 +7,10 @@ export const Container = ({
   children,
   scroll = true,
   ...viewProps
-}: { children: React.ReactNode } & React.ComponentProps<typeof View> & { scroll?: boolean }) => {
+}: { children: React.ReactNode } & React.ComponentProps<typeof View> & {
+    scroll?: boolean;
+    refreshControl?: React.ComponentProps<typeof ScrollView>["refreshControl"];
+  }) => {
   const insets = useSafeAreaInsets();
 
   const tabBarHeight = useContext(BottomTabBarHeightContext);
@@ -17,6 +20,9 @@ export const Container = ({
       paddingTop={insets.top}
       paddingBottom={tabBarHeight ?? insets.bottom}
       flex={1}
+      minWidth={600}
+      maxWidth={600}
+      marginHorizontal="auto"
       {...(viewProps as React.ComponentProps<typeof ScrollView>)}
     >
       <View flex={1} paddingBottom={tabBarHeight ?? insets.bottom}>
@@ -29,6 +35,8 @@ export const Container = ({
       paddingTop={insets.top}
       paddingBottom={tabBarHeight ?? insets.bottom}
       flex={1}
+      marginHorizontal="auto"
+      maxWidth={600}
       {...viewProps}
     >
       <View flex={1} paddingBottom={tabBarHeight ?? insets.bottom}>

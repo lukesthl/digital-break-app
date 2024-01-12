@@ -1,8 +1,8 @@
-import { ChevronRight, Plus } from "@tamagui/lucide-icons";
-import { router } from "expo-router";
-import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { RefreshControl } from "react-native";
+import { router } from "expo-router";
+import { ChevronRight, Plus } from "@tamagui/lucide-icons";
+import { observer } from "mobx-react-lite";
 import { H4, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
 
 import { AppIcon } from "../../../components/app.icon";
