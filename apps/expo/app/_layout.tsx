@@ -58,7 +58,8 @@ function RootLayoutNav() {
         console.log("App has come to the foreground!");
       } else if (appState.current.match(/active/) && nextAppState === "background") {
         clearShortcutListener();
-        void ShortCutPayload.clear();
+        // void ShortCutPayload.clear();
+        console.log("this would clear the shortcut listener");
         console.log("App has come to the background!");
       }
       appState.current = nextAppState;

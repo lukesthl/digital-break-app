@@ -20,9 +20,11 @@ export const Container = ({
       paddingTop={insets.top}
       paddingBottom={tabBarHeight ?? insets.bottom}
       flex={1}
-      minWidth={600}
-      maxWidth={600}
-      marginHorizontal="auto"
+      $gtSm={{
+        minWidth: 600,
+        marginHorizontal: "auto",
+        maxWidth: 600,
+      }}
       {...(viewProps as React.ComponentProps<typeof ScrollView>)}
     >
       <View flex={1} paddingBottom={tabBarHeight ?? insets.bottom}>
@@ -35,8 +37,10 @@ export const Container = ({
       paddingTop={insets.top}
       paddingBottom={tabBarHeight ?? insets.bottom}
       flex={1}
-      marginHorizontal="auto"
-      maxWidth={600}
+      $gtSm={{
+        marginHorizontal: "auto",
+        maxWidth: 600,
+      }}
       {...viewProps}
     >
       <View flex={1} paddingBottom={tabBarHeight ?? insets.bottom}>
