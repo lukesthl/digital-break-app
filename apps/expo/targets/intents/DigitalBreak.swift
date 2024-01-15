@@ -22,7 +22,15 @@ struct Manifest: Decodable {
 }
 
 struct AppIntentPayload: Codable {
-  var openedApp: String?
+  var openedApp: String
+  var timestamp: Double
+  var event: Event
+}
+
+enum Event: String, Codable {
+  case breakStart = "break-start"
+  case appReopen = "app-reopen"
+  case breakSkip = "break-skip"
 }
 
 typealias AppInfoList = [String: AppInfo]
@@ -156,66 +164,54 @@ struct DigitalBreak: AppIntent {
   func perform() async throws -> some IntentResult & ReturnsValue<Bool> {
     var appIntentPayload = getAppIntentPayload()
     var appInfo = fetchAppItem(with: appPrompt!)
-    var canOpenApp = true
+
+    var isActive = true
+    var outOfTimeRange = false
     do {
-      if appIntentPayload?.openedApp != nil && appInfo != nil {
-        canOpenApp = appInfo!.active
-        if canOpenApp,
-          let payload = appIntentPayload,
-          let openedApp = payload.openedApp,
-          !openedApp.contains("_app-reopen")
-        {
-          let lastOpen = appIntentPayload?.openedApp?.split(separator: "_")
-          let lastOpenTime = Double(lastOpen![1])!
-          let quickAppSwitchDurationAsTimestamp =
-            Double(appInfo!.settings.quickAppSwitchDurationMinutes * 60)
-          let timeSinceLastOpen = Date().timeIntervalSince1970 - lastOpenTime
-          let timeSinceLastOpenMinutes = timeSinceLastOpen / 60
-          print("timeSinceLastOpen", timeSinceLastOpenMinutes)
-          canOpenApp =
-            Double(appInfo?.settings.quickAppSwitchDurationMinutes ?? 0)
-            < Double(
-              timeSinceLastOpenMinutes)
-        }
+      if appInfo != nil {
+        isActive = appInfo!.active
+
+        let lastOpen = appIntentPayload!.timestamp
+        let quickAppSwitchDurationAsTimestamp =
+          Double(appInfo!.settings.quickAppSwitchDurationMinutes * 60)
+        let timeSinceLastOpen = Date().timeIntervalSince1970 - lastOpen
+        let timeSinceLastOpenMinutes = timeSinceLastOpen / 60
+        print("timeSinceLastOpen", timeSinceLastOpenMinutes)
+        outOfTimeRange =
+          Double(appInfo?.settings.quickAppSwitchDurationMinutes ?? 0)
+          <= Double(
+            timeSinceLastOpenMinutes)
       }
     } catch {
       print("Error while fetching apps: \(error)")
     }
-    if canOpenApp {
-      if let payload = appIntentPayload,
-        let openedApp = payload.openedApp,
-        openedApp.contains("_app-reopen")
-      {
-        appIntentPayload?.openedApp = nil
-        print("dont open app because it was just reopened")
-      } else {
-        let app = appPrompt
-        appIntentPayload = AppIntentPayload(
-          openedApp: "\(app!)_\(Date().timeIntervalSince1970)_break-start")
-        print("open app")
-      }
-      if appIntentPayload != nil {
-        let (storageDirectory, storageFile) = getStorageDirAndFile(fileName: "appintent.json")
-        let fileManager = FileManager.default
-        do {
-          let jsonEncoder = JSONEncoder()
-          let jsonData = try jsonEncoder.encode(appIntentPayload)
-          if !fileManager.fileExists(atPath: storageDirectory.path) {
-            try fileManager.createDirectory(
-              atPath: storageDirectory.path, withIntermediateDirectories: true, attributes: nil)
-          }
-          let stringified = String(data: jsonData, encoding: .utf8)!
-          try stringified.write(to: storageFile, atomically: true, encoding: .utf8)
-        } catch {
-          print(error)
-        }
-      }
-    } else {
-      print("dont open app because settings disallow it")
+    if appIntentPayload != nil && isActive && appIntentPayload?.event == Event.breakStart {
+      return .result(
+        value: true)
+    }else if (appIntentPayload == nil) {
+      appIntentPayload = AppIntentPayload(
+        openedApp: appPrompt!, timestamp: Date().timeIntervalSince1970, event: Event.breakStart)
+    }else {
+      appIntentPayload?.event = Event.breakSkip
     }
-
+    let (storageDirectory, storageFile) = getStorageDirAndFile(fileName: "appintent.json")
+    let fileManager = FileManager.default
+    do {
+      let jsonEncoder = JSONEncoder()
+      let jsonData = try jsonEncoder.encode(appIntentPayload)
+      if !fileManager.fileExists(atPath: storageDirectory.path) {
+        try fileManager.createDirectory(
+          atPath: storageDirectory.path, withIntermediateDirectories: true, attributes: nil)
+      }
+      let stringified = String(data: jsonData, encoding: .utf8)!
+      try stringified.write(to: storageFile, atomically: true, encoding: .utf8)
+    } catch {
+      print(error)
+    }
+      
     return .result(
-      value: canOpenApp && appIntentPayload?.openedApp != nil)
+      value: appIntentPayload?.event != Event.breakSkip
+)
   }
   func asString(dict: [String: String]) -> String {
     do {

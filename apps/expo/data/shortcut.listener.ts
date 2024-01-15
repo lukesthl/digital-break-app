@@ -16,9 +16,9 @@ export const listenForShortcut = async (): Promise<{ app: string; timestamp: num
             if (appPayload && appPayload.event === "break-start") {
               clearInterval(intervalId ?? 0);
               console.log(`took ${new Date().getTime() - time}ms`);
-              console.log(`openedApp: ${appPayload.app}`);
+              console.log(`openedApp: ${appPayload.openedApp}`);
 
-              resolve({ app: appPayload.app, timestamp: parseInt(appPayload.timestamp, 10) });
+              resolve({ app: appPayload.openedApp, timestamp: appPayload.timestamp });
             } else {
               throw new Error("no app");
             }

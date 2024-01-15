@@ -9,7 +9,6 @@ import "../data/logger";
 
 import { ThemeProvider, useTheme } from "../components/theme-provider";
 import { clearShortcutListener, listenForShortcut } from "../data/shortcut.listener";
-import { ShortCutPayload } from "../data/shortcut.payload";
 import config from "../tamagui.config";
 
 export { ErrorBoundary } from "expo-router";
