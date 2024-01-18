@@ -168,7 +168,7 @@ struct DigitalBreak: AppIntent {
     var isActive = true
     var outOfTimeRange = false
     do {
-      if appInfo != nil {
+      if appInfo != nil && appIntentPayload != nil {
         isActive = appInfo!.active
 
         let lastOpen = appIntentPayload!.timestamp
@@ -177,6 +177,7 @@ struct DigitalBreak: AppIntent {
         let timeSinceLastOpen = Date().timeIntervalSince1970 - lastOpen
         let timeSinceLastOpenMinutes = timeSinceLastOpen / 60
         print("timeSinceLastOpen", timeSinceLastOpenMinutes)
+        print(appInfo?.settings)
         outOfTimeRange =
           Double(appInfo?.settings.quickAppSwitchDurationMinutes ?? 0)
           <= Double(
@@ -185,10 +186,12 @@ struct DigitalBreak: AppIntent {
     } catch {
       print("Error while fetching apps: \(error)")
     }
-    if appIntentPayload != nil && isActive && appIntentPayload?.event == Event.breakStart {
+    print("appintentpayload", appIntentPayload)
+    print("outoftimerange",outOfTimeRange)
+    if appIntentPayload != nil && isActive && appIntentPayload?.event == Event.breakStart && outOfTimeRange {
       return .result(
         value: true)
-    }else if (appIntentPayload == nil) {
+    }else if (appIntentPayload == nil || outOfTimeRange) {
       appIntentPayload = AppIntentPayload(
         openedApp: appPrompt!, timestamp: Date().timeIntervalSince1970, event: Event.breakStart)
     }else {
@@ -208,7 +211,7 @@ struct DigitalBreak: AppIntent {
     } catch {
       print(error)
     }
-      
+    print("after", appIntentPayload?.event)
     return .result(
       value: appIntentPayload?.event != Event.breakSkip
 )

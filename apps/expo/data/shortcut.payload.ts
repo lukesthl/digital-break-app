@@ -28,12 +28,13 @@ class ShortCutPayloadSingleton {
     }
   };
 
-  public update = async (app: string, event: string) => {
+  public update = async (app: string, event: IPayload["event"]) => {
     const appIntentPayload = await this.loadAppIntentPayload();
     if (!appIntentPayload) {
       return;
     }
-    appIntentPayload.openedApp = `${app}_${Date.now()}_${event}`;
+    appIntentPayload.openedApp = app;
+    appIntentPayload.event = event;
     await FileSystem.writeAsStringAsync(this.dataPath, JSON.stringify(appIntentPayload));
   };
 
