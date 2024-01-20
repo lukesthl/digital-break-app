@@ -1,4 +1,4 @@
-name: Build App
+name: 🚀 Build and Deploy App
 on:
   workflow_run:
     workflows: ["Lint"]
@@ -28,12 +28,12 @@ on:
           - preview
           - production
 env:
-  platform: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.platform || github.env.DEFAULT_PLATFORM }}
-  profile: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.profile || github.env.DEFAULT_PROFILE }}
+  platform: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.platform || vars.DEFAULT_PLATFORM }}
+  profile: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.profile ||vars.DEFAULT_PROFILE }}
 jobs:
   build:
     name: 🚀 Build and Deploy App
-    runs-on: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.os != '' && github.event.inputs.os || github.env.DEFAULT_OS }}
+    runs-on: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.os ||vars.DEFAULT_OS }}
     strategy:
       matrix:
         node: [18.x]
