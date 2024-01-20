@@ -80,4 +80,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: app-${{ github.event.inputs.platform }}
-          path: /apps/expo/app-build
+          path: ${{ github.workspace }}/apps/expo/app-build
