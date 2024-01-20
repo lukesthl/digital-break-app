@@ -187,14 +187,16 @@ struct DigitalBreak: AppIntent {
       print("Error while fetching apps: \(error)")
     }
     print("appintentpayload", appIntentPayload)
-    print("outoftimerange",outOfTimeRange)
-    if appIntentPayload != nil && isActive && appIntentPayload?.event == Event.breakStart && outOfTimeRange {
+    print("outoftimerange", outOfTimeRange)
+    if appIntentPayload != nil && isActive && appIntentPayload?.event == Event.breakStart
+      && outOfTimeRange
+    {
       return .result(
         value: true)
-    }else if (appIntentPayload == nil || outOfTimeRange) {
+    } else if appIntentPayload == nil || outOfTimeRange || appInfo == nil {
       appIntentPayload = AppIntentPayload(
         openedApp: appPrompt!, timestamp: Date().timeIntervalSince1970, event: Event.breakStart)
-    }else {
+    } else {
       appIntentPayload?.event = Event.breakSkip
     }
     let (storageDirectory, storageFile) = getStorageDirAndFile(fileName: "appintent.json")
@@ -214,7 +216,7 @@ struct DigitalBreak: AppIntent {
     print("after", appIntentPayload?.event)
     return .result(
       value: appIntentPayload?.event != Event.breakSkip
-)
+    )
   }
   func asString(dict: [String: String]) -> String {
     do {

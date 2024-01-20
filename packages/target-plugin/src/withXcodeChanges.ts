@@ -1192,7 +1192,7 @@ async function applyXcodeChanges(
       : props.type === "watch"
         ? "Embed Watch Content"
         : props.type === "appintent"
-          ? "Embed ExtensionKit Extensions"
+          ? undefined
           : "Embed Foundation Extensions";
   // Could exist from a Share Extension
   const copyFilesBuildPhase = mainAppTarget.props.buildPhases.find((phase) => {
@@ -1205,14 +1205,16 @@ async function applyXcodeChanges(
   if (copyFilesBuildPhase) {
     // Assume that this is the first run if there is no matching target that we identified from a previous run.
     copyFilesBuildPhase.props.files.push(alphaExtensionAppexBf);
-  } else {
+  } else if (props.type !== "appintent") {
     const dstPath = ({ clip: "AppClips", watch: "Watch" } as any)[props.type];
     if (dstPath) {
       mainAppTarget.createBuildPhase(PBXCopyFilesBuildPhase, {
         dstPath:
-          props.type === "appintent"
-            ? "$(EXTENSIONS_FOLDER_PATH)"
-            : "$(CONTENTS_FOLDER_PATH)/" + dstPath,
+          // props.type === "appintent"
+          // ?
+          // "$(EXTENSIONS_FOLDER_PATH)"
+          //:
+          "$(CONTENTS_FOLDER_PATH)/" + dstPath,
         dstSubfolderSpec: 16,
         buildActionMask: 2147483647,
         files: [alphaExtensionAppexBf],
