@@ -33,7 +33,7 @@ env:
 jobs:
   build:
     name: 🚀 Build and Deploy App
-    runs-on: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.os || github.env.DEFAULT_OS }}
+    runs-on: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.os != '' && github.event.inputs.os || github.env.DEFAULT_OS }}
     strategy:
       matrix:
         node: [18.x]
