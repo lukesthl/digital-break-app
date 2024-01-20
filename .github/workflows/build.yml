@@ -90,13 +90,12 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: app-${{ env.platform }}-${{ env.profile }}.${{ env.platform == 'android' && 'apk' || 'ipa' }}
-          path: ${{ github.workspace }}/apps/expo/app-build
+          path: ${{ github.workspace }}/apps/expo/app-${{ env.platform }}-${{ env.profile }}.${{ env.platform == 'android' && 'apk' || 'ipa' }}
 
       - name: 🚀 Submit to Store
         working-directory: apps/expo
         if: env.profile == 'production'
         run: |
-          eas submit \ 
-            --platform=${{ env.platform }} \ 
+          eas submit --platform=${{ env.platform }} \ 
             --non-interactive \
-            --path=./app-build
+            --path=./app-${{ env.platform }}-${{ env.profile }}.${{ env.platform == 'android' && 'apk' || 'ipa' }}
