@@ -1,5 +1,11 @@
 name: Build App
 on:
+  workflow_run:
+    workflows: ["Lint"]
+    branches: [main]
+    types:
+      - completed
+
   workflow_dispatch:
     inputs:
       os:
@@ -21,9 +27,13 @@ on:
           - development
           - preview
           - production
+env:
+  platform: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.platform || github.env.DEFAULT_PLATFORM }}
+  profile: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.profile || github.env.DEFAULT_PROFILE }}
 jobs:
   build:
-    runs-on: ${{ github.event.inputs.os }}
+    name: 🚀 Build and Deploy App
+    runs-on: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.os || github.env.DEFAULT_OS }}
     strategy:
       matrix:
         node: [18.x]
@@ -73,11 +83,20 @@ jobs:
           eas build --local \
             --non-interactive \
             --output=./app-build \
-            --platform=${{ github.event.inputs.platform }} \
-            --profile=${{ github.event.inputs.profile }}
+            --platform=${{ env.platform }} \
+            --profile=${{ env.profile }}
 
       - name: 📱 Upload binary
         uses: actions/upload-artifact@v2
         with:
-          name: app-${{ github.event.inputs.platform }}
+          name: app-${{ env.platform }}-${{ env.profile }}.${{ env.platform == 'android' && 'apk' || 'ipa' }}
           path: ${{ github.workspace }}/apps/expo/app-build
+
+      - name: 🚀 Submit to Store
+        working-directory: apps/expo
+        if: env.profile == 'production'
+        run: |
+          eas submit \ 
+            --platform=${{ env.platform }} \ 
+            --non-interactive \
+            --path=./app-build
