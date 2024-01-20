@@ -31,14 +31,13 @@ jobs:
       - name: 🏗 Setup repo
         uses: actions/checkout@v2
 
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v2
+      - name: 🏗 Install Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
-          cache: yarn
+          node-version: 20
 
       - uses: pnpm/action-setup@v2
-        name: Install pnpm
+        name: 🏗 Install pnpm
         with:
           version: 8
           run_install: false
