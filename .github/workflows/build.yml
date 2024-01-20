@@ -37,13 +37,6 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: yarn
 
-      - name: 🏗 Setup Expo and EAS
-        uses: expo/expo-github-action@v7
-        with:
-          token: ${{ secrets.EXPO_TOKEN }}
-          expo-version: latest
-          eas-version: latest
-
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
