@@ -28,7 +28,7 @@ const Setup = observer(() => {
   const [error, setError] = useState<string | null>(null);
   return (
     <PortalProvider>
-      <Container paddingVertical={"$4"}>
+      <Container paddingVertical={"$4"} position="relative">
         <YStack space="$4">
           <>
             <H4 color="$text11">Tutorial</H4>
@@ -42,7 +42,7 @@ const Setup = observer(() => {
                 backgroundColor: "#FF0000",
               }}
               icon={<Youtube size={20} />}
-              onPress={() => router.push("/setup/video")}
+              onPress={() => router.push(`/setup/video?appKey=${searchParams.appKey}`)}
             >
               Video Tutorial
             </Button>
@@ -297,23 +297,6 @@ const Setup = observer(() => {
               </View>
             </XStack>
           </ShadowCard>
-          <Button
-            onPress={() => {
-              void Linking.openURL(deepLinks[searchParams.appKey as keyof typeof deepLinks])
-                .then(() => {
-                  void router.replace("/overview");
-                })
-                .catch(() => {
-                  setError("Failed to open app. Are you sure it's installed?");
-                });
-            }}
-            marginBottom="$4"
-            backgroundColor={"$primary9"}
-            paddingHorizontal={"$3"}
-            paddingVertical={"$2"}
-          >
-            <Text fontWeight={"600"}>Test now 🚀</Text>
-          </Button>
         </YStack>
       </Container>
       <AlertDialog open={!!error}>
@@ -338,6 +321,33 @@ const Setup = observer(() => {
           </AlertDialog.Content>
         </AlertDialog.Portal>
       </AlertDialog>
+      <View
+        position="absolute"
+        bottom={0}
+        paddingHorizontal="$6"
+        left={0}
+        right={0}
+        backgroundColor={"$grey1"}
+        paddingVertical="$3"
+      >
+        <Button
+          onPress={() => {
+            void Linking.openURL(deepLinks[searchParams.appKey as keyof typeof deepLinks])
+              .then(() => {
+                void router.replace("/overview");
+              })
+              .catch(() => {
+                setError("Failed to open app. Are you sure it's installed?");
+              });
+          }}
+          marginBottom="$4"
+          backgroundColor={"$primary9"}
+          paddingHorizontal={"$3"}
+          paddingVertical={"$2"}
+        >
+          <Text fontWeight={"600"}>Test now 🚀</Text>
+        </Button>
+      </View>
     </PortalProvider>
   );
 });
