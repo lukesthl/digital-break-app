@@ -18,7 +18,9 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "autoIncrement": true
+    }
   },
   "submit": {
     "production": {
@@ -26,8 +28,7 @@
         "appleId": "stahl.luke@web.de",
         "ascAppId": "6474795966",
         "appleTeamId": "3X5J8LXMDM"
-      },
-      "autoIncrement": true
+      }
     }
   }
 }
