@@ -62,6 +62,12 @@ const BreakLayout = observer(() => {
           },
         }}
       />
+      <Stack.Screen
+        name="video"
+        options={{
+          title: "Video Instructions",
+        }}
+      />
     </Stack>
   );
 });

@@ -45,6 +45,7 @@
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "dayjs": "^1.11.10",
     "expo": "49.0.21",
+    "expo-av": "~13.4.1",
     "expo-blur": "~12.6.0",
     "expo-build-properties": "~0.8.3",
     "expo-crypto": "~12.6.0",

@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as Linking from "expo-linking";
 import { router, useLocalSearchParams } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
-import { ExternalLink, Layers2 } from "@tamagui/lucide-icons";
+import { ExternalLink, Layers2, Youtube } from "@tamagui/lucide-icons";
 import { observer } from "mobx-react-lite";
 import {
   AlertDialog,
@@ -34,6 +34,19 @@ const Setup = observer(() => {
             <H4 color="$text11">Tutorial</H4>
             <Paragraph color="$text11">Step by step instructions to get you started.</Paragraph>
           </>
+          <ShadowCard>
+            <Button
+              height={50}
+              backgroundColor={"#FF3131"}
+              pressStyle={{
+                backgroundColor: "#FF0000",
+              }}
+              icon={<Youtube size={20} />}
+              onPress={() => router.push("/setup/video")}
+            >
+              Video Tutorial
+            </Button>
+          </ShadowCard>
           <ShadowCard>
             <XStack space="$3" alignItems={"flex-start"}>
               <View

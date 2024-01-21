@@ -105,6 +105,9 @@ importers:
       expo:
         specifier: 49.0.21
         version: 49.0.21(@babel/core@7.23.6)
+      expo-av:
+        specifier: ~13.4.1
+        version: 13.4.1(expo@49.0.21)
       expo-blur:
         specifier: ~12.6.0
         version: 12.6.0(expo@49.0.21)
@@ -143,7 +146,7 @@ importers:
         version: 14.5.0(expo@49.0.21)
       expo-router:
         specifier: 2.0.14
-        version: 2.0.14(expo-constants@14.4.2)(expo-linking@6.0.0)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.7.1)(expo@49.0.21)(metro@0.80.2)(react-dom@18.2.0)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.1)(react-native-screens@3.29.0)(react-native@0.72.7)(react@18.2.0)
+        version: 2.0.14(expo-constants@14.5.1)(expo-linking@6.0.0)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.7.1)(expo@49.0.21)(metro@0.80.2)(react-dom@18.2.0)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.1)(react-native-screens@3.29.0)(react-native@0.72.7)(react@18.2.0)
       expo-sharing:
         specifier: ~11.5.0
         version: 11.5.0(expo@49.0.21)
@@ -8619,6 +8622,14 @@ packages:
       - supports-color
     dev: false
 
+  /expo-av@13.4.1(expo@49.0.21):
+    resolution: {integrity: sha512-0K8QEFzZeNGrppzYUs8wOtjOyPPkxzlVYbEHM6WzIQOG1uYYNOJkJB3aQHVFXHmz+AzoHwMrUjcschofwaMNeg==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.21(@babel/core@7.23.6)
+    dev: false
+
   /expo-blur@12.6.0(expo@49.0.21):
     resolution: {integrity: sha512-yrZYu4mQX4ZJtSrjNVMuB9kCMB8Xerk5Zn5iES6ojmGAk+yxJ/jdyhaUVqbpaA8LBmspdKgQz2dW8+9wa8dSAg==}
     peerDependencies:
@@ -8945,7 +8956,7 @@ packages:
       compare-versions: 3.6.0
       invariant: 2.2.4
 
-  /expo-router@2.0.14(expo-constants@14.4.2)(expo-linking@6.0.0)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.7.1)(expo@49.0.21)(metro@0.80.2)(react-dom@18.2.0)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.1)(react-native-screens@3.29.0)(react-native@0.72.7)(react@18.2.0):
+  /expo-router@2.0.14(expo-constants@14.5.1)(expo-linking@6.0.0)(expo-modules-autolinking@1.5.1)(expo-status-bar@1.7.1)(expo@49.0.21)(metro@0.80.2)(react-dom@18.2.0)(react-native-gesture-handler@2.14.0)(react-native-reanimated@3.6.1)(react-native-safe-area-context@4.8.1)(react-native-screens@3.29.0)(react-native@0.72.7)(react@18.2.0):
     resolution: {integrity: sha512-F5dP4WMe+zQLzlGSbC+NT9/67FGgwmUCJuPGD4BkK0eRt0uga+y53vQ59m5MCOebqE0N9Ukr/Jz8Num16iGqZA==}
     peerDependencies:
       '@react-navigation/drawer': ^6.5.8
@@ -8974,7 +8985,7 @@ packages:
       '@react-navigation/native': 6.1.9(react-native@0.72.7)(react@18.2.0)
       '@react-navigation/native-stack': 6.9.17(@react-navigation/native@6.1.9)(react-native-safe-area-context@4.8.1)(react-native-screens@3.29.0)(react-native@0.72.7)(react@18.2.0)
       expo: 49.0.21(@babel/core@7.23.6)
-      expo-constants: 14.4.2(expo@49.0.21)
+      expo-constants: 14.5.1(expo@49.0.21)
       expo-head: 0.0.20(expo@49.0.21)(react-dom@18.2.0)(react-native@0.72.7)(react@18.2.0)
       expo-linking: 6.0.0(expo@49.0.21)
       expo-splash-screen: 0.20.5(expo-modules-autolinking@1.5.1)(expo@49.0.21)
