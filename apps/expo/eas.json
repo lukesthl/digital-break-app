@@ -1,7 +1,8 @@
 {
   "cli": {
     "version": ">= 5.2.0",
-    "promptToConfigurePushNotifications": false
+    "promptToConfigurePushNotifications": false,
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -25,7 +26,8 @@
         "appleId": "stahl.luke@web.de",
         "ascAppId": "6474795966",
         "appleTeamId": "3X5J8LXMDM"
-      }
+      },
+      "autoIncrement": true
     }
   }
 }
