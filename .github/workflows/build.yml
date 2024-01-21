@@ -58,14 +58,29 @@ jobs:
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - uses: actions/cache@v3
-        name: Setup pnpm cache
+        name: 🏎️ Setup pnpm cache
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
+      - name: 🏎️ Cache Pods
+        if: runner.os == 'macOS'
+        uses: actions/cache@v3
+        id: pods-cache
+        with:
+          path: ./apps/expo/ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('apps/expo/ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: 🏎️ Setup Ruby + Cache Gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: 🛠️ Install dependencies
         run: pnpm install
 
       - name: 🏗 Setup EAS
