@@ -164,11 +164,10 @@ struct DigitalBreak: AppIntent {
   func perform() async throws -> some IntentResult & ReturnsValue<Bool> {
     var appIntentPayload = getAppIntentPayload()
     var appInfo = fetchAppItem(with: appPrompt!)
-
     var isActive = true
     var outOfTimeRange = false
 
-    if appIntentPayload?.openedApp != appPrompt {
+    if appIntentPayload?.openedApp.lowercased() != appPrompt?.lowercased() {
       appIntentPayload = nil
     }
     do {
@@ -197,7 +196,7 @@ struct DigitalBreak: AppIntent {
     {
       return .result(
         value: true)
-    } else if appIntentPayload == nil || outOfTimeRange || appInfo == nil {
+    } else if appIntentPayload == nil || outOfTimeRange || appInfo == nil || (!outOfTimeRange && appIntentPayload?.event == Event.breakStart) {
       appIntentPayload = AppIntentPayload(
         openedApp: appPrompt!, timestamp: Date().timeIntervalSince1970, event: Event.breakStart)
     } else {
