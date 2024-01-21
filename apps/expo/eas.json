@@ -20,6 +20,12 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "stahl.luke@web.de",
+        "ascAppId": "6474795966",
+        "appleTeamId": "3X5J8LXMDM"
+      }
+    }
   }
 }
