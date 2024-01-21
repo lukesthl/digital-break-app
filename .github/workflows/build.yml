@@ -82,7 +82,7 @@ jobs:
         run: |
           eas build --local \
             --non-interactive \
-            --output=./app-build \
+            --output=./app-${{ env.platform }}-${{ env.profile }}.${{ env.platform == 'android' && 'apk' || 'ipa' }} \
             --platform=${{ env.platform }} \
             --profile=${{ env.profile }}
 

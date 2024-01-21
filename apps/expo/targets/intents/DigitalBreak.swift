@@ -167,6 +167,10 @@ struct DigitalBreak: AppIntent {
 
     var isActive = true
     var outOfTimeRange = false
+
+    if appIntentPayload?.openedApp != appPrompt {
+      appIntentPayload = nil
+    }
     do {
       if appInfo != nil && appIntentPayload != nil {
         isActive = appInfo!.active
