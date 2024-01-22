@@ -13,7 +13,7 @@
     "prettier": "^3.2.4"
   },
   "devDependencies": {
-    "@acme/tsconfig": "^0.1.0",
+    "@acme/tsconfig": "workspace:*",
     "typescript": "^5.3.3"
   },
   "prettier": "@acme/prettier-config"
