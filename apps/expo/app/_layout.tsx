@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import { AppState } from "react-native";
 import { useFonts } from "expo-font";
-import { router, SplashScreen, Stack } from "expo-router";
+import { router, Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "@react-navigation/native";
 import { TamaguiProvider, useTheme as useThemeTamagui } from "tamagui";
 
@@ -13,7 +14,7 @@ import config from "../tamagui.config";
 
 export { ErrorBoundary } from "expo-router";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+void SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -48,7 +49,7 @@ function RootLayoutNav() {
           console.log(JSON.stringify(error));
         })
         .finally(() => {
-          SplashScreen.hideAsync();
+          void SplashScreen.hideAsync();
         });
     };
     const subscription = AppState.addEventListener("change", (nextAppState) => {

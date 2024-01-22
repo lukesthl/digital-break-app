@@ -11,6 +11,10 @@
     "upgrade:tamagui": "pnpm up '*tamagui*'@latest '@tamagui/*'@latest react-native-web-lite@latest",
     "check-deps": "check-dependency-version-consistency ."
   },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "resolutions": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -19,11 +23,11 @@
     "react-native-web": "~0.19.6"
   },
   "dependencies": {
-    "@babel/runtime": "^7.23.6",
-    "@manypkg/cli": "^0.21.1",
+    "@babel/runtime": "^7.23.8",
+    "@manypkg/cli": "^0.21.2",
     "check-dependency-version-consistency": "^4.1.0",
     "node-gyp": "^10.0.1",
-    "turbo": "^1.11.2",
+    "turbo": "^1.11.3",
     "typescript": "^5.3.3"
   }
 }

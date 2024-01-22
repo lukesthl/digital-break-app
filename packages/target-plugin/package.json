@@ -23,13 +23,13 @@
   "author": "lukestahl (https://github.com/lukesthl)",
   "license": "MIT",
   "devDependencies": {
-    "@bacons/xcode": "^1.0.0-alpha.10",
+    "@bacons/xcode": "^1.0.0-alpha.12",
     "@react-native/normalize-color": "^2.1.0",
     "@types/fs-extra": "^11.0.4",
     "@types/glob": "^8.1.0",
-    "@types/react": "^18.2.45",
-    "expo-module-scripts": "^3.1.0",
-    "expo-modules-core": "^1.5.12",
+    "@types/react": "^18.2.48",
+    "expo-module-scripts": "^3.4.0",
+    "expo-modules-core": "^1.11.7",
     "fs-extra": "^11.2.0",
     "glob": "^10.3.10"
   },
@@ -39,6 +39,6 @@
     "react-native": "*"
   },
   "dependencies": {
-    "expo-file-system": "~15.6.0"
+    "expo-file-system": "~16.0.4"
   }
 }

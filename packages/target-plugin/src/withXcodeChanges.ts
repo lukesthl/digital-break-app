@@ -1199,6 +1199,8 @@ async function applyXcodeChanges(
     if (PBXCopyFilesBuildPhase.is(phase)) {
       // TODO: maybe there's a safer way to do this? The name is not a good identifier.
       return phase.props.name === WELL_KNOWN_COPY_EXTENSIONS_NAME;
+    } else {
+      return false;
     }
   });
 
