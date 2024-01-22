@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ResizeMode, Video } from "expo-av";
 import * as Linking from "expo-linking";
 import { router, useLocalSearchParams } from "expo-router";
 import { observer } from "mobx-react-lite";
@@ -17,7 +16,8 @@ const VideoTutorial = observer(() => {
     <PortalProvider>
       <Container paddingVertical={"$4"}>
         <ShadowCard>
-          <Video
+          <Text>test</Text>
+          {/* <Video
             source={{
               uri: "https://lukesthl.github.io/digital-break-app/public/setup-guide.mp4",
             }}
@@ -26,7 +26,7 @@ const VideoTutorial = observer(() => {
             resizeMode={ResizeMode.COVER}
             isLooping
             shouldPlay
-          />
+          /> */}
         </ShadowCard>
       </Container>
       <View
