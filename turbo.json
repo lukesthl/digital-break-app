@@ -5,11 +5,20 @@
     "build": {
       "env": ["DISABLE_EXTRACTION", "NODE_ENV", "EAS_BUILD_PLATFORM"],
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "build/**", "node_modules/.cache/metro/**"]
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "build/**",
+        "node_modules/.cache/metro/**"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"],
       "outputs": ["node_modules/.cache/.eslintcache"]
+    },
+    "format": {
+      "dependsOn": ["^format"],
+      "outputs": ["node_modules/.cache/.prettiercache"]
     },
     "dev": {
       "cache": false,
