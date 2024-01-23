@@ -68,6 +68,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
 
+      - name: 🛠️ Setup Bun
+        uses: oven-sh/setup-bun@v1
+
       - name: 🛠️ Install dependencies
         run: bun install
 
