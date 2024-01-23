@@ -16,7 +16,8 @@
     "build:development": "eas build --profile development --platform ios --local",
     "build:simulator": "eas build --profile simulator --platform ios --local",
     "build:production": "eas build --profile production --platform ios --local",
-    "prebuild": "expo prebuild --clean -p ios"
+    "prebuild": "expo prebuild --clean -p ios",
+    "analyze:ios": "source-map-explorer 'dist/_expo/static/js/ios/*.js' 'dist/_expo/static/js/ios/*.js.map'"
   },
   "jest": {
     "preset": "jest-expo"
@@ -95,7 +96,8 @@
     "jest": "^29.7.0",
     "jest-expo": "~50.0.1",
     "react-test-renderer": "18.2.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "source-map-explorer": "^2.5.3"
   },
   "overrides": {
     "react-refresh": "~0.14.0"
