@@ -33,6 +33,7 @@ const config = {
     ".next",
     "dist",
     "pnpm-lock.yaml",
+    "bun.lockb",
     "app.plugin.js",
     "logger.js",
   ],
