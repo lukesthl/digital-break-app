@@ -26,9 +26,11 @@ const Overview = observer(() => {
     void OverviewStore.init().then(() => setRefreshing(false));
   };
   return (
-    <Container refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+    <Container
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      header={({ isSticky }) => <Header isSticky={isSticky} />}
+    >
       <YStack space="$4">
-        <Header />
         <H4 color="$text11">Overview</H4>
         <WeeklySummary />
         {OverviewStore.stillCollectingData && (

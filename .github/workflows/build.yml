@@ -64,7 +64,7 @@ jobs:
         id: pods-cache
         with:
           path: /apps/expo/ios/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+          key: ${{ runner.os }}-pods-${{ hashFiles('/apps/expo/ios/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
 

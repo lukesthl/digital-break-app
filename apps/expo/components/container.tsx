@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomTabBarHeightContext } from "@react-navigation/bottom-tabs";
 import { ScrollView, View } from "tamagui";
@@ -6,18 +6,22 @@ import { ScrollView, View } from "tamagui";
 export const Container = ({
   children,
   scroll = true,
+  header,
   ...viewProps
-}: { children: React.ReactNode } & React.ComponentProps<typeof View> & {
+}: {
+  children: React.ReactNode;
+  header?: ({ isSticky }: { isSticky: boolean }) => React.ReactNode;
+} & React.ComponentProps<typeof View> & {
     scroll?: boolean;
     refreshControl?: React.ComponentProps<typeof ScrollView>["refreshControl"];
   }) => {
+  const [isSticky, setIsSticky] = useState(false);
   const insets = useSafeAreaInsets();
 
   const tabBarHeight = useContext(BottomTabBarHeightContext);
   return scroll ? (
     <ScrollView
-      paddingHorizontal="$4"
-      paddingTop={insets.top}
+      paddingTop={!header ? insets.top : undefined}
       paddingBottom={tabBarHeight ?? insets.bottom}
       flex={1}
       $gtSm={{
@@ -25,9 +29,16 @@ export const Container = ({
         marginHorizontal: "auto",
         maxWidth: 600,
       }}
+      scrollEventThrottle={16}
+      onScroll={(event) => {
+        const offsetY = event.nativeEvent.contentOffset.y;
+        setIsSticky(offsetY >= 5);
+      }}
+      stickyHeaderIndices={header ? [0] : undefined}
       {...(viewProps as React.ComponentProps<typeof ScrollView>)}
     >
-      <View flex={1} paddingBottom={tabBarHeight ?? insets.bottom}>
+      {header && header({ isSticky })}
+      <View flex={1} paddingBottom={tabBarHeight ?? insets.bottom} paddingHorizontal={"$4"}>
         {children}
       </View>
     </ScrollView>

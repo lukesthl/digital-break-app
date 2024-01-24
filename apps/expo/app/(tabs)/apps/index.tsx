@@ -26,9 +26,11 @@ const Apps = observer(() => {
     void AppSettings.init().then(() => setRefreshing(false));
   };
   return (
-    <Container refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-      <YStack space="$4">
-        <Header />
+    <Container
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      header={({ isSticky }) => <Header isSticky={isSticky} />}
+    >
+      <YStack space={AppSettings.apps.length === 0 ? "$3" : "$4"}>
         <H4 color="$text11">Apps</H4>
         <View flexDirection="row" flexWrap="wrap">
           {AppSettings.apps.map((app, index) => (
