@@ -10,18 +10,20 @@ const shortcutDir = path.join(__dirname, "../../../public/shortcuts");
 
 const generateShortcuts = async () => {
   const templatePlist = await fs.readFile(templateDir, "utf-8");
-  await Promise.all(
-    apps.map(async (app) => {
-      const shortcut = templatePlist.replace("{{appName}}", app.name);
-      await fs.writeFile(path.join(shortcutDir, `/${app.name} Digital Break.shortcut`), shortcut);
-      return execShellCommand(
-        `shortcuts sign -i ${path.join(
-          shortcutDir,
-          `/${app.name} Digital Break.shortcut`.replace(/(\s+)/g, "\\$1")
-        )} -o ${path.join(shortcutDir, `/${app.name} Digital Break.shortcut`).replace(/(\s+)/g, "\\$1")}`
-      );
-    })
-  );
+  // must be recursive because parallel execution is not supported
+  for (const app of apps) {
+    console.log(`Generating shortcut for ${app.name}`);
+    const shortcut = templatePlist.replace("{{appName}}", app.name);
+    console.log(`Writing shortcut for ${app.name}`);
+    await fs.writeFile(path.join(shortcutDir, `/${app.name} Digital Break.shortcut`), shortcut);
+    console.log(`Signing shortcut for ${app.name}`);
+    await execShellCommand(
+      `shortcuts sign -m anyone -i ${path.join(
+        shortcutDir,
+        `/${app.name} Digital Break.shortcut`.replace(/(\s+)/g, "\\$1")
+      )} -o ${path.join(shortcutDir, `/${app.name} Digital Break.shortcut`).replace(/(\s+)/g, "\\$1")}`
+    ).then(() => console.log(`Signed shortcut for ${app.name}`));
+  }
 };
 
 if (os.platform() !== "darwin") {
