@@ -10,7 +10,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   scheme: "digitalbreak",
   userInterfaceStyle: "automatic",
   splash: {
-    image: "./assets/images/splash.png",
+    image: "./assets/images/digital-break-hourglass-icon.png",
     resizeMode: "contain",
     backgroundColor: "#ffffff",
   },
