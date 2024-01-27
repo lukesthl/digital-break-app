@@ -27,7 +27,7 @@ const animations = createAnimations({
   },
   fadeIn: {
     type: "spring",
-    duration: 20000,
+    duration: 2000,
   },
 });
 const headingFont = createSatoshiFont({ family: "SatoshiBlack" });

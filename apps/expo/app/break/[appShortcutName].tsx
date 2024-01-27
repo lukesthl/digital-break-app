@@ -86,6 +86,7 @@ const Break = observer(() => {
             source={require("../../assets/water-drop-animation.json") as AnimationObject}
             style={{
               height: 300,
+              width: "100%",
               marginBottom: -50,
             }}
           />

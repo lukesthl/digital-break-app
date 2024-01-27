@@ -19,9 +19,9 @@ export const Header = ({ isSticky, ...props }: React.ComponentProps<typeof XStac
       marginBottom="$1"
       paddingHorizontal="$4"
       paddingBottom="$3"
-      paddingTop={insets.top}
-      borderColor={isSticky ? "$grey3" : "transparent"}
-      borderBottomWidth={1}
+      paddingTop={insets.top + 8}
+      borderColor={"$grey3"}
+      borderBottomWidth={isSticky ? 1 : 0}
       {...props}
     >
       <XStack space="$2" alignItems="center">

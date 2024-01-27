@@ -22,7 +22,8 @@ export const Container = ({
   return scroll ? (
     <ScrollView
       paddingTop={!header ? insets.top : undefined}
-      paddingBottom={tabBarHeight ?? insets.bottom}
+      paddingBottom={tabBarHeight && insets.bottom ? tabBarHeight - insets.bottom : tabBarHeight ?? insets.bottom}
+      showsVerticalScrollIndicator={false}
       flex={1}
       $gtSm={{
         minWidth: 600,
@@ -38,7 +39,11 @@ export const Container = ({
       {...(viewProps as React.ComponentProps<typeof ScrollView>)}
     >
       {header && header({ isSticky })}
-      <View flex={1} paddingBottom={tabBarHeight ?? insets.bottom} paddingHorizontal={"$4"}>
+      <View
+        flex={1}
+        paddingBottom={tabBarHeight && insets.bottom ? tabBarHeight - insets.bottom : tabBarHeight ?? insets.bottom}
+        paddingHorizontal={"$4"}
+      >
         {children}
       </View>
     </ScrollView>

@@ -2,7 +2,7 @@
   "name": "digital-break-app",
   "private": true,
   "scripts": {
-    "native": "pnpm run --filter @acme/expo dev:client",
+    "native": "bun run --cwd apps/expo dev:client",
     "fix": "manypkg fix",
     "lint": "turbo lint",
     "format": "turbo format",

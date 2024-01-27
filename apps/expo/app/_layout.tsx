@@ -6,10 +6,9 @@ import * as SplashScreen from "expo-splash-screen";
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "@react-navigation/native";
 import { TamaguiProvider, useTheme as useThemeTamagui } from "tamagui";
 
-import "../data/logger";
-
 import { ThemeProvider, useTheme } from "../components/theme-provider";
 import { clearShortcutListener, listenForShortcut } from "../data/shortcut.listener";
+import { ShortCutPayload } from "../data/shortcut.payload";
 import config from "../tamagui.config";
 
 export { ErrorBoundary } from "expo-router";
@@ -42,6 +41,11 @@ function RootLayoutNav() {
     const checkShortcut = () => {
       void listenForShortcut()
         .then(({ app, timestamp }) => {
+          const oneMinuteAgo = Date.now() - 1000 * 60;
+          if (timestamp > oneMinuteAgo) {
+            void ShortCutPayload.clear();
+            return;
+          }
           console.log("shortcut", app, timestamp);
           router.replace(`/break/${app}?timestamp=${timestamp}`);
         })

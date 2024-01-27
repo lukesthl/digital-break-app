@@ -59,8 +59,8 @@ export const WeeklySummary = () => {
           marginTop={"$2"}
           marginBottom={maxHourSavedOnADay > 0 ? "$4" : "$5"}
         >
-          {maxHourSavedOnADay > 0 && <SizableText color="$grey7">{maxHourSavedOnADay}h</SizableText>}
-          {maxHourSavedOnADay > 0 && <SizableText color="$grey7">{maxHourSavedOnADay / 2}h</SizableText>}
+          {maxHourSavedOnADay > 0 && <SizableText color="$grey7">{maxHourSavedOnADay.toFixed(1)}h</SizableText>}
+          {maxHourSavedOnADay > 0 && <SizableText color="$grey7">{(maxHourSavedOnADay / 2).toFixed(1)}h</SizableText>}
           <SizableText color="$grey7">{0}h</SizableText>
         </YStack>
         <XStack space="$2.5" flex={1} width={"100%"}>

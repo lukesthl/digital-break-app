@@ -44,7 +44,7 @@ const Overview = observer(() => {
                   Collecting data
                 </Paragraph>
                 <SizableText color="$text6" fontSize={"$3"} lineHeight={16}>
-                  We need more data to show you how much time you’ve saved.
+                  We need more data to show you how much time you’ve saved. Take a look in a few days.
                 </SizableText>
               </YStack>
             </XStack>
