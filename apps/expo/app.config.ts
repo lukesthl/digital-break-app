@@ -12,7 +12,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   splash: {
     image: "./assets/images/digital-break-hourglass-icon.png",
     resizeMode: "contain",
-    backgroundColor: "#ffffff",
   },
   assetBundlePatterns: ["**/*"],
   ios: {
