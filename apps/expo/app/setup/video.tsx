@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { WebView } from "react-native-webview";
 import * as Linking from "expo-linking";
 import { router, useLocalSearchParams } from "expo-router";
 import { observer } from "mobx-react-lite";
@@ -16,17 +17,20 @@ const VideoTutorial = observer(() => {
     <PortalProvider>
       <Container paddingVertical={"$4"}>
         <ShadowCard>
-          <Text>test</Text>
-          {/* <Video
-            source={{
-              uri: "https://lukesthl.github.io/digital-break-app/public/setup-guide.mp4",
+          <WebView
+            style={{
+              width: "100%",
+              height: 300,
+              borderWidth: 0,
+              borderRadius: 12,
+              padding: 0,
+              margin: 0,
+              backgroundColor: "transparent",
             }}
-            style={{ width: "100%", height: 300, borderRadius: 6 }}
-            useNativeControls
-            resizeMode={ResizeMode.COVER}
-            isLooping
-            shouldPlay
-          /> */}
+            source={{
+              html: '<video src="https://lukesthl.github.io/digital-break-app/public/setup-guide.mp4" width="100%" height="100%" controls autoplay muted loop playsinline></video>',
+            }}
+          />
         </ShadowCard>
       </Container>
       <View

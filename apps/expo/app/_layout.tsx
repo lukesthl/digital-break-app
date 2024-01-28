@@ -4,12 +4,19 @@ import { useFonts } from "expo-font";
 import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "@react-navigation/native";
+import { observer } from "mobx-react-lite";
 import { TamaguiProvider, useTheme as useThemeTamagui } from "tamagui";
 
 import { ThemeProvider, useTheme } from "../components/theme-provider";
+import { BreakStore } from "../data/break.store";
 import { clearShortcutListener, listenForShortcut } from "../data/shortcut.listener";
 import { ShortCutPayload } from "../data/shortcut.payload";
 import config from "../tamagui.config";
+
+export const unstable_settings = {
+  // Ensure any route can link back to `/`
+  initialRouteName: "/overview",
+};
 
 export { ErrorBoundary } from "expo-router";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -35,7 +42,7 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-function RootLayoutNav() {
+const RootLayoutNav = observer(() => {
   const appState = useRef(AppState.currentState);
   useEffect(() => {
     const checkShortcut = () => {
@@ -46,8 +53,10 @@ function RootLayoutNav() {
             void ShortCutPayload.clear();
             return;
           }
-          console.log("shortcut", app, timestamp);
-          router.replace(`/break/${app}?timestamp=${timestamp}`);
+          if (!BreakStore.status) {
+            console.log("shortcut", app, timestamp);
+            router.replace(`/break/${app}?timestamp=${timestamp}`);
+          }
         })
         .catch((error) => {
           console.log(JSON.stringify(error));
@@ -81,7 +90,7 @@ function RootLayoutNav() {
       </ThemeProvider>
     </TamaguiProvider>
   );
-}
+});
 
 const NavigationStack = () => {
   const { theme } = useTheme();
@@ -109,6 +118,7 @@ const NavigationStack = () => {
       }
     >
       <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="break" options={{ headerShown: false }} />
         <Stack.Screen name="settings" options={{ headerShown: false, presentation: "modal" }} />

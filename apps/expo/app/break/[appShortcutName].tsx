@@ -21,7 +21,6 @@ const floatingProgress = 0.75;
 const Break = observer(() => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [breakStatus, setBreakStatus] = useState<"running" | "finished">("finished");
   const searchParams = useLocalSearchParams<{ appShortcutName: string; timestamp: string }>();
   useEffect(() => {
     if (loaded) return;
@@ -45,7 +44,7 @@ const Break = observer(() => {
         easing: Easing.inOut(Easing.linear),
         useNativeDriver: false,
       }).start();
-      setBreakStatus("running");
+      BreakStore.status = "running";
 
       animationProgress.current.addListener(({ value }) => {
         if (SettingsStore.hapticsEnabled) {
@@ -67,7 +66,7 @@ const Break = observer(() => {
         if (value === 1) {
           lastProgress = 0;
           progressStep = 0.05;
-          setBreakStatus("finished");
+          BreakStore.status = "finished";
         }
       });
     }
@@ -98,7 +97,7 @@ const Break = observer(() => {
             marginTop="$5"
             opacity={1}
           >
-            {breakStatus === "running" ? (
+            {BreakStore.status === "running" ? (
               BreakStore.getRandomBreakMessage()
             ) : (
               <YStack space="$1">
@@ -123,7 +122,7 @@ const Break = observer(() => {
             )}
           </H3>
         </View>
-        {breakStatus === "finished" && (
+        {BreakStore.status === "finished" && (
           <YStack
             space="$2"
             marginTop="$6"
@@ -135,9 +134,17 @@ const Break = observer(() => {
           >
             {process.env.NODE_ENV === "development" && (
               <YStack space="$2">
-                <Button onPress={() => router.replace("/overview/")}>Reset</Button>
                 <Button
                   onPress={() => {
+                    BreakStore.status = null;
+                    router.replace("/overview/");
+                  }}
+                >
+                  Reset
+                </Button>
+                <Button
+                  onPress={() => {
+                    BreakStore.status = null;
                     router.replace("/overview/");
                     router.replace(`/break/${selectedApp.name}`);
                   }}
@@ -187,6 +194,7 @@ const Break = observer(() => {
                   <Button
                     onPress={() => {
                       setError(null);
+                      BreakStore.status = null;
                       router.replace("/");
                     }}
                   >

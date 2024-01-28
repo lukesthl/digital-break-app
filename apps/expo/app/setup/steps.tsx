@@ -64,7 +64,7 @@ const Setup = observer(() => {
               </View>
               <View marginTop={"$1.5"} flex={1}>
                 <H4 color="$text11" lineHeight={20}>
-                  Download the shortcut
+                  Download the {searchParams.appName} shortcut
                 </H4>
                 <Paragraph color="$text11">and import it into the Shortcuts app.</Paragraph>
                 <Button
@@ -81,7 +81,7 @@ const Setup = observer(() => {
                   paddingVertical={"$2"}
                   iconAfter={<Layers2 size={16} strokeWidth={2.5} />}
                 >
-                  <Text fontWeight={"600"}>Download Shortcut</Text>
+                  <Text fontWeight={"600"}>Download {searchParams.appName} Shortcut</Text>
                 </Button>
               </View>
             </XStack>
