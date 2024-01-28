@@ -70,6 +70,9 @@ const Break = observer(() => {
         }
       });
     }
+    return () => {
+      BreakStore.status = null;
+    };
   }, [selectedApp]);
 
   if (!selectedApp) {

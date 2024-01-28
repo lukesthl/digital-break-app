@@ -76,20 +76,20 @@ class SettingsStoreSingleton {
       await this.appsStore.getOrCreateApp({
         appShortcutName: "Instagram",
       });
-      await this.appsStore.getOrCreateApp({
-        appShortcutName: "Facebook",
-      });
+      // await this.appsStore.getOrCreateApp({
+      //   appShortcutName: "Facebook",
+      // });
       await this.appsStore.getOrCreateApp({
         appShortcutName: "Twitter",
       });
-      await this.appsStore.getOrCreateApp({
-        appShortcutName: "YouTube",
-      });
+      // await this.appsStore.getOrCreateApp({
+      //   appShortcutName: "YouTube",
+      // });
       await this.appsStore.getOrCreateApp({
         appShortcutName: "TikTok",
       });
       for (const app of this.appsStore.apps) {
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 50; i++) {
           const eventTypes = ["break-start", "app-reopen", "app-close"] as const;
 
           const timestamp = Date.now() - Math.floor(Math.random() * 14 * 24 * 60 * 60 * 1000); // 14 days
