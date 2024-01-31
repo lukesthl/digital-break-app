@@ -20,7 +20,7 @@ import {
 
 import { Container } from "../../components/container";
 import { ShadowCard } from "../../components/shadow.card";
-import { deepLinks } from "../../data/apps";
+import { OverviewStore } from "../../data/overview.store";
 
 const Setup = observer(() => {
   const searchParams = useLocalSearchParams<{ appName: string; appKey: string }>();
@@ -332,7 +332,7 @@ const Setup = observer(() => {
       >
         <Button
           onPress={() => {
-            void Linking.openURL(deepLinks[searchParams.appKey as keyof typeof deepLinks])
+            void OverviewStore.openApp(searchParams.appKey)
               .then(() => {
                 void router.replace("/overview");
               })

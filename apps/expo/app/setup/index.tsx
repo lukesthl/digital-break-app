@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { observer } from "mobx-react-lite";
@@ -7,19 +7,11 @@ import { Button, H4, Input, Paragraph, SizableText, View, XStack, YStack } from 
 import { AppIcon } from "../../components/app.icon";
 import { Container } from "../../components/container";
 import { ShadowCard } from "../../components/shadow.card";
+import { OverviewStore } from "../../data/overview.store";
+import apps from "../(tabs)/apps";
 
 const Setup = observer(() => {
-  const [apps, setApps] = useState<{ key: string; name: string }[]>([]);
   const [search, setSearch] = useState("");
-  useEffect(() => {
-    void (async () => {
-      const apps = (await (await fetch("https://lukesthl.github.io/digital-break-app/public/apps.json")).json()) as {
-        key: string;
-        name: string;
-      }[];
-      setApps(apps);
-    })();
-  }, []);
   return (
     <Container paddingVertical={"$4"}>
       <YStack space="$4">
@@ -36,7 +28,7 @@ const Setup = observer(() => {
           clearButtonMode="always"
         />
         <View flexDirection="row" flexWrap="wrap">
-          {apps
+          {OverviewStore.availableApps
             .filter((app) => app.name.toLowerCase().includes(search.toLowerCase()))
             .map((app, index) => (
               <View
@@ -62,8 +54,9 @@ const Setup = observer(() => {
                 </ShadowCard>
               </View>
             ))}
-          {apps.length > 0 &&
-            apps.filter((app) => app.name.toLowerCase().includes(search.toLowerCase())).length === 0 && (
+          {OverviewStore.availableApps.length > 0 &&
+            OverviewStore.availableApps.filter((app) => app.name.toLowerCase().includes(search.toLowerCase()))
+              .length === 0 && (
               <XStack space="$3" flexDirection="column" alignItems="center" flex={1}>
                 <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
                   App not found

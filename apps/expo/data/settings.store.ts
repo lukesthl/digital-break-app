@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { makeAutoObservable } from "mobx";
 
 import { AppStatisticsStore } from "./app.statistics";
-import { AppsStore } from "./apps";
+import { AppsStore } from "./apps.store";
 
 class SettingsStoreSingleton {
   private appStatisticsStore = new AppStatisticsStore();

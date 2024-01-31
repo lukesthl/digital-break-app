@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "@react-navigation/native";
+import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
 import { TamaguiProvider, useTheme as useThemeTamagui } from "tamagui";
 
@@ -48,13 +49,13 @@ const RootLayoutNav = observer(() => {
     const checkShortcut = () => {
       void listenForShortcut()
         .then(({ app, timestamp }) => {
-          const oneMinuteAgo = Date.now() - 1000 * 60;
-          if (timestamp > oneMinuteAgo) {
+          const oneMinuteAgo = dayjs().subtract(1, "minute");
+          const lastOpen = dayjs.unix(timestamp);
+          if (lastOpen.isBefore(oneMinuteAgo)) {
             void ShortCutPayload.clear();
             return;
           }
           if (!BreakStore.status) {
-            console.log("shortcut", app, timestamp);
             router.replace(`/break/${app}?timestamp=${timestamp}`);
           }
         })
@@ -74,6 +75,7 @@ const RootLayoutNav = observer(() => {
         // void ShortCutPayload.clear();
         console.log("this would clear the shortcut listener");
         console.log("App has come to the background!");
+        BreakStore.status = null;
       }
       appState.current = nextAppState;
     });

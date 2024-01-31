@@ -5,7 +5,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import type { AnimationObject } from "lottie-react-native";
 import LottieView from "lottie-react-native";
 import { observer } from "mobx-react-lite";
-import { AlertDialog, Button, H3, Paragraph, View, XStack, YStack } from "tamagui";
+import { AlertDialog, Button, H3, Paragraph, Spinner, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../components/container";
 import { BreakStore } from "../../data/break.store";
@@ -20,6 +20,7 @@ const floatingProgress = 0.75;
 
 const Break = observer(() => {
   const [loaded, setLoaded] = useState(false);
+  const [loadingOpen, setLoadingOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useLocalSearchParams<{ appShortcutName: string; timestamp: string }>();
   useEffect(() => {
@@ -80,6 +81,21 @@ const Break = observer(() => {
   }
   return (
     <>
+      {loadingOpen && (
+        <View
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          justifyContent="center"
+          alignItems="center"
+          backgroundColor={"rgba(0,0,0,0.5)"}
+          zIndex={1000}
+        >
+          <Spinner size="large" color="$primary10" />
+        </View>
+      )}
       <Container scroll={false} flex={1} paddingBottom={0}>
         <View flex={1} marginBottom={"$12"} justifyContent="center" alignItems="center">
           <AnimatedLottieView
@@ -166,6 +182,7 @@ const Break = observer(() => {
             <Button
               onPress={async () => {
                 try {
+                  setLoadingOpen(true);
                   await BreakStore.openApp();
                 } catch (error) {
                   console.log(error);
@@ -175,6 +192,7 @@ const Break = observer(() => {
                     setError(JSON.stringify(error));
                   }
                 }
+                setLoadingOpen(false);
               }}
               variant="outlined"
               color="$text11"

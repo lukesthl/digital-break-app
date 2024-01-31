@@ -2,8 +2,8 @@ import dayjs from "dayjs";
 import { makeAutoObservable } from "mobx";
 
 import { AppStatisticsStore } from "./app.statistics";
-import type { App } from "./apps";
-import { AppsStore } from "./apps";
+import type { App, IAvailableApp } from "./apps.store";
+import { AppsStore } from "./apps.store";
 
 class OverviewStoreSingleton {
   private appStatisticsStore = new AppStatisticsStore();
@@ -17,6 +17,14 @@ class OverviewStoreSingleton {
   public async init() {
     await Promise.all([this.appsStore.init(), this.appStatisticsStore.init()]);
   }
+
+  public get availableApps() {
+    return this.appsStore.availableApps;
+  }
+
+  public openApp = (key: IAvailableApp["key"]) => {
+    return this.appsStore.openApp(key);
+  };
 
   get totalInterrupted(): number {
     return this.appStatisticsStore.getEvents({ type: "break-start" }).length;

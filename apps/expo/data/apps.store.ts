@@ -1,4 +1,6 @@
+import { Linking } from "react-native";
 import * as Crypto from "expo-crypto";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { action, makeAutoObservable, observable } from "mobx";
 
 import { Storage } from "./storage";
@@ -17,47 +19,6 @@ interface IAppSettings {
   quickAppSwitchDurationMinutes: number;
   dailyTimeSpentMinutes: number;
 }
-
-// TODO add more apps / test all apps
-export const deepLinks: Record<SupportedApp, string> = {
-  instagram: "instagram://",
-  twitter: "twitter://user?screen_name=USERNAME",
-  facebook: "fb://profile/USER_ID",
-  youtube: "youtube://www.youtube.com/channel/CHANNEL_ID",
-  whatsapp: "whatsapp://send?text=Hello",
-  spotify: "spotify://user/USER_ID",
-  linkedin: "linkedin://profile/USER_ID",
-  tiktok: "tiktok://user/USER_ID",
-  reddit: "reddit://user/USERNAME",
-  snapchat: "snapchat://add/USERNAME",
-  twitch: "twitch://user?user_id=USER_ID",
-  telegram: "tg://resolve?domain=USERNAME",
-  discord: "discord://discord.com/channels/USER_ID",
-  safari: "https://www.google.com",
-  bereal: "https://www.google.com",
-  clashofclans: "https://www.google.com",
-  clashroyale: "https://www.google.com",
-  imessage: "https://www.google.com",
-  netflix: "https://www.google.com",
-  candycrush: "https://www.google.com",
-  chrome: "https://www.google.com",
-  "disney+": "https://www.google.com",
-  firefox: "https://www.google.com",
-  gmail: "https://www.google.com",
-  mastodon: "https://www.google.com",
-  microsoftteams: "https://www.google.com",
-  outlook: "https://www.google.com",
-  pokemongo: "https://www.google.com",
-  roblox: "https://www.google.com",
-  signal: "https://www.google.com",
-  skype: "https://www.google.com",
-  sudoku: "https://www.google.com",
-  tinder: "https://www.google.com",
-  toonblast: "https://www.google.com",
-  tumblr: "https://www.google.com",
-  zalandofashion: "https://www.google.com",
-  applenews: "applenews://",
-};
 
 export type SupportedApp =
   | "instagram"
@@ -98,6 +59,12 @@ export type SupportedApp =
   | "zalandofashion"
   | "applenews";
 
+export interface IAvailableApp {
+  key: string;
+  name: string;
+  scheme: string;
+}
+
 export const defaultAppSettings: IAppSettings = {
   breakDurationSeconds: 10,
   quickAppSwitchDurationMinutes: 5,
@@ -109,18 +76,52 @@ export class AppsStore {
 
   private _apps = observable<App>([]);
 
+  private _availableApps = observable<IAvailableApp>([]);
+
   constructor() {
     makeAutoObservable(this, { init: action });
   }
 
   public async init() {
     try {
-      const apps = await this.storage.getAll();
-      this.apps = apps;
+      const [userApps, availableApps] = await Promise.allSettled([this.storage.getAll(), this.fetchAvailableApps()]);
+      if (userApps.status === "fulfilled") {
+        this.apps = userApps.value;
+      }
+      if (availableApps.status === "fulfilled") {
+        this.availableApps.replace(availableApps.value);
+        void this.cacheAvailableApps(availableApps.value);
+      }
     } catch (error) {
       console.log(error);
     }
   }
+
+  private cacheAvailableApps = async (apps: IAvailableApp[]) => {
+    await AsyncStorage.setItem("availableApps", JSON.stringify(apps));
+  };
+
+  public fetchAvailableApps = async (): Promise<IAvailableApp[]> => {
+    let apps: IAvailableApp[] = [];
+    try {
+      apps = (await (
+        await fetch("https://lukesthl.github.io/digital-break-app/public/apps.json")
+      ).json()) as IAvailableApp[];
+      console.log("Fetched available apps", apps);
+    } catch (error) {
+      console.log("Error fetching available apps, falling back to cached version");
+      const cachedApps = await AsyncStorage.getItem("availableApps");
+      console.log("now using", cachedApps);
+      if (cachedApps) {
+        apps = JSON.parse(cachedApps) as IAvailableApp[];
+      }
+    }
+    return apps;
+  };
+
+  public openApp = async (key: IAvailableApp["key"]): Promise<void> => {
+    await Linking.openURL(this.availableApps.find((app) => app.key === key)?.scheme ?? "");
+  };
 
   public async updateApp(appUpdate: Partial<App> & { id: string }): Promise<void> {
     const apps = this.apps.map((app) => {
@@ -185,4 +186,11 @@ export class AppsStore {
     const url = new URL(`https://cdn.simpleicons.org/${iconKey}`);
     return url.toString();
   };
+
+  public get availableApps() {
+    return this._availableApps;
+  }
+  public set availableApps(value) {
+    this._availableApps = value;
+  }
 }

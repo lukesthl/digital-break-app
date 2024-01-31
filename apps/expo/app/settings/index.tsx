@@ -143,7 +143,7 @@ const Settings = observer(() => {
               iconAfter={ShareIcon}
               onPress={() => {
                 void Share.share({
-                  url: "https://apps.apple.com/<country>/app/<app–name>/id<app-ID>", // TODO: Add app store link
+                  url: "https://apps.apple.com/de/app/digitalbreak-screentime-focus/id6474795966",
                 });
               }}
             >

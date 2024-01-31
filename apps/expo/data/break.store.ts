@@ -1,12 +1,11 @@
 import Constants, { AppOwnership } from "expo-constants";
-import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { makeAutoObservable } from "mobx";
 
 import * as ExpoExitApp from "../../../packages/expo-exit-app";
 import { AppStatisticsStore } from "./app.statistics";
-import type { App } from "./apps";
-import { AppsStore, deepLinks } from "./apps";
+import type { App } from "./apps.store";
+import { AppsStore } from "./apps.store";
 import { SettingsStore } from "./settings.store";
 import { ShortCutPayload } from "./shortcut.payload";
 
@@ -75,9 +74,9 @@ export class BreakStoreSingleton {
     }
     await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-reopen" });
     await ShortCutPayload.update(this.app.key, "app-reopen");
-    await new Promise((resolve) => setTimeout(resolve, 500)); // app intent isnt fast enough
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // app intent isnt fast enough
     this.status = null;
-    await Linking.openURL(deepLinks[this.app.key as keyof typeof deepLinks]).catch(() => {
+    await this.appsStore.openApp(this.app.key).catch(() => {
       throw new Error("Failed to open app. Are you sure it's installed?");
     });
     router.replace("/");

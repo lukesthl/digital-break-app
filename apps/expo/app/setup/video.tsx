@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { WebView } from "react-native-webview";
-import * as Linking from "expo-linking";
 import { router, useLocalSearchParams } from "expo-router";
 import { observer } from "mobx-react-lite";
 import { AlertDialog, Button, PortalProvider, Text, View, XStack, YStack } from "tamagui";
 
 import { Container } from "../../components/container";
 import { ShadowCard } from "../../components/shadow.card";
-import { deepLinks } from "../../data/apps";
+import { OverviewStore } from "../../data/overview.store";
 
 const VideoTutorial = observer(() => {
   const searchParams = useLocalSearchParams<{ appName: string; appKey: string }>();
@@ -44,7 +43,7 @@ const VideoTutorial = observer(() => {
       >
         <Button
           onPress={() => {
-            void Linking.openURL(deepLinks[searchParams.appKey as keyof typeof deepLinks])
+            void OverviewStore.openApp(searchParams.appKey)
               .then(() => {
                 void router.replace("/overview");
               })

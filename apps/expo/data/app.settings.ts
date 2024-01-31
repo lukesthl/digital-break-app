@@ -1,8 +1,8 @@
 import { makeAutoObservable } from "mobx";
 
 import { AppStatisticsStore } from "./app.statistics";
-import type { App } from "./apps";
-import { AppsStore } from "./apps";
+import type { App } from "./apps.store";
+import { AppsStore } from "./apps.store";
 
 export class AppSettingsSingleton {
   private appsStore = new AppsStore();
