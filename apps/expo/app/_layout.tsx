@@ -48,13 +48,19 @@ const RootLayoutNav = observer(() => {
   useEffect(() => {
     const checkShortcut = () => {
       void listenForShortcut()
-        .then(({ app, timestamp }) => {
+        .then(({ app, timestamp, event }) => {
           const oneMinuteAgo = dayjs().subtract(1, "minute");
           const lastOpen = dayjs.unix(timestamp);
+          console.log("status", BreakStore.status);
+          console.log("clear payload?", lastOpen.isBefore(oneMinuteAgo));
           if (lastOpen.isBefore(oneMinuteAgo)) {
             void ShortCutPayload.clear();
             return;
           }
+          if (event === "app-reopen") {
+            void BreakStore.openApp();
+          }
+
           if (!BreakStore.status) {
             router.replace(`/break/${app}?timestamp=${timestamp}`);
           }

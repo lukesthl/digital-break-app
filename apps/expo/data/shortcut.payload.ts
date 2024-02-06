@@ -2,7 +2,7 @@ import * as FileSystem from "expo-file-system";
 
 import { appConfig } from "../constants/app.config";
 
-interface IPayload {
+export interface IPayload {
   openedApp: string;
   timestamp: number;
   event: "break-start" | "app-reopen" | "break-skip";
@@ -21,20 +21,20 @@ class ShortCutPayloadSingleton {
 
   public getPayload = async (): Promise<IPayload | null> => {
     const payload = await this.loadAppIntentPayload();
-    if (payload) {
+    if (payload && JSON.stringify(payload) !== "{}") {
       return payload;
     } else {
       return null;
     }
   };
 
-  public update = async (app: string, event: IPayload["event"]) => {
+  public update = async (event: IPayload["event"]) => {
     const appIntentPayload = await this.loadAppIntentPayload();
     if (!appIntentPayload) {
       return;
     }
-    appIntentPayload.openedApp = app;
     appIntentPayload.event = event;
+    console.log("updating app intent payload", appIntentPayload);
     await FileSystem.writeAsStringAsync(this.dataPath, JSON.stringify(appIntentPayload));
   };
 

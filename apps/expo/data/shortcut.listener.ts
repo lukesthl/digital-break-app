@@ -1,24 +1,24 @@
-import { ShortCutPayload } from "./shortcut.payload";
+import { IPayload, ShortCutPayload } from "./shortcut.payload";
 
 const MAX_TRY_COUNT = 10;
-let intervalId: NodeJS.Timeout | null = null;
+let intervalIds: NodeJS.Timeout[] = [];
 
 // why FileSystem? because AsyncStorage doesnt work in combination with the App Intent.
 // It seems like AsyncStorage caches the value in memory and not directly writes it to the file system.
-export const listenForShortcut = async (): Promise<{ app: string; timestamp: number }> => {
+export const listenForShortcut = async (): Promise<{ app: string; timestamp: number; event: IPayload["event"] }> => {
   let tryCount = 0;
   return new Promise((resolve, reject) => {
     const time = new Date().getTime();
-    intervalId = setInterval(() => {
+    const newIntervalId = setInterval(() => {
       try {
         ShortCutPayload.getPayload()
           .then((appPayload) => {
-            if (appPayload && appPayload.event === "break-start") {
-              clearInterval(intervalId ?? 0);
+            if (appPayload && appPayload.event !== "break-skip") {
+              clearShortcutListener();
               console.log(`took ${new Date().getTime() - time}ms`);
               console.log(`openedApp: ${appPayload.openedApp}`);
 
-              resolve({ app: appPayload.openedApp, timestamp: appPayload.timestamp });
+              resolve({ app: appPayload.openedApp, timestamp: appPayload.timestamp, event: appPayload.event });
             } else {
               throw new Error("no app");
             }
@@ -26,8 +26,8 @@ export const listenForShortcut = async (): Promise<{ app: string; timestamp: num
           .catch((error) => {
             console.log(JSON.stringify(error));
             if (tryCount >= MAX_TRY_COUNT) {
-              console.log("interval after max try", JSON.stringify(intervalId));
-              clearInterval(intervalId ?? 0);
+              console.log("interval after max try", JSON.stringify(intervalIds));
+              clearShortcutListener();
               reject("max try count reached");
             } else {
               tryCount++;
@@ -38,11 +38,13 @@ export const listenForShortcut = async (): Promise<{ app: string; timestamp: num
         console.log(error);
       }
     }, 500);
+    intervalIds.push(newIntervalId);
   });
 };
 
 export const clearShortcutListener = () => {
-  if (intervalId) {
-    clearInterval(intervalId);
-  }
+  intervalIds.forEach((id) => {
+    clearInterval(id);
+  });
+  intervalIds = [];
 };

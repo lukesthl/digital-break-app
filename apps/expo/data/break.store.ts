@@ -73,9 +73,12 @@ export class BreakStoreSingleton {
       throw new Error("App not initialized");
     }
     await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-reopen" });
-    await ShortCutPayload.update(this.app.key, "app-reopen");
+    console.log("opening app", this.app.key);
+    await ShortCutPayload.update("app-reopen");
     await new Promise((resolve) => setTimeout(resolve, 1000)); // app intent isnt fast enough
     this.status = null;
+    const payload = await ShortCutPayload.getPayload();
+    console.log("payload", payload);
     await this.appsStore.openApp(this.app.key).catch(() => {
       throw new Error("Failed to open app. Are you sure it's installed?");
     });

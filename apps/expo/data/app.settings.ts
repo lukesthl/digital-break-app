@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx";
 import { AppStatisticsStore } from "./app.statistics";
 import type { App } from "./apps.store";
 import { AppsStore } from "./apps.store";
+import { ShortCutPayload } from "./shortcut.payload";
 
 export class AppSettingsSingleton {
   private appsStore = new AppsStore();
@@ -35,6 +36,7 @@ export class AppSettingsSingleton {
   public dangerouslyDeleteAllData = async (): Promise<void> => {
     await this.appsStore.deleteAll();
     await this.appStatisticStore.deleteAll();
+    await ShortCutPayload.clear();
   };
 
   get apps(): App[] {

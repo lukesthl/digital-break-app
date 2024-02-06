@@ -107,7 +107,7 @@ export class AppsStore {
       apps = (await (
         await fetch("https://lukesthl.github.io/digital-break-app/public/apps.json")
       ).json()) as IAvailableApp[];
-      console.log("Fetched available apps", apps);
+      console.log("Fetched available apps");
     } catch (error) {
       console.log("Error fetching available apps, falling back to cached version");
       const cachedApps = await AsyncStorage.getItem("availableApps");
@@ -120,6 +120,8 @@ export class AppsStore {
   };
 
   public openApp = async (key: IAvailableApp["key"]): Promise<void> => {
+    console.log(key);
+    console.log("Opening app", this.availableApps.find((app) => app.key === key)?.scheme ?? "");
     await Linking.openURL(this.availableApps.find((app) => app.key === key)?.scheme ?? "");
   };
 
@@ -147,10 +149,10 @@ export class AppsStore {
       const app = await this.storage.create({
         name: appShortcutName,
         active: true,
-        iconKey: appShortcutName.toLowerCase().replace(" ", "") as SupportedApp,
+        iconKey: appShortcutName.toLowerCase().replaceAll(" ", "") as SupportedApp,
         id: Crypto.randomUUID(),
         settings: defaultAppSettings,
-        key: appShortcutName.toLowerCase().replace(" ", "") as SupportedApp,
+        key: appShortcutName.toLowerCase().replaceAll(" ", "") as SupportedApp,
       });
       if (!app) {
         throw new Error("App not created");

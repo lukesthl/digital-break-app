@@ -23,7 +23,7 @@ struct Manifest: Decodable {
 
 struct AppIntentPayload: Codable {
   var openedApp: String
-  var timestamp: Double
+  var timestamp: Double?
   var event: Event
 }
 
@@ -109,6 +109,7 @@ struct DigitalBreak: AppIntent {
     let appIntentFile = storageDirectory.appendingPathComponent("appintent.json")
     do {
       let data = try Data(contentsOf: appIntentFile)
+      print(data)
       let decoder = JSONDecoder()
       let appIntentPayload = try decoder.decode(AppIntentPayload.self, from: data)
       return appIntentPayload
@@ -166,25 +167,31 @@ struct DigitalBreak: AppIntent {
     var appInfo = fetchAppItem(with: appPrompt!)
     var isActive = true
     var outOfTimeRange = false
-
+    print(appIntentPayload?.openedApp.lowercased())
+    print(appPrompt?.lowercased())
+    print(appIntentPayload)
     if appIntentPayload?.openedApp.lowercased() != appPrompt?.lowercased() {
       appIntentPayload = nil
     }
     do {
       if appInfo != nil && appIntentPayload != nil {
-        isActive = appInfo!.active
+        if
+          let timestamp = appIntentPayload?.timestamp
+        {
+          isActive = appInfo!.active
 
-        let lastOpen = appIntentPayload!.timestamp
-        let quickAppSwitchDurationAsTimestamp =
-          Double(appInfo!.settings.quickAppSwitchDurationMinutes * 60)
-        let timeSinceLastOpen = Date().timeIntervalSince1970 - lastOpen
-        let timeSinceLastOpenMinutes = timeSinceLastOpen / 60
-        print("timeSinceLastOpen", timeSinceLastOpenMinutes)
-        print(appInfo?.settings)
-        outOfTimeRange =
-          Double(appInfo?.settings.quickAppSwitchDurationMinutes ?? 0)
-          <= Double(
-            timeSinceLastOpenMinutes)
+          let lastOpen = timestamp
+          let quickAppSwitchDurationAsTimestamp =
+            Double(appInfo!.settings.quickAppSwitchDurationMinutes * 60)
+          let timeSinceLastOpen = Date().timeIntervalSince1970 - lastOpen
+          let timeSinceLastOpenMinutes = timeSinceLastOpen / 60
+          print("timeSinceLastOpen", timeSinceLastOpenMinutes)
+          print(appInfo?.settings)
+          outOfTimeRange =
+            Double(appInfo?.settings.quickAppSwitchDurationMinutes ?? 0)
+            <= Double(
+              timeSinceLastOpenMinutes)
+        }
       }
     } catch {
       print("Error while fetching apps: \(error)")
