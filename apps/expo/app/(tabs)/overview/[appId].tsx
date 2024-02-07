@@ -118,8 +118,8 @@ const App = observer(() => {
           <H4>Time saved</H4>
           <Paragraph color="#797979" lineHeight={20}>
             You tried to open this app{" "}
-            <SizableText fontWeight={"bold"}>{OverviewStore.interruptionByApp(selectedApp)}x</SizableText> which
-            prevented you from spending{" "}
+            <SizableText fontWeight={"bold"}>{OverviewStore.interruptionByApp(selectedApp)}x</SizableText> which blocked
+            you from spending{" "}
             <SizableText fontWeight={"bold"}>{OverviewStore.hoursSavedByApp(selectedApp)}h</SizableText> on it.
           </Paragraph>
           <XStack space="$4" marginTop="$2">
@@ -141,7 +141,7 @@ const App = observer(() => {
               <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
                 {OverviewStore.preventedByAppInPercentage(selectedApp)}%
               </H2>
-              <Paragraph color="#797979">Prevented</Paragraph>
+              <Paragraph color="#797979">Blocked</Paragraph>
             </YStack>
           </XStack>
         </ShadowCard>

@@ -36,7 +36,7 @@ const Setup = observer(() => {
                 width="50%"
                 paddingRight={index % 2 === 0 ? "$2" : 0}
                 paddingLeft={index % 2 === 1 ? "$2" : 0}
-                paddingBottom={index < apps.length - 2 ? "$3" : 0}
+                paddingBottom={"$3"}
               >
                 <ShadowCard
                   pressStyle={{ backgroundColor: "$grey1" }}

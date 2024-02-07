@@ -56,7 +56,7 @@ const Overview = observer(() => {
               <ShieldBan color="#FE5E2A" strokeWidth={2.25} />
             </View>
             <Paragraph color="#797979" marginTop="$1">
-              Interrupted
+              Opened
             </Paragraph>
             <H1 color="$text11" lineHeight={50} marginBottom={-6}>
               {OverviewStore.totalInterrupted}x
@@ -67,7 +67,7 @@ const Overview = observer(() => {
               <Check color="#67D65D" strokeWidth={3} />
             </View>
             <Paragraph color="#797979" marginTop="$1">
-              Prevented
+              Blocked
             </Paragraph>
             <H1 color="$text11" lineHeight={50} marginBottom={-6}>
               {OverviewStore.totalPreventedInPercentage}%
@@ -120,14 +120,14 @@ const Overview = observer(() => {
                   <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
                     {OverviewStore.interruptionByApp(app)}x
                   </H2>
-                  <Paragraph color="#797979">Interrupted</Paragraph>
+                  <Paragraph color="#797979">Opened</Paragraph>
                 </YStack>
                 <Divider />
                 <YStack>
                   <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
                     {OverviewStore.preventedByAppInPercentage(app)}%
                   </H2>
-                  <Paragraph color="#797979">Prevented</Paragraph>
+                  <Paragraph color="#797979">Blocked</Paragraph>
                 </YStack>
                 <View alignSelf="center" justifyContent="flex-end" flexDirection="row" flex={1}>
                   <ChevronRight color="#797979" />

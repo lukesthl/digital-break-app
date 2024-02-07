@@ -109,7 +109,6 @@ struct DigitalBreak: AppIntent {
     let appIntentFile = storageDirectory.appendingPathComponent("appintent.json")
     do {
       let data = try Data(contentsOf: appIntentFile)
-      print(data)
       let decoder = JSONDecoder()
       let appIntentPayload = try decoder.decode(AppIntentPayload.self, from: data)
       return appIntentPayload
@@ -167,17 +166,12 @@ struct DigitalBreak: AppIntent {
     var appInfo = fetchAppItem(with: appPrompt!)
     var isActive = true
     var outOfTimeRange = false
-    print(appIntentPayload?.openedApp.lowercased())
-    print(appPrompt?.lowercased())
-    print(appIntentPayload)
     if appIntentPayload?.openedApp.lowercased() != appPrompt?.lowercased() {
       appIntentPayload = nil
     }
     do {
       if appInfo != nil && appIntentPayload != nil {
-        if
-          let timestamp = appIntentPayload?.timestamp
-        {
+        if let timestamp = appIntentPayload?.timestamp {
           isActive = appInfo!.active
 
           let lastOpen = timestamp
@@ -196,14 +190,14 @@ struct DigitalBreak: AppIntent {
     } catch {
       print("Error while fetching apps: \(error)")
     }
-    print("appintentpayload", appIntentPayload)
-    print("outoftimerange", outOfTimeRange)
     if appIntentPayload != nil && isActive && appIntentPayload?.event == Event.breakStart
       && outOfTimeRange
     {
       return .result(
         value: true)
-    } else if appIntentPayload == nil || outOfTimeRange || appInfo == nil || (!outOfTimeRange && appIntentPayload?.event == Event.breakStart) {
+    } else if appIntentPayload == nil || outOfTimeRange || appInfo == nil
+      || (!outOfTimeRange && appIntentPayload?.event == Event.breakStart)
+    {
       appIntentPayload = AppIntentPayload(
         openedApp: appPrompt!, timestamp: Date().timeIntervalSince1970, event: Event.breakStart)
     } else {
@@ -223,7 +217,6 @@ struct DigitalBreak: AppIntent {
     } catch {
       print(error)
     }
-    print("after", appIntentPayload?.event)
     return .result(
       value: appIntentPayload?.event != Event.breakSkip
     )
