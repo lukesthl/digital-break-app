@@ -29,11 +29,11 @@ on:
           - production
 env:
   platform: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.platform || vars.DEFAULT_PLATFORM }}
-  profile: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.profile ||vars.DEFAULT_PROFILE }}
+  profile: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.profile || vars.DEFAULT_PROFILE }}
 jobs:
   build:
     name: 🚀 Build and Deploy App
-    runs-on: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.os ||vars.DEFAULT_OS }}
+    runs-on: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.os || vars.DEFAULT_OS }}
     strategy:
       matrix:
         node: [18.x]
