@@ -8,7 +8,6 @@ import { AppIcon } from "../../components/app.icon";
 import { Container } from "../../components/container";
 import { ShadowCard } from "../../components/shadow.card";
 import { OverviewStore } from "../../data/overview.store";
-import apps from "../(tabs)/apps";
 
 const Setup = observer(() => {
   const [search, setSearch] = useState("");

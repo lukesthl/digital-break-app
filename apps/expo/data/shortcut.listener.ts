@@ -1,4 +1,5 @@
-import { IPayload, ShortCutPayload } from "./shortcut.payload";
+import type { IPayload} from "./shortcut.payload";
+import { ShortCutPayload } from "./shortcut.payload";
 
 const MAX_TRY_COUNT = 10;
 let intervalIds: NodeJS.Timeout[] = [];
