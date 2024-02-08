@@ -6,7 +6,7 @@
     "build": "tsup src/index.ts --format cjs --dts --minify --clean --legacy-output --outDir build",
     "generate": "node ./build/index.js",
     "clean": "rm -rf .turbo node_modules",
-    "format": "prettier --check \"**/*.{mjs,ts,md,json}\"",
+    "format": "prettier --write \"**/*.{mjs,ts,md,json}\"",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
