@@ -27,9 +27,9 @@
     "@react-native/normalize-color": "^2.1.0",
     "@types/fs-extra": "^11.0.4",
     "@types/glob": "^8.1.0",
-    "@types/react": "^18.2.48",
-    "expo-module-scripts": "^3.4.0",
-    "expo-modules-core": "^1.11.7",
+    "@types/react": "^18.2.55",
+    "expo-module-scripts": "^3.4.1",
+    "expo-modules-core": "^1.11.8",
     "fs-extra": "^11.2.0",
     "glob": "^10.3.10"
   },
@@ -39,6 +39,6 @@
     "react-native": "*"
   },
   "dependencies": {
-    "expo-file-system": "~16.0.4"
+    "expo-file-system": "~16.0.6"
   }
 }
