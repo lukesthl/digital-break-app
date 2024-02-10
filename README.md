@@ -14,9 +14,10 @@ Take control of your screen time with Digital Break - a app designed to introduc
 ## About The Project
 
 <p align="left">
-  <video src="https://lukesthl.github.io/digital-break-app/public/digital-break-preview.mp4"></video>
+  <video src="https://github.com/lukesthl/digital-break-app/assets/44963006/5a0268a2-1964-4832-9295-a02a9f2c1df5"></video>
 </p>
- App Store: [Digital Break on the App Store](https://apps.apple.com/de/app/digitalbreak-screentime-focus/id6474795966) 
+
+ App Store: [Digital Break on the App Store](https://apps.apple.com/de/app/digitalbreak-screentime-focus/id6474795966)  
 📱 Play Store: **not supported**
 
 ## Key Features
