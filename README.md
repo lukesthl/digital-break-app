@@ -13,8 +13,10 @@ Take control of your screen time with Digital Break - a app designed to introduc
 
 ## About The Project
 
-https://lukesthl.github.io/digital-break-app/public/digital-break-preview.mp4  
- App Store: [Digital Break on the App Store](https://apps.apple.com/de/app/digitalbreak-screentime-focus/id6474795966)  
+<p align="left">
+  <video src="https://lukesthl.github.io/digital-break-app/public/digital-break-preview.mp4"></video>
+</p>
+ App Store: [Digital Break on the App Store](https://apps.apple.com/de/app/digitalbreak-screentime-focus/id6474795966) 
 📱 Play Store: **not supported**
 
 ## Key Features
@@ -68,7 +70,7 @@ Monorepo structure:
 
 ## Architecture
 
-https://lukesthl.github.io/digital-break-app/public/architecture.png
+<img src="https://lukesthl.github.io/digital-break-app/public/architecture.png">
 
 The app uses the [AppIntent](https://developer.apple.com/documentation/appintents) framework to intercept the app opening event.  
 When the user opens an app that is defined in the [apps.json](/public/apps.json) the app will intercept the event and displays a break screen. When break is over the user can decide to open the app via the defined url scheme or close the app.
