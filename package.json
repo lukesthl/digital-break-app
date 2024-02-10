@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "native": "bun run --cwd apps/expo dev:client",
+    "ios": "bun run --cwd apps/expo ios",
     "fix": "manypkg fix",
     "lint": "turbo lint",
     "format": "turbo format",
