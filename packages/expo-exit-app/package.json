@@ -13,9 +13,7 @@
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
     "open:ios": "open -a \"Xcode\" example/ios",
-    "open:android": "open -a \"Android Studio\" example/android",
-    "android": "expo run:android",
-    "ios": "expo run:ios"
+    "open:android": "open -a \"Android Studio\" example/android"
   },
   "keywords": [
     "react-native",
@@ -30,20 +28,15 @@
   "author": "lukesthl <luke@lukestahl.de> (https://github.com/lukesthl)",
   "license": "MIT",
   "homepage": "https://github.com/lukesthl/digital-break-app#readme",
-  "dependencies": {
-    "expo": "~54.0.33",
-    "react": "19.1.0",
-    "react-native": "0.81.5"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/react": "~19.0.0",
-    "expo-module-scripts": "~4.0.0",
-    "expo-modules-core": "~2.3.0"
+    "expo-module-scripts": "~5.0.8",
+    "expo-modules-core": "~3.0.29"
   },
   "peerDependencies": {
     "expo": "*",
     "react": "*",
     "react-native": "*"
-  },
-  "packageManager": "pnpm@8.13.1"
+  }
 }
