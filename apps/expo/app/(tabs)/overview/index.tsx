@@ -13,7 +13,7 @@ import { Header } from "../../../components/header";
 import { PercentageTrend } from "../../../components/percentage.trend";
 import { ShadowCard } from "../../../components/shadow.card";
 import { OverviewStore } from "../../../data/overview.store";
-import { WeeklySummary } from "./weekly.summary";
+import { WeeklySummary } from "../../../components/weekly-summary";
 
 const Overview = observer(() => {
   useEffect(() => {

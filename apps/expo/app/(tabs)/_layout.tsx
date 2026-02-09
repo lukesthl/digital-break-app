@@ -1,13 +1,12 @@
 import { Tabs } from "expo-router";
 import { BarChart2, LayoutGrid } from "@tamagui/lucide-icons";
-import { observer } from "mobx-react-lite";
 import { SizableText } from "tamagui";
 
 export const unstable_settings = {
   initialRouteName: "index",
 };
 
-const OverviewLayout = observer(() => {
+const OverviewLayout = () => {
   return (
     <Tabs screenOptions={{ tabBarStyle: { minHeight: 80 } }}>
       <Tabs.Screen
@@ -62,6 +61,6 @@ const OverviewLayout = observer(() => {
       />
     </Tabs>
   );
-});
+};
 
 export default OverviewLayout;

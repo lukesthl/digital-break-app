@@ -92,14 +92,14 @@ const Setup = observer(() => {
                 width={"100%"}
                 height={"100%"}
                 flex={1}
-                borderRadius={"$3"}
+                borderRadius={8}
               />
               <Image
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 source={require("../../assets/images/setup/02_add_shortcut.png")}
                 width={"100%"}
                 height={"100%"}
-                borderRadius={"$3"}
+                borderRadius={8}
                 flex={1}
               />
             </XStack>
@@ -146,7 +146,7 @@ const Setup = observer(() => {
                 width={"100%"}
                 height={"100%"}
                 flex={1}
-                borderRadius={"$3"}
+                borderRadius={8}
               />
             </XStack>
           </ShadowCard>
@@ -180,7 +180,7 @@ const Setup = observer(() => {
                 width={"100%"}
                 height={"100%"}
                 flex={1}
-                borderRadius={"$3"}
+                borderRadius={8}
               />
             </XStack>
           </ShadowCard>
@@ -229,7 +229,7 @@ const Setup = observer(() => {
                 width={"100%"}
                 height={"100%"}
                 flex={1}
-                borderRadius={"$3"}
+                borderRadius={8}
               />
             </XStack>
           </ShadowCard>
@@ -265,7 +265,7 @@ const Setup = observer(() => {
                 width={"100%"}
                 height={"100%"}
                 flex={1}
-                borderRadius={"$3"}
+                borderRadius={8}
               />
             </XStack>
           </ShadowCard>

@@ -1,3 +1,4 @@
+import React from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import Constants, { AppOwnership } from "expo-constants";
 import { useFocusEffect } from "@react-navigation/native";
@@ -33,7 +34,7 @@ export const useSoftKeyboardEffect = () => {
   });
 };
 
-export const DismissKeyboard = ({ children }: { children: JSX.Element }) => (
+export const DismissKeyboard = ({ children }: { children: React.ReactNode }) => (
   <TouchableWithoutFeedback
     onPress={() => {
       Keyboard.dismiss();

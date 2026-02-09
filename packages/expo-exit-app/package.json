@@ -30,9 +30,9 @@
   "homepage": "https://github.com/lukesthl/digital-break-app#readme",
   "dependencies": {},
   "devDependencies": {
-    "@types/react": "^18.2.55",
-    "expo-module-scripts": "^3.4.1",
-    "expo-modules-core": "^1.11.8"
+    "@types/react": "~19.0.0",
+    "expo-module-scripts": "~4.0.0",
+    "expo-modules-core": "~2.3.0"
   },
   "peerDependencies": {
     "expo": "*",

@@ -2,7 +2,7 @@ import type { IPayload } from "./shortcut.payload";
 import { ShortCutPayload } from "./shortcut.payload";
 
 const MAX_TRY_COUNT = 10;
-let intervalIds: NodeJS.Timeout[] = [];
+let intervalIds: ReturnType<typeof setInterval>[] = [];
 
 // why FileSystem? because AsyncStorage doesnt work in combination with the App Intent.
 // It seems like AsyncStorage caches the value in memory and not directly writes it to the file system.

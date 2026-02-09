@@ -1,11 +1,10 @@
-import { useEffect, useRef } from "react";
-import { AppState } from "react-native";
-import { useFonts } from "expo-font";
-import { router, Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from "@react-navigation/native";
 import dayjs from "dayjs";
-import { observer } from "mobx-react-lite";
+import { useFonts } from "expo-font";
+import { router, Slot } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect, useRef } from "react";
+import { AppState } from "react-native";
 import { TamaguiProvider, useTheme as useThemeTamagui } from "tamagui";
 
 import { ThemeProvider, useTheme } from "../components/theme-provider";
@@ -22,6 +21,7 @@ export const unstable_settings = {
 export { ErrorBoundary } from "expo-router";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 void SplashScreen.preventAutoHideAsync();
+
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -35,15 +35,6 @@ export default function RootLayout() {
   useEffect(() => {
     if (error) throw error;
   }, [error]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return <RootLayoutNav />;
-}
-
-const RootLayoutNav = observer(() => {
   const appState = useRef(AppState.currentState);
   useEffect(() => {
     const checkShortcut = () => {
@@ -91,47 +82,46 @@ const RootLayoutNav = observer(() => {
       subscription.remove();
     };
   }, []);
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <TamaguiProvider config={config}>
       <ThemeProvider>
-        <NavigationStack />
+        <RootNavigator />
       </ThemeProvider>
     </TamaguiProvider>
   );
-});
+}
 
-const NavigationStack = () => {
+function RootNavigator() {
   const { theme } = useTheme();
   const tamaguiTheme = useThemeTamagui();
-  return (
-    <NavigationThemeProvider
-      value={
-        theme === "light"
-          ? {
-              ...DefaultTheme,
-              colors: {
-                ...DefaultTheme.colors,
-                background: "#FFFFFF",
-                text: tamaguiTheme.text11?.val as string,
-                primary: tamaguiTheme.text11?.val as string,
-                border: tamaguiTheme.grey3?.val as string,
-              },
-            }
-          : {
-              ...DarkTheme,
-              colors: {
-                ...DarkTheme.colors,
-              },
-            }
+
+  const navigationTheme = theme === "light"
+    ? {
+        ...DefaultTheme,
+        colors: {
+          ...DefaultTheme.colors,
+          background: "#FFFFFF",
+          text: tamaguiTheme.text11?.val as string,
+          primary: tamaguiTheme.text11?.val as string,
+          border: tamaguiTheme.grey3?.val as string,
+        },
+        fonts: DefaultTheme.fonts,
       }
-    >
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="break" options={{ headerShown: false }} />
-        <Stack.Screen name="settings" options={{ headerShown: false, presentation: "modal" }} />
-        <Stack.Screen name="setup" options={{ headerShown: false, presentation: "modal" }} />
-      </Stack>
+    : {
+        ...DarkTheme,
+        colors: {
+          ...DarkTheme.colors,
+        },
+        fonts: DarkTheme.fonts,
+      };
+
+  return (
+    <NavigationThemeProvider value={navigationTheme}>
+      <Slot />
     </NavigationThemeProvider>
   );
-};
+}

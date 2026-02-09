@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:expo.dev)",
+      "Bash(git checkout:*)",
+      "Bash(bun install)",
+      "Bash(bunx expo install:*)",
+      "Bash(bunx expo prebuild:*)",
+      "Bash(bun run:*)",
+      "Bash(npm view:*)",
+      "Bash(timeout 30 bunx expo start:*)",
+      "Bash(bunx expo run:ios:*)",
+      "Bash(grep:*)",
+      "WebFetch(domain:docs.expo.dev)",
+      "WebFetch(domain:expo.github.io)"
+    ]
+  }
+}

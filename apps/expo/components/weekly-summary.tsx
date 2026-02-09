@@ -2,12 +2,12 @@ import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import { SizableText, View, XStack, YStack } from "tamagui";
 
-import { ShadowCard } from "../../../components/shadow.card";
-import { OverviewStore } from "../../../data/overview.store";
+import { ShadowCard } from "./shadow.card";
+import { OverviewStore } from "../data/overview.store";
 
 import "dayjs/locale/de";
 
-import { PercentageTrend } from "../../../components/percentage.trend";
+import { PercentageTrend } from "./percentage.trend";
 
 dayjs.extend(weekday);
 dayjs.locale("de");

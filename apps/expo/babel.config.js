@@ -12,8 +12,7 @@ module.exports = function (api) {
           logTimings: true,
         },
       ],
-      // NOTE: this is only necessary if you are using reanimated for animations
-      "react-native-reanimated/plugin",
+      // NOTE: reanimated plugin removed - auto-configured by babel-preset-expo in SDK 54+
     ],
   };
 };

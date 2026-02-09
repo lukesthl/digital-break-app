@@ -9,7 +9,7 @@ export const translate = {
   init: async () => {
     await i18next.init({
       compatibilityJSON: "v3",
-      lng: Localization.locale,
+      lng: Localization.getLocales()[0]?.languageTag ?? "en",
       fallbackLng: "en",
       resources: { de, en },
       interpolation: {

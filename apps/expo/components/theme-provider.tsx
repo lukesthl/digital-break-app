@@ -25,7 +25,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   const colorScheme = useColorScheme();
   const [currentColorScheme, setCurrentColorScheme] = useState(colorScheme);
-  const onColorSchemeChange = useRef<NodeJS.Timeout>();
+  const onColorSchemeChange = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     const init = async () => {
