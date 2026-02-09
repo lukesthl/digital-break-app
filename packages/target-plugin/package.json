@@ -28,8 +28,8 @@
     "@types/fs-extra": "^11.0.4",
     "@types/glob": "^8.1.0",
     "@types/react": "~19.0.0",
-    "expo-module-scripts": "~4.0.0",
-    "expo-modules-core": "~2.3.0",
+    "expo-module-scripts": "~5.0.8",
+    "expo-modules-core": "~3.0.29",
     "fs-extra": "^11.2.0",
     "glob": "^10.3.10"
   },
