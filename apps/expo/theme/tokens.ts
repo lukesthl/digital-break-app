@@ -106,12 +106,13 @@ export const tokens = createTokens({
   },
 });
 
-function postfixObjKeys<A extends Record<string, Variable<string> | string>, B extends string>(
+function postfixObjKeys<A extends Record<string, unknown>, B extends string>(
   obj: A,
   postfix: B
 ): {
-  [Key in `${keyof A extends string ? keyof A : never}${B}`]: Variable<string> | string;
+  [Key in `${keyof A extends string ? keyof A : never}${B}`]: Variable | string;
 } {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
-  return Object.fromEntries(Object.entries(obj).map(([k, v]) => [`${k}${postfix}`, v])) as any;
+  return Object.fromEntries(Object.entries(obj).map(([k, v]) => [`${k}${postfix}`, v])) as {
+    [Key in `${keyof A extends string ? keyof A : never}${B}`]: Variable | string;
+  };
 }

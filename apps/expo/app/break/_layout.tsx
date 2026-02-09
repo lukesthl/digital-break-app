@@ -8,7 +8,10 @@ export const unstable_settings = {
 const BreakLayout = observer(() => {
   return (
     <Stack>
-      <Stack.Screen name="[appShortcutName]" options={{ headerShown: false, presentation: "fullScreenModal" }} />
+      <Stack.Screen
+        name="[appShortcutName]"
+        options={{ headerShown: false, presentation: "fullScreenModal" }}
+      />
     </Stack>
   );
 });

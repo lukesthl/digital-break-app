@@ -1,12 +1,9 @@
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import { SizableText, View, XStack, YStack } from "tamagui";
-
-import { ShadowCard } from "./shadow.card";
 import { OverviewStore } from "../data/overview.store";
-
+import { ShadowCard } from "./shadow.card";
 import "dayjs/locale/de";
-
 import { PercentageTrend } from "./percentage.trend";
 
 dayjs.extend(weekday);
@@ -37,7 +34,10 @@ export const WeeklySummary = () => {
     to: dayjs().weekday(-7).endOf("week").valueOf(),
   });
   const difference = savedThisWeek - savedLastWeek;
-  const savedThisWeekInPercentage = difference !== 0 && savedLastWeek !== 0 ? (difference / savedLastWeek) * 100 : 0;
+  const savedThisWeekInPercentage =
+    difference !== 0 && savedLastWeek !== 0
+      ? (difference / savedLastWeek) * 100
+      : 0;
   return (
     <ShadowCard>
       <XStack justifyContent="space-between">
@@ -48,7 +48,11 @@ export const WeeklySummary = () => {
         </SizableText>
         <SizableText color="$text11" fontWeight={"bold"} fontSize={"$5"}>
           {savedThisWeekInPercentage !== 0 && (
-            <PercentageTrend percentage={savedThisWeekInPercentage} affix="hours saved" hideIcon />
+            <PercentageTrend
+              percentage={savedThisWeekInPercentage}
+              affix="hours saved"
+              hideIcon
+            />
           )}
         </SizableText>
       </XStack>
@@ -59,8 +63,16 @@ export const WeeklySummary = () => {
           marginTop={"$2"}
           marginBottom={maxHourSavedOnADay > 0 ? "$4" : "$5"}
         >
-          {maxHourSavedOnADay > 0 && <SizableText color="$grey7">{maxHourSavedOnADay.toFixed(1)}h</SizableText>}
-          {maxHourSavedOnADay > 0 && <SizableText color="$grey7">{(maxHourSavedOnADay / 2).toFixed(1)}h</SizableText>}
+          {maxHourSavedOnADay > 0 && (
+            <SizableText color="$grey7">
+              {maxHourSavedOnADay.toFixed(1)}h
+            </SizableText>
+          )}
+          {maxHourSavedOnADay > 0 && (
+            <SizableText color="$grey7">
+              {(maxHourSavedOnADay / 2).toFixed(1)}h
+            </SizableText>
+          )}
           <SizableText color="$grey7">{0}h</SizableText>
         </YStack>
         <XStack space="$2.5" flex={1} width={"100%"}>
@@ -72,7 +84,10 @@ export const WeeklySummary = () => {
               to: dayEnd,
             });
             const padding = 5;
-            const height = timeSaved === 0 ? 0 : (timeSaved / maxHourSavedOnADay) * (100 - padding);
+            const height =
+              timeSaved === 0
+                ? 0
+                : (timeSaved / maxHourSavedOnADay) * (100 - padding);
             const isToday = dayjs().weekday(day).isSame(dayjs(), "day");
             const inFuture = dayjs().weekday(day).isAfter();
             return (

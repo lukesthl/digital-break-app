@@ -1,8 +1,3 @@
-import { useEffect } from "react";
-import { Share } from "react-native";
-import * as Linking from "expo-linking";
-import { router } from "expo-router";
-import * as Sharing from "expo-sharing";
 import {
   Box,
   ChevronRight,
@@ -22,9 +17,22 @@ import {
   Upload,
   Vibrate,
 } from "@tamagui/lucide-icons";
+import * as Linking from "expo-linking";
+import { router } from "expo-router";
+import * as Sharing from "expo-sharing";
 import { observer, Observer } from "mobx-react-lite";
-import { Button, H5, ListItem, SizableText, Switch, View, YGroup, YStack } from "tamagui";
-
+import { useEffect } from "react";
+import { Share } from "react-native";
+import {
+  Button,
+  H5,
+  ListItem,
+  SizableText,
+  Switch,
+  View,
+  YGroup,
+  YStack,
+} from "tamagui";
 import { Container } from "../../components/container";
 import { OverviewStore } from "../../data/overview.store";
 import { SettingsStore } from "../../data/settings.store";
@@ -86,7 +94,9 @@ const Settings = observer(() => {
                       size="$4"
                       checked={SettingsStore.hapticsEnabled}
                       onCheckedChange={() => {
-                        void SettingsStore.setHapticsEnabled(!SettingsStore.hapticsEnabled);
+                        void SettingsStore.setHapticsEnabled(
+                          !SettingsStore.hapticsEnabled
+                        );
                       }}
                     >
                       <Switch.Thumb animation="bouncy" />
@@ -147,7 +157,9 @@ const Settings = observer(() => {
                 });
               }}
             >
-              <ListItem.Text>{"Share Digital Break with friends"}</ListItem.Text>
+              <ListItem.Text>
+                {"Share Digital Break with friends"}
+              </ListItem.Text>
             </ListItem>
           </YGroup.Item>
         </YGroup>
@@ -201,7 +213,11 @@ const Settings = observer(() => {
                 hoverTheme
                 pressTheme
                 icon={
-                  <View backgroundColor="$gray5" borderRadius={"$3"} padding="$2">
+                  <View
+                    backgroundColor="$gray5"
+                    borderRadius={"$3"}
+                    padding="$2"
+                  >
                     <Database size={20} />
                   </View>
                 }
@@ -247,7 +263,9 @@ const Settings = observer(() => {
               }
               iconAfter={ExternalLink}
               onPress={() => {
-                void Linking.openURL("https://github.com/lukesthl/digital-break-app");
+                void Linking.openURL(
+                  "https://github.com/lukesthl/digital-break-app"
+                );
               }}
             >
               <ListItem.Text>{"Constribute to Digital Break"}</ListItem.Text>

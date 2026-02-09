@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { ExternalLink, Layers2, Youtube } from "@tamagui/lucide-icons";
 import * as Linking from "expo-linking";
 import { router, useLocalSearchParams } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
-import { ExternalLink, Layers2, Youtube } from "@tamagui/lucide-icons";
 import { observer } from "mobx-react-lite";
+import { useState } from "react";
 import {
   AlertDialog,
   Button,
@@ -17,13 +17,15 @@ import {
   XStack,
   YStack,
 } from "tamagui";
-
 import { Container } from "../../components/container";
 import { ShadowCard } from "../../components/shadow.card";
 import { OverviewStore } from "../../data/overview.store";
 
 const Setup = observer(() => {
-  const searchParams = useLocalSearchParams<{ appName: string; appKey: string }>();
+  const searchParams = useLocalSearchParams<{
+    appName: string;
+    appKey: string;
+  }>();
 
   const [error, setError] = useState<string | null>(null);
   return (
@@ -32,7 +34,9 @@ const Setup = observer(() => {
         <YStack space="$4">
           <>
             <H4 color="$text11">Tutorial</H4>
-            <Paragraph color="$text11">Step by step instructions to get you started.</Paragraph>
+            <Paragraph color="$text11">
+              Step by step instructions to get you started.
+            </Paragraph>
           </>
           <ShadowCard>
             <Button
@@ -42,7 +46,9 @@ const Setup = observer(() => {
                 backgroundColor: "#FF0000",
               }}
               icon={<Youtube size={20} />}
-              onPress={() => router.push(`/setup/video?appKey=${searchParams.appKey}`)}
+              onPress={() =>
+                router.push(`/setup/video?appKey=${searchParams.appKey}`)
+              }
             >
               Video Tutorial
             </Button>
@@ -66,7 +72,9 @@ const Setup = observer(() => {
                 <H4 color="$text11" lineHeight={20}>
                   Download the {searchParams.appName} shortcut
                 </H4>
-                <Paragraph color="$text11">and import it into the Shortcuts app.</Paragraph>
+                <Paragraph color="$text11">
+                  and import it into the Shortcuts app.
+                </Paragraph>
                 <Button
                   onPress={() => {
                     void WebBrowser.openBrowserAsync(
@@ -81,7 +89,9 @@ const Setup = observer(() => {
                   paddingVertical={"$2"}
                   iconAfter={<Layers2 size={16} strokeWidth={2.5} />}
                 >
-                  <Text fontWeight={"600"}>Download {searchParams.appName} Shortcut</Text>
+                  <Text fontWeight={"600"}>
+                    Download {searchParams.appName} Shortcut
+                  </Text>
                 </Button>
               </View>
             </XStack>
@@ -123,7 +133,9 @@ const Setup = observer(() => {
                 <H4 color="$text11" lineHeight={20}>
                   Open the Shortcut app
                 </H4>
-                <Paragraph color="$text11">Go to Automations tab and create a new automation.</Paragraph>
+                <Paragraph color="$text11">
+                  Go to Automations tab and create a new automation.
+                </Paragraph>
                 <Button
                   onPress={() => {
                     void Linking.openURL("shortcuts://automation");
@@ -169,7 +181,9 @@ const Setup = observer(() => {
                 <H4 color="$text11" lineHeight={20}>
                   Select &quot;App&quot;-Automation
                 </H4>
-                <Paragraph color="$text11">Scroll down and select &quot;App&quot; as the trigger.</Paragraph>
+                <Paragraph color="$text11">
+                  Scroll down and select &quot;App&quot; as the trigger.
+                </Paragraph>
               </View>
             </XStack>
             <XStack space="$3" marginTop={"$2"} height={300}>
@@ -205,19 +219,32 @@ const Setup = observer(() => {
                 </H4>
                 <Paragraph color="$text11" lineHeight={20} marginTop="$1.5">
                   - Select &quot;Choose&quot; and search for{" "}
-                  <SizableText fontWeight={"bold"}>{searchParams.appName}</SizableText>.
+                  <SizableText fontWeight={"bold"}>
+                    {searchParams.appName}
+                  </SizableText>
+                  .
                 </Paragraph>
                 <Paragraph color="$text11" lineHeight={20}>
-                  - Select &quot;<SizableText fontWeight={"bold"}>Run Immediately</SizableText>&quot;
+                  - Select &quot;
+                  <SizableText fontWeight={"bold"}>Run Immediately</SizableText>
+                  &quot;
                 </Paragraph>
                 <Paragraph color="$text11" lineHeight={20}>
-                  - Set &quot;<SizableText fontWeight={"bold"}>Notify When Run</SizableText>&quot; to false
+                  - Set &quot;
+                  <SizableText fontWeight={"bold"}>Notify When Run</SizableText>
+                  &quot; to false
                 </Paragraph>
                 <Paragraph color="$text11" lineHeight={20}>
                   - Select &quot;Next&quot; when you are done.
                 </Paragraph>
-                <Paragraph color="$text11" lineHeight={16} fontWeight={"bold"} marginTop={"$1.5"}>
-                  Info: You need to create a new automation for every app you want to use.
+                <Paragraph
+                  color="$text11"
+                  lineHeight={16}
+                  fontWeight={"bold"}
+                  marginTop={"$1.5"}
+                >
+                  Info: You need to create a new automation for every app you
+                  want to use.
                 </Paragraph>
               </View>
             </XStack>
@@ -253,7 +280,8 @@ const Setup = observer(() => {
                   Configure Shortcut
                 </H4>
                 <Paragraph color="$text11" lineHeight={20} marginTop="$1.5">
-                  Search for &quot;{searchParams.appName} Digital Break&quot; and select it.
+                  Search for &quot;{searchParams.appName} Digital Break&quot;
+                  and select it.
                 </Paragraph>
               </View>
             </XStack>
@@ -289,10 +317,12 @@ const Setup = observer(() => {
                   Congrats 🎉
                 </H4>
                 <Paragraph color="$text11" lineHeight={20} marginTop="$1.5">
-                  You are all set. Now you can try to open {searchParams.appName} and see what happens.
+                  You are all set. Now you can try to open{" "}
+                  {searchParams.appName} and see what happens.
                 </Paragraph>
                 <Paragraph color="$text11" lineHeight={20}>
-                  The App will be displayed in Digital Break Overview after the first time you open it.
+                  The App will be displayed in Digital Break Overview after the
+                  first time you open it.
                 </Paragraph>
               </View>
             </XStack>

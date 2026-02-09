@@ -1,7 +1,6 @@
 import Constants, { AppOwnership } from "expo-constants";
 import { router } from "expo-router";
 import { makeAutoObservable } from "mobx";
-
 import * as ExpoExitApp from "../../../packages/expo-exit-app";
 import { AppStatisticsStore } from "./app.statistics";
 import type { App } from "./apps.store";
@@ -58,21 +57,38 @@ export class BreakStoreSingleton {
     makeAutoObservable(this);
   }
 
-  public async init({ appShortcutName, timestamp }: { appShortcutName: string; timestamp: number }) {
+  public async init(
+    {
+      appShortcutName,
+      timestamp,
+    }: {
+      appShortcutName: string;
+      timestamp: number;
+    }
+  ) {
     this.status = null;
-    const [app] = await Promise.all([this.appsStore.getOrCreateApp({ appShortcutName }), SettingsStore.init()]);
+    const [app] = await Promise.all([
+      this.appsStore.getOrCreateApp({ appShortcutName }),
+      SettingsStore.init(),
+    ]);
     this.app = app;
     if (timestamp !== this.lastBreakTimestamp) {
       this.lastBreakTimestamp = timestamp;
-      void this.appStatisticsStore.trackEvent({ appId: app.id, type: "break-start" });
+      void this.appStatisticsStore.trackEvent({
+        appId: app.id,
+        type: "break-start",
+      });
     }
   }
 
-  public async openApp(): Promise<void> {
+  public async openApp(): Promise {
     if (!this.app) {
       throw new Error("App not initialized");
     }
-    await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-reopen" });
+    await this.appStatisticsStore.trackEvent({
+      appId: this.app.id,
+      type: "app-reopen",
+    });
     console.log("opening app", this.app.key);
     await ShortCutPayload.update("app-reopen");
     await new Promise((resolve) => setTimeout(resolve, 1000)); // app intent isnt fast enough
@@ -85,17 +101,22 @@ export class BreakStoreSingleton {
     router.replace("/");
   }
 
-  public async exitApp(): Promise<void> {
+  public async exitApp(): Promise {
     if (!this.app || isRunningInExpoGo) {
       throw new Error("App not initialized");
     }
-    await this.appStatisticsStore.trackEvent({ appId: this.app.id, type: "app-close" });
+    await this.appStatisticsStore.trackEvent({
+      appId: this.app.id,
+      type: "app-close",
+    });
     await ShortCutPayload.clear();
     ExpoExitApp.exit();
   }
 
   public getRandomBreakMessage(): string {
-    return funnyBreakMessages[Math.floor(Math.random() * funnyBreakMessages.length)]!;
+    return funnyBreakMessages[
+      Math.floor(Math.random() * funnyBreakMessages.length)
+    ]!;
   }
 
   public get app(): App | null {

@@ -1,17 +1,21 @@
 import { TrendingDown, TrendingUp } from "@tamagui/lucide-icons";
 import { Paragraph, XStack } from "tamagui";
 
-export const PercentageTrend = ({
-  percentage,
-  affix,
-  hideIcon,
-}: {
-  percentage: number;
-  affix?: string;
-  hideIcon?: boolean;
-}) => (
+export const PercentageTrend = (
+  {
+    percentage,
+    affix,
+    hideIcon,
+  }: {
+    percentage: number;
+    affix?: string;
+    hideIcon?: boolean;
+  }
+) => (
   <XStack
-    backgroundColor={percentage > 0 ? "rgba(103,214,93,0.2)" : "rgba(255,0,0,0.2)"}
+    backgroundColor={
+      percentage > 0 ? "rgba(103,214,93,0.2)" : "rgba(255,0,0,0.2)"
+    }
     borderRadius={"$2"}
     alignItems="center"
     space="$1"

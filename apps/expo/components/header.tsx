@@ -38,8 +38,10 @@ export const Header = ({ isSticky, ...props }: React.ComponentProps<typeof XStac
           disabled
         >
           <Image
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            source={require("../assets/images/digital-break-hourglass-icon.png") as ImageSourcePropType}
+            source={
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              require("../assets/images/digital-break-hourglass-icon.png") as ImageSourcePropType
+            }
             //source={require("../assets/images/default.png") as any}
             width={26}
             height={26}

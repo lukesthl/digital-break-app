@@ -54,6 +54,7 @@ const config = createTamagui({
     heading: headingFont,
     body: bodyFont,
   },
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   themes: {
     ...themes,
     light_Button: {
@@ -80,7 +81,7 @@ const config = createTamagui({
       borderColor: "#cccccc",
       background: "#fff",
     },
-  } as unknown as Record<string, Record<string, string>>,
+  } as any, // eslint-disable-line @typescript-eslint/no-explicit-any
   tokens,
   media: createMedia({
     xs: { maxWidth: 660 },
@@ -100,10 +101,4 @@ const config = createTamagui({
   }),
 });
 export type AppConfig = typeof config;
-declare module "tamagui" {
-  // overrides TamaguiCustomConfig so your custom types
-  // work everywhere you import `tamagui`
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  interface TamaguiCustomConfig extends AppConfig {}
-}
 export default config;

@@ -1,5 +1,4 @@
 import "i18next";
-
 import type de from "./constants/translation/de.json";
 
 declare module "i18next" {

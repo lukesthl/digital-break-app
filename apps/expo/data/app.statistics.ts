@@ -55,7 +55,12 @@ export class AppStatisticsStore {
   }
 
   public async trackEvent({ appId, type, timestamp }: { appId: string; type: Event["type"]; timestamp?: number }) {
-    const event = { appId, type, id: Crypto.randomUUID(), timestamp: timestamp ?? Date.now() };
+    const event = {
+      appId,
+      type,
+      id: Crypto.randomUUID(),
+      timestamp: timestamp ?? Date.now(),
+    };
     await this.storage.create(event);
   }
 

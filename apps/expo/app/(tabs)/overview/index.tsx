@@ -1,19 +1,33 @@
+import {
+  AlertTriangle,
+  Check,
+  ChevronRight,
+  Plus,
+  ShieldBan,
+} from "@tamagui/lucide-icons";
+import dayjs from "dayjs";
+import { router } from "expo-router";
+import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { RefreshControl } from "react-native";
-import { router } from "expo-router";
-import { AlertTriangle, Check, ChevronRight, Plus, ShieldBan } from "@tamagui/lucide-icons";
-import dayjs from "dayjs";
-import { observer } from "mobx-react-lite";
-import { H1, H2, H4, Paragraph, SizableText, View, XStack, YStack } from "tamagui";
-
+import {
+  H1,
+  H2,
+  H4,
+  Paragraph,
+  SizableText,
+  View,
+  XStack,
+  YStack,
+} from "tamagui";
 import { AppIcon } from "../../../components/app.icon";
 import { Container } from "../../../components/container";
 import { Divider } from "../../../components/divider";
 import { Header } from "../../../components/header";
 import { PercentageTrend } from "../../../components/percentage.trend";
 import { ShadowCard } from "../../../components/shadow.card";
-import { OverviewStore } from "../../../data/overview.store";
 import { WeeklySummary } from "../../../components/weekly-summary";
+import { OverviewStore } from "../../../data/overview.store";
 
 const Overview = observer(() => {
   useEffect(() => {
@@ -27,7 +41,9 @@ const Overview = observer(() => {
   };
   return (
     <Container
-      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
       header={({ isSticky }) => <Header isSticky={isSticky} />}
     >
       <YStack space="$4">
@@ -36,7 +52,12 @@ const Overview = observer(() => {
         {OverviewStore.stillCollectingData && (
           <ShadowCard>
             <XStack space="$3">
-              <View backgroundColor="$yellow4" padding="$2" borderRadius={999} alignSelf="flex-start">
+              <View
+                backgroundColor="$yellow4"
+                padding="$2"
+                borderRadius={999}
+                alignSelf="flex-start"
+              >
                 <AlertTriangle color="#F7B955" />
               </View>
               <YStack flex={1}>
@@ -44,7 +65,8 @@ const Overview = observer(() => {
                   Collecting data
                 </Paragraph>
                 <SizableText color="$text6" fontSize={"$3"} lineHeight={16}>
-                  We need more data to show you how much time you’ve saved. Take a look in a few days.
+                  We need more data to show you how much time you’ve saved. Take
+                  a look in a few days.
                 </SizableText>
               </YStack>
             </XStack>
@@ -52,7 +74,12 @@ const Overview = observer(() => {
         )}
         <XStack space="$4">
           <ShadowCard flex={1}>
-            <View backgroundColor="rgba(254,94,42,0.2)" padding="$2" borderRadius={999} alignSelf="flex-start">
+            <View
+              backgroundColor="rgba(254,94,42,0.2)"
+              padding="$2"
+              borderRadius={999}
+              alignSelf="flex-start"
+            >
               <ShieldBan color="#FE5E2A" strokeWidth={2.25} />
             </View>
             <Paragraph color="#797979" marginTop="$1">
@@ -63,7 +90,12 @@ const Overview = observer(() => {
             </H1>
           </ShadowCard>
           <ShadowCard flex={1}>
-            <View backgroundColor="rgba(103,214,93,0.2)" padding="$2" borderRadius={999} alignSelf="flex-start">
+            <View
+              backgroundColor="rgba(103,214,93,0.2)"
+              padding="$2"
+              borderRadius={999}
+              alignSelf="flex-start"
+            >
               <Check color="#67D65D" strokeWidth={3} />
             </View>
             <Paragraph color="#797979" marginTop="$1">
@@ -75,18 +107,26 @@ const Overview = observer(() => {
           </ShadowCard>
         </XStack>
         {OverviewStore.apps.map((app, index) => {
-          const preventedLastWeek = OverviewStore.preventedByAppInPercentage(app, {
-            from: dayjs().weekday(-7).startOf("week").valueOf(),
-            to: dayjs().weekday(-7).endOf("week").valueOf(),
-          });
-          const preventedThisWeek = OverviewStore.preventedByAppInPercentage(app, {
-            from: dayjs().weekday(0).startOf("week").valueOf(),
-            to: dayjs().valueOf(),
-          });
+          const preventedLastWeek = OverviewStore.preventedByAppInPercentage(
+            app,
+            {
+              from: dayjs().weekday(-7).startOf("week").valueOf(),
+              to: dayjs().weekday(-7).endOf("week").valueOf(),
+            }
+          );
+          const preventedThisWeek = OverviewStore.preventedByAppInPercentage(
+            app,
+            {
+              from: dayjs().weekday(0).startOf("week").valueOf(),
+              to: dayjs().valueOf(),
+            }
+          );
 
           const difference = preventedThisWeek - preventedLastWeek;
           const percentageSavedInComparisonToLastWeek =
-            difference !== 0 && preventedLastWeek > 0 ? (difference / preventedLastWeek) * 100 : 0;
+            difference !== 0 && preventedLastWeek > 0
+              ? (difference / preventedLastWeek) * 100
+              : 0;
           return (
             <ShadowCard
               key={index}
@@ -100,36 +140,63 @@ const Overview = observer(() => {
               <XStack space="$2" justifyContent="space-between">
                 <XStack space="$2" alignItems="center">
                   <AppIcon appKey={app.iconKey} />
-                  <SizableText color="$text11" fontWeight={"900"} fontSize={"$5"}>
+                  <SizableText
+                    color="$text11"
+                    fontWeight={"900"}
+                    fontSize={"$5"}
+                  >
                     {app.name}
                   </SizableText>
                 </XStack>
                 {percentageSavedInComparisonToLastWeek !== 0 && (
-                  <PercentageTrend percentage={percentageSavedInComparisonToLastWeek} affix="Prevented" />
+                  <PercentageTrend
+                    percentage={percentageSavedInComparisonToLastWeek}
+                    affix="Prevented"
+                  />
                 )}
               </XStack>
               <XStack space="$4" marginTop="$2">
                 <YStack>
-                  <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+                  <H2
+                    color="$text11"
+                    fontWeight={"900"}
+                    marginBottom={-6}
+                    fontSize={"$9"}
+                  >
                     {OverviewStore.hoursSavedByApp(app)}h
                   </H2>
                   <Paragraph color="#797979">Saved</Paragraph>
                 </YStack>
                 <Divider />
                 <YStack>
-                  <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+                  <H2
+                    color="$text11"
+                    fontWeight={"900"}
+                    marginBottom={-6}
+                    fontSize={"$9"}
+                  >
                     {OverviewStore.interruptionByApp(app)}x
                   </H2>
                   <Paragraph color="#797979">Opened</Paragraph>
                 </YStack>
                 <Divider />
                 <YStack>
-                  <H2 color="$text11" fontWeight={"900"} marginBottom={-6} fontSize={"$9"}>
+                  <H2
+                    color="$text11"
+                    fontWeight={"900"}
+                    marginBottom={-6}
+                    fontSize={"$9"}
+                  >
                     {OverviewStore.preventedByAppInPercentage(app)}%
                   </H2>
                   <Paragraph color="#797979">Blocked</Paragraph>
                 </YStack>
-                <View alignSelf="center" justifyContent="flex-end" flexDirection="row" flex={1}>
+                <View
+                  alignSelf="center"
+                  justifyContent="flex-end"
+                  flexDirection="row"
+                  flex={1}
+                >
                   <ChevronRight color="#797979" />
                 </View>
               </XStack>
@@ -144,14 +211,26 @@ const Overview = observer(() => {
             router.push("/setup");
           }}
         >
-          <View borderWidth={1} borderColor={"$grey3"} borderRadius={"$2"} padding="$4" borderStyle="dashed">
+          <View
+            borderWidth={1}
+            borderColor={"$grey3"}
+            borderRadius={"$2"}
+            padding="$4"
+            borderStyle="dashed"
+          >
             <XStack justifyContent="center" alignItems="center" space="$2">
               <Plus color="#797979" />
               <YStack>
-                <SizableText color="$text11" fontWeight={"bold"} fontSize={"$5"}>
+                <SizableText
+                  color="$text11"
+                  fontWeight={"bold"}
+                  fontSize={"$5"}
+                >
                   Add app
                 </SizableText>
-                <Paragraph color="#797979">Block apps to stay focused</Paragraph>
+                <Paragraph color="#797979">
+                  Block apps to stay focused
+                </Paragraph>
               </YStack>
             </XStack>
           </View>

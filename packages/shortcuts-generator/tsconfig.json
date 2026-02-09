@@ -1,5 +1,10 @@
 {
-  "exclude": ["lib/**/*.spec.tsx", "lib/**/*.stories.tsx", "lib/**/*.styles.tsx", "build/**/*"],
+  "exclude": [
+    "lib/**/*.spec.tsx",
+    "lib/**/*.stories.tsx",
+    "lib/**/*.styles.tsx",
+    "build/**/*"
+  ],
   "compilerOptions": {
     "skipLibCheck": true,
     "target": "ES2022",

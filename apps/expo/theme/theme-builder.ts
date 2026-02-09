@@ -1,6 +1,12 @@
 import { createThemeBuilder } from "@tamagui/theme-builder";
-import { componentThemeDefinitions, maskOptions, masks, palettes, shadows, templates } from "@tamagui/themes";
-
+import {
+  componentThemeDefinitions,
+  maskOptions,
+  masks,
+  palettes,
+  shadows,
+  templates,
+} from "@tamagui/themes";
 import { darkColors, lightColors } from "./tokens";
 
 export const themeTypes = ["light", "dark"] as const;

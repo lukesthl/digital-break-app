@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 interface Theme {
   color1: string;
   color2: string;
@@ -177,11 +177,14 @@ interface Theme {
 }
 
 function t(a: number[][]) {
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   const res: Record<string, string> = {};
+
   for (const [ki, vi] of a) {
     // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     res[ks[ki]] = vs[vi];
   }
+
   return res;
 }
 const vs = [

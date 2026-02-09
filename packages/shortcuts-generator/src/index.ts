@@ -2,10 +2,12 @@ import { exec } from "child_process";
 import { promises as fs } from "fs";
 import os from "os";
 import path from "path";
-
 import apps from "../../../public/apps.json";
 
-const templateDir = path.join(__dirname, "../../../public/shortcut.template.plist");
+const templateDir = path.join(
+  __dirname,
+  "../../../public/shortcut.template.plist"
+);
 const shortcutDir = path.join(__dirname, "../../../public/shortcuts");
 
 const generateShortcuts = async () => {
@@ -15,19 +17,26 @@ const generateShortcuts = async () => {
     console.log(`Generating shortcut for ${app.name}`);
     const shortcut = templatePlist.replace("{{appName}}", app.name);
     console.log(`Writing shortcut for ${app.name}`);
-    await fs.writeFile(path.join(shortcutDir, `/${app.name} Digital Break.shortcut`), shortcut);
+    await fs.writeFile(
+      path.join(shortcutDir, `/${app.name} Digital Break.shortcut`),
+      shortcut
+    );
     console.log(`Signing shortcut for ${app.name}`);
     await execShellCommand(
       `shortcuts sign -m anyone -i ${path.join(
         shortcutDir,
         `/${app.name} Digital Break.shortcut`.replace(/(\s+)/g, "\\$1")
-      )} -o ${path.join(shortcutDir, `/${app.name} Digital Break.shortcut`).replace(/(\s+)/g, "\\$1")}`
+      )} -o ${path
+        .join(shortcutDir, `/${app.name} Digital Break.shortcut`)
+        .replace(/(\s+)/g, "\\$1")}`
     ).then(() => console.log(`Signed shortcut for ${app.name}`));
   }
 };
 
 if (os.platform() !== "darwin") {
-  console.error("ERROR: shortcut generation stopped because you are not on macOS. Signing shortcuts requires macOS.");
+  console.error(
+    "ERROR: shortcut generation stopped because you are not on macOS. Signing shortcuts requires macOS."
+  );
   process.exit(0);
 }
 
@@ -37,14 +46,21 @@ void generateShortcuts().then(() => {
   console.log(`took ${new Date().getTime() - time}ms`);
 });
 
-const execShellCommand = (cmd: string): Promise<string> => {
+const execShellCommand = (cmd: string): Promise => {
   return new Promise((resolve, reject) => {
-    exec(cmd, (error: any, stdout: string | PromiseLike<string>, stderr: string | PromiseLike<string>) => {
-      if (error) {
-        console.warn(error);
-        reject(error);
+    exec(
+      cmd,
+      (
+        error: any,
+        stdout: string | PromiseLike,
+        stderr: string | PromiseLike
+      ) => {
+        if (error) {
+          console.warn(error);
+          reject(error);
+        }
+        resolve(stdout ? stdout : stderr);
       }
-      resolve(stdout ? stdout : stderr);
-    });
+    );
   });
 };

@@ -38,7 +38,7 @@ export const Container = ({
       stickyHeaderIndices={header ? [0] : undefined}
       {...(viewProps as React.ComponentProps<typeof ScrollView>)}
     >
-      {header && header({ isSticky })}
+      {header?.({ isSticky })}
       <View
         flex={1}
         paddingBottom={tabBarHeight && insets.bottom ? tabBarHeight - insets.bottom : tabBarHeight ?? insets.bottom}

@@ -8,8 +8,14 @@ export const unstable_settings = {
 const OverviewLayout = observer(() => {
   return (
     <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false, title: "Overview" }} />
-      <Stack.Screen name="[appId]" options={{ headerBackVisible: true, title: "" }} />
+      <Stack.Screen
+        name="index"
+        options={{ headerShown: false, title: "Overview" }}
+      />
+      <Stack.Screen
+        name="[appId]"
+        options={{ headerBackVisible: true, title: "" }}
+      />
     </Stack>
   );
 });

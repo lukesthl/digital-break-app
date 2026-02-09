@@ -34,11 +34,11 @@ export class Storage<
     return app.find((a) => a.id === id) ?? null;
   };
 
-  public create = async (app: T): Promise<T | undefined> => {
+  public create = async (app: T): Promise<T> => {
     const time = Date.now();
     const item = await this.getAll();
     if (item.find((a) => a.id === app.id)) {
-      return;
+      return app;
     }
     item.push(app);
     await this.batchUpdate(item);

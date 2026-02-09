@@ -7,7 +7,11 @@ module.exports = function (api) {
       [
         "@tamagui/babel-plugin",
         {
-          components: ["tamagui", "@tamagui-extras/core", "@tamagui-extras/form"],
+          components: [
+            "tamagui",
+            "@tamagui-extras/core",
+            "@tamagui-extras/form",
+          ],
           config: "./tamagui.config.ts",
           logTimings: true,
         },

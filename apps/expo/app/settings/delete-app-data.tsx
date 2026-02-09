@@ -1,6 +1,5 @@
 import { router } from "expo-router";
 import { Button, Label, SizableText, View, XStack, YStack } from "tamagui";
-
 import { Container } from "../../components/container";
 import { AppSettings } from "../../data/app.settings";
 import { OverviewStore } from "../../data/overview.store";
@@ -11,11 +10,18 @@ const DeleteAppData = () => (
       <View flexDirection="row" justifyContent="flex-end">
         <YStack space="$2">
           <Label size="$3" lineHeight={21} htmlFor={"delete-popover"}>
-            You are about to delete all your app data. This action cannot be undone.
+            You are about to delete all your app data. This action cannot be
+            undone.
           </Label>
 
           <XStack space="$2" alignItems="center" marginTop="$2">
-            <Button size="$3" flex={1} justifyContent="center" flexDirection="row" onPress={() => router.back()}>
+            <Button
+              size="$3"
+              flex={1}
+              justifyContent="center"
+              flexDirection="row"
+              onPress={() => router.back()}
+            >
               <SizableText fontWeight={"bold"}>Cancel</SizableText>
             </Button>
             <Button

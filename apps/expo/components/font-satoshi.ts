@@ -13,18 +13,20 @@ export const createSatoshiFont = <A extends GenericFont>(
     sizeLineHeight?: (fontSize: number) => number;
     sizeSize?: (size: number) => number;
   } = {}
-): FillInFont<A, keyof typeof defaultSizes> => {
+): FillInFont<A, string> => {
   const size = Object.fromEntries(
     Object.entries({
       ...defaultSizes,
       ...font.size,
     }).map(([k, v]) => [k, sizeSize(+v)])
   );
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+
   return createFont({
     family: "Satoshi",
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    lineHeight: Object.fromEntries(Object.entries(size).map(([k, v]) => [k, sizeLineHeight(getVariableValue(v))])),
+
+    lineHeight: Object.fromEntries(
+      Object.entries(size).map(([k, v]) => [k, sizeLineHeight(getVariableValue(v) as number)])
+    ),
     weight: {
       4: "300",
     },
@@ -34,7 +36,7 @@ export const createSatoshiFont = <A extends GenericFont>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ...(font as any),
     size,
-  });
+  }) as FillInFont<A, string>;
 };
 
 const defaultSizes = {

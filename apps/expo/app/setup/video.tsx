@@ -1,15 +1,25 @@
-import { useState } from "react";
-import { WebView } from "react-native-webview";
 import { router, useLocalSearchParams } from "expo-router";
 import { observer } from "mobx-react-lite";
-import { AlertDialog, Button, PortalProvider, Text, View, XStack, YStack } from "tamagui";
-
+import { useState } from "react";
+import { WebView } from "react-native-webview";
+import {
+  AlertDialog,
+  Button,
+  PortalProvider,
+  Text,
+  View,
+  XStack,
+  YStack,
+} from "tamagui";
 import { Container } from "../../components/container";
 import { ShadowCard } from "../../components/shadow.card";
 import { OverviewStore } from "../../data/overview.store";
 
 const VideoTutorial = observer(() => {
-  const searchParams = useLocalSearchParams<{ appName: string; appKey: string }>();
+  const searchParams = useLocalSearchParams<{
+    appName: string;
+    appKey: string;
+  }>();
 
   const [error, setError] = useState<string | null>(null);
   return (

@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import { Check } from "@tamagui/lucide-icons";
+import { getAppIcon, setAppIcon } from "expo-dynamic-app-icon";
 import { useState } from "react";
 import type { ImageURISource } from "react-native";
-import { getAppIcon, setAppIcon } from "expo-dynamic-app-icon";
-import { Check } from "@tamagui/lucide-icons";
 import { Image, ListItem, View, YGroup, YStack } from "tamagui";
-
 import { Container } from "../../components/container";
 
 const DarkIcon = require("../../assets/images/dark.png") as ImageURISource;
-const DefaultIcon = require("../../assets/images/default.png") as ImageURISource;
+const DefaultIcon =
+  require("../../assets/images/default.png") as ImageURISource;
 const LightIcon = require("../../assets/images/light.png") as ImageURISource;
 
 const icons = [
@@ -48,13 +48,20 @@ const AppIcon = () => {
                 pressTheme
                 icon={
                   <View backgroundColor="$gray5" borderRadius={6} padding="$2">
-                    <Image source={icon.source} style={{ width: 36, height: 36, borderRadius: 6 }} />
+                    <Image
+                      source={icon.source}
+                      style={{ width: 36, height: 36, borderRadius: 6 }}
+                    />
                   </View>
                 }
                 onPress={() => {
                   void setIcon(icon.value);
                 }}
-                iconAfter={activeIcon === icon.value ? <Check size={18} strokeWidth={2.5} /> : undefined}
+                iconAfter={
+                  activeIcon === icon.value ? (
+                    <Check size={18} strokeWidth={2.5} />
+                  ) : undefined
+                }
               >
                 <ListItem.Text>{icon.name}</ListItem.Text>
               </ListItem>
