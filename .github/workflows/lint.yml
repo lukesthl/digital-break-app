@@ -31,9 +31,6 @@ jobs:
       - name: Install dependencies
         uses: oven-sh/setup-bun@v2
 
-      - name: Disable Corepack
-        run: corepack disable
-
       - run: "bun install"
         name: Install dependencies
 
