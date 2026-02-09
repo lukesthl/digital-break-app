@@ -122,6 +122,11 @@
     "packages/expo-exit-app": {
       "name": "@acme/expo-exit-app",
       "version": "0.1.0",
+      "dependencies": {
+        "expo": "~54.0.33",
+        "react": "19.1.0",
+        "react-native": "0.81.5",
+      },
       "devDependencies": {
         "@types/react": "~19.0.0",
         "expo-module-scripts": "~4.0.0",
