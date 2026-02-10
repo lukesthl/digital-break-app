@@ -39,7 +39,7 @@ jobs:
         node: [22.x]
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: 🏗 List Xcode installations
         run: sudo ls -1 /Applications | grep "Xcode"
@@ -49,7 +49,7 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
 
       - name: 🏗 Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22
 
@@ -60,7 +60,7 @@ jobs:
 
       - name: 🏎️ Cache Pods
         if: runner.os == 'macOS'
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: pods-cache
         with:
           path: /apps/expo/ios/Pods
@@ -93,7 +93,7 @@ jobs:
             --profile=${{ env.profile }}
 
       - name: 📱 Upload binary
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: app-${{ env.platform }}-${{ env.profile }}.${{ env.platform == 'android' && 'apk' || 'ipa' }}
           path: ${{ github.workspace }}/apps/expo/app-${{ env.platform }}-${{ env.profile }}.${{ env.platform == 'android' && 'apk' || 'ipa' }}
