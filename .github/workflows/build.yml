@@ -41,12 +41,8 @@ jobs:
       - name: 🏗 Setup repo
         uses: actions/checkout@v4
 
-      - name: 🏗 List Xcode installations
-        run: sudo ls -1 /Applications | grep "Xcode"
-
-        #Select your required version
-      - name: 🏗 Select Xcode 15.2
-        run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+      - name: 🏗 Select latest Xcode
+        run: sudo xcode-select -s "$(ls -td /Applications/Xcode*.app | head -1)/Contents/Developer"
 
       - name: 🏗 Install Node.js
         uses: actions/setup-node@v4
