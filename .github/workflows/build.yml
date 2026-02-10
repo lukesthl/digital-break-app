@@ -67,6 +67,9 @@ jobs:
       - name: 🛠️ Setup Bun
         uses: oven-sh/setup-bun@v2
 
+      - name: Enable corepack
+        run: "corepack enable"
+
       - name: 🛠️ Install dependencies
         run: bun install
 
