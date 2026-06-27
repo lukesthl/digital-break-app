@@ -37,6 +37,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+# python
+__pycache__/
+*.py[cod]
+
 # os
 .DS_Store
 THUMBS_DB

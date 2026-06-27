@@ -4,6 +4,7 @@
   "scripts": {
     "native": "bun run --cwd apps/expo dev:client",
     "ios": "bun run --cwd apps/expo ios",
+    "autocircuits:broker": "python3 scripts/autocircuits-broker.py",
     "fix": "manypkg fix",
     "lint": "turbo lint",
     "format": "turbo format",

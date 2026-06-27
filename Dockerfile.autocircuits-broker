@@ -1,0 +1,22 @@
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+WORKDIR /app
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY requirements-autocircuits-broker.txt ./
+RUN pip install --no-cache-dir -r requirements-autocircuits-broker.txt
+
+COPY scripts/autocircuits-broker.py ./scripts/autocircuits-broker.py
+
+EXPOSE 8787
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8787/health', timeout=5).read()"
+
+CMD ["python", "scripts/autocircuits-broker.py", "--host", "0.0.0.0", "--port", "8787"]

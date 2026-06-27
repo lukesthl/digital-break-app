@@ -1,0 +1,9 @@
+services:
+  autocircuits-broker:
+    build:
+      context: .
+      dockerfile: Dockerfile.autocircuits-broker
+    image: digital-break-autocircuits-broker:latest
+    restart: unless-stopped
+    ports:
+      - "8787:8787"
