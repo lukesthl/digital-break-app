@@ -3,6 +3,13 @@ import * as Crypto from "expo-crypto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { action, makeAutoObservable, observable } from "mobx";
 
+import {
+  defaultProblemSourceId,
+  getDefaultSourcePrefs,
+  getProblemSource,
+  normalizeSourcePrefs,
+} from "./problem-sources/registry";
+import type { ProblemSourceId, SourcePrefs } from "./problem-sources/types";
 import { Storage } from "./storage";
 
 export interface App {
@@ -14,10 +21,12 @@ export interface App {
   key: SupportedApp;
 }
 
-interface IAppSettings {
+export interface IAppSettings {
   breakDurationSeconds: number;
   quickAppSwitchDurationMinutes: number;
   dailyTimeSpentMinutes: number;
+  sourceId: ProblemSourceId;
+  sourcePrefs: SourcePrefs;
 }
 
 export type SupportedApp =
@@ -65,11 +74,32 @@ export interface IAvailableApp {
   scheme: string;
 }
 
-export const defaultAppSettings: IAppSettings = {
+export const createDefaultAppSettings = (): IAppSettings => ({
   breakDurationSeconds: 10,
   quickAppSwitchDurationMinutes: 5,
   dailyTimeSpentMinutes: 30,
+  sourceId: defaultProblemSourceId,
+  sourcePrefs: getDefaultSourcePrefs(defaultProblemSourceId),
+});
+
+export const defaultAppSettings: IAppSettings = createDefaultAppSettings();
+
+const normalizeAppSettings = (settings?: Partial<IAppSettings>): IAppSettings => {
+  const source = getProblemSource(settings?.sourceId);
+  return {
+    breakDurationSeconds: settings?.breakDurationSeconds ?? defaultAppSettings.breakDurationSeconds,
+    quickAppSwitchDurationMinutes:
+      settings?.quickAppSwitchDurationMinutes ?? defaultAppSettings.quickAppSwitchDurationMinutes,
+    dailyTimeSpentMinutes: settings?.dailyTimeSpentMinutes ?? defaultAppSettings.dailyTimeSpentMinutes,
+    sourceId: source.id,
+    sourcePrefs: normalizeSourcePrefs(source.id, settings?.sourcePrefs),
+  };
 };
+
+const normalizeApp = (app: App): App => ({
+  ...app,
+  settings: normalizeAppSettings(app.settings),
+});
 
 export class AppsStore {
   private storage = new Storage<App>("apps");
@@ -86,7 +116,7 @@ export class AppsStore {
     try {
       const [userApps, availableApps] = await Promise.allSettled([this.storage.getAll(), this.fetchAvailableApps()]);
       if (userApps.status === "fulfilled") {
-        this.apps = userApps.value;
+        this.apps = userApps.value.map(normalizeApp);
       }
       if (availableApps.status === "fulfilled") {
         this.availableApps.replace(availableApps.value);
@@ -131,7 +161,9 @@ export class AppsStore {
         const definedProps = (obj: object) =>
           Object.fromEntries(Object.entries(obj).filter(([_k, v]) => v !== undefined));
 
-        const merged = Object.assign(app, definedProps(appUpdate));
+        const merged = Object.assign(app, definedProps(appUpdate), {
+          settings: appUpdate.settings ? normalizeAppSettings(appUpdate.settings) : app.settings,
+        });
         return merged;
       }
       return app;
@@ -151,7 +183,7 @@ export class AppsStore {
         active: true,
         iconKey: appShortcutName.toLowerCase().replaceAll(" ", "") as SupportedApp,
         id: Crypto.randomUUID(),
-        settings: defaultAppSettings,
+        settings: createDefaultAppSettings(),
         key: appShortcutName.toLowerCase().replaceAll(" ", "") as SupportedApp,
       });
       if (!app) {

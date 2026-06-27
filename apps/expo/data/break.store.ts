@@ -1,10 +1,10 @@
 import Constants, { AppOwnership } from "expo-constants";
 import { router } from "expo-router";
 import { makeAutoObservable } from "mobx";
-import * as ExpoExitApp from "../../../packages/expo-exit-app";
 import { AppStatisticsStore } from "./app.statistics";
+import { AppSettings } from "./app.settings";
 import type { App } from "./apps.store";
-import { AppsStore } from "./apps.store";
+import { exitApp as closeHostApp } from "./exit-app";
 import { SettingsStore } from "./settings.store";
 import { ShortCutPayload } from "./shortcut.payload";
 
@@ -45,8 +45,6 @@ const funnyBreakMessages = [
 export class BreakStoreSingleton {
   private appStatisticsStore = new AppStatisticsStore();
 
-  private appsStore = new AppsStore();
-
   private lastBreakTimestamp = Date.now();
 
   private _status: "running" | "finished" | null = null;
@@ -68,7 +66,7 @@ export class BreakStoreSingleton {
   ) {
     this.status = null;
     const [app] = await Promise.all([
-      this.appsStore.getOrCreateApp({ appShortcutName }),
+      AppSettings.getOrCreateApp({ appShortcutName }),
       SettingsStore.init(),
     ]);
     this.app = app;
@@ -81,7 +79,13 @@ export class BreakStoreSingleton {
     }
   }
 
-  public async openApp(): Promise {
+  public refreshApp(): void {
+    if (!this._app) return;
+    const fresh = AppSettings.apps.find((a) => a.id === this._app!.id);
+    if (fresh) this.app = fresh;
+  }
+
+  public async openApp(): Promise<void> {
     if (!this.app) {
       throw new Error("App not initialized");
     }
@@ -95,13 +99,13 @@ export class BreakStoreSingleton {
     this.status = null;
     const payload = await ShortCutPayload.getPayload();
     console.log("payload", payload);
-    await this.appsStore.openApp(this.app.key).catch(() => {
+    await AppSettings.openApp(this.app.key).catch(() => {
       throw new Error("Failed to open app. Are you sure it's installed?");
     });
     router.replace("/");
   }
 
-  public async exitApp(): Promise {
+  public async exitApp(): Promise<void> {
     if (!this.app || isRunningInExpoGo) {
       throw new Error("App not initialized");
     }
@@ -110,7 +114,7 @@ export class BreakStoreSingleton {
       type: "app-close",
     });
     await ShortCutPayload.clear();
-    ExpoExitApp.exit();
+    closeHostApp();
   }
 
   public getRandomBreakMessage(): string {

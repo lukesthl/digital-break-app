@@ -1,0 +1,16 @@
+[Unit]
+Description=Digital Break AutoCircuits Broker Docker Compose
+After=network-online.target docker.service
+Wants=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/digital-break-app
+ExecStart=/usr/bin/docker compose -f /opt/digital-break-app/docker-compose.autocircuits.yml up -d --build
+ExecStop=/usr/bin/docker compose -f /opt/digital-break-app/docker-compose.autocircuits.yml down
+RemainAfterExit=yes
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target

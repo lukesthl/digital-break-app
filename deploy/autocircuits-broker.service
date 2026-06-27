@@ -1,0 +1,17 @@
+[Unit]
+Description=Digital Break AutoCircuits Broker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/digital-break-app
+ExecStart=/opt/digital-break-app/.venv/bin/python /opt/digital-break-app/scripts/autocircuits-broker.py --host 0.0.0.0 --port 8787
+Environment=PYTHONUNBUFFERED=1
+Restart=always
+RestartSec=5
+User=digitalbreak
+Group=digitalbreak
+
+[Install]
+WantedBy=multi-user.target

@@ -3,6 +3,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomTabBarHeightContext } from "@react-navigation/bottom-tabs";
 import { ScrollView, View } from "tamagui";
 
+const tabBarHeightContext = BottomTabBarHeightContext as React.Context<number | undefined>;
+
 export const Container = ({
   children,
   scroll = true,
@@ -18,7 +20,7 @@ export const Container = ({
   const [isSticky, setIsSticky] = useState(false);
   const insets = useSafeAreaInsets();
 
-  const tabBarHeight = useContext(BottomTabBarHeightContext);
+  const tabBarHeight = useContext(tabBarHeightContext);
   return scroll ? (
     <ScrollView
       paddingTop={!header ? insets.top : undefined}

@@ -28,6 +28,14 @@ export class AppSettingsSingleton {
     });
   }
 
+  public getOrCreateApp = async (params: { appShortcutName: string }): Promise<App> => {
+    return this.appsStore.getOrCreateApp(params);
+  };
+
+  public openApp = async (key: string): Promise<void> => {
+    return this.appsStore.openApp(key);
+  };
+
   public deleteApp = async (appId: string): Promise<void> => {
     await this.appsStore.deleteApp(appId);
     await this.appStatisticStore.deleteEventsByAppId(appId);

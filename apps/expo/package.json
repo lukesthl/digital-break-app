@@ -6,6 +6,7 @@
     "dev": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "autocircuits:broker": "python3 ../../scripts/autocircuits-broker.py",
     "web": "expo start --web",
     "test": "jest --watchAll",
     "export": "expo export --platform web",

@@ -22,10 +22,163 @@ import {
 import { Container } from "../../../components/container";
 import { ShadowCard } from "../../../components/shadow.card";
 import { AppSettings } from "../../../data/app.settings";
+import {
+  getDefaultSourcePrefs,
+  getProblemSource,
+  getVisibleSourcePrefSpecs,
+  normalizeSourcePrefs,
+  problemSources,
+} from "../../../data/problem-sources/registry";
+import type { SourcePrefSpec, SourcePrefValue } from "../../../data/problem-sources/types";
+
+const SettingsSelect = ({
+  id,
+  value,
+  options,
+  onValueChange,
+}: {
+  id: string;
+  value: string;
+  options: { label: string; value: string }[];
+  onValueChange: (value: string) => void;
+}) => (
+  <Select value={value} onValueChange={onValueChange} id={id}>
+    <Adapt platform="touch">
+      <Sheet
+        modal
+        dismissOnSnapToBottom
+        animationConfig={{
+          type: "spring",
+          damping: 20,
+          mass: 1.1,
+          stiffness: 250,
+        }}
+      >
+        <Sheet.Frame>
+          <Sheet.ScrollView>
+            <Adapt.Contents />
+          </Sheet.ScrollView>
+        </Sheet.Frame>
+        <Sheet.Overlay animation="lazy" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
+      </Sheet>
+    </Adapt>
+    <Select.Trigger flex={1} iconAfter={ChevronDown}>
+      <Select.Value />
+    </Select.Trigger>
+    <Select.Content>
+      <Select.ScrollUpButton alignItems="center" justifyContent="center" position="relative" width="100%" height="$3">
+        <YStack zIndex={10}>
+          <ChevronUp size={20} />
+        </YStack>
+      </Select.ScrollUpButton>
+      <Select.Viewport minWidth={200}>
+        <Select.Group>
+          <Select.Label />
+          {options.map((option, index) => (
+            <Select.Item index={index} key={option.value} value={option.value}>
+              <Select.ItemText>{option.label}</Select.ItemText>
+              <Select.ItemIndicator marginLeft="auto">
+                <Check size={16} />
+              </Select.ItemIndicator>
+            </Select.Item>
+          ))}
+        </Select.Group>
+      </Select.Viewport>
+      <Select.ScrollDownButton>
+        <YStack zIndex={10}>
+          <ChevronDown size={20} />
+        </YStack>
+      </Select.ScrollDownButton>
+    </Select.Content>
+  </Select>
+);
+
+const sourcePrefValue = (spec: SourcePrefSpec, value: SourcePrefValue | undefined): SourcePrefValue =>
+  value ?? spec.defaultValue;
 
 const App = observer(() => {
   const searchParams = useLocalSearchParams<{ appId: string }>();
   const selectedApp = AppSettings.apps.find((app) => app.id === searchParams.appId);
+  const selectedSource = getProblemSource(selectedApp?.settings.sourceId);
+  const selectedSourcePrefs = normalizeSourcePrefs(selectedSource.id, selectedApp?.settings.sourcePrefs);
+  const selectedSourcePrefSpecs = getVisibleSourcePrefSpecs(selectedSource.id, selectedSourcePrefs);
+
+  const updateSourcePref = (key: string, value: SourcePrefValue) => {
+    if (!selectedApp) {
+      return;
+    }
+
+    void AppSettings.updateAppSettings({
+      id: selectedApp.id,
+      settings: {
+        ...selectedApp.settings,
+        sourcePrefs: {
+          ...selectedSourcePrefs,
+          [key]: value,
+        },
+      },
+    });
+  };
+
+  const renderSourcePrefControl = (spec: SourcePrefSpec) => {
+    const value = sourcePrefValue(spec, selectedSourcePrefs[spec.key]);
+    return (
+      <YStack key={spec.key} space="$2">
+        <XStack alignItems="center" space="$4">
+          <Label flex={1} lineHeight={20}>
+            {spec.label}
+          </Label>
+          <View flex={2}>
+            {spec.type === "select" && typeof value === "string" && (
+              <SettingsSelect
+                id={`source-pref-${spec.key}`}
+                value={value}
+                options={spec.options}
+                onValueChange={(nextValue) => {
+                  updateSourcePref(spec.key, nextValue);
+                }}
+              />
+            )}
+            {spec.type === "boolean" && typeof value === "boolean" && (
+              <Switch
+                checked={value}
+                onCheckedChange={(nextValue) => {
+                  updateSourcePref(spec.key, nextValue);
+                }}
+              >
+                <Switch.Thumb />
+              </Switch>
+            )}
+            {spec.type === "number" && typeof value === "number" && (
+              <Input
+                value={value.toString()}
+                onChangeText={(nextValue) => {
+                  const parsedValue = parseInt(nextValue.replace(/[^0-9]/g, "")) || spec.defaultValue;
+                  updateSourcePref(spec.key, parsedValue);
+                }}
+                keyboardType="numeric"
+              />
+            )}
+            {spec.type === "text" && typeof value === "string" && (
+              <Input
+                value={value}
+                placeholder={spec.placeholder}
+                onChangeText={(nextValue) => {
+                  updateSourcePref(spec.key, nextValue);
+                }}
+              />
+            )}
+          </View>
+        </XStack>
+        {spec.description && (
+          <Paragraph color="#797979" fontSize="$3" lineHeight={16}>
+            {spec.description}
+          </Paragraph>
+        )}
+      </YStack>
+    );
+  };
+
   useEffect(() => {
     if (!selectedApp) {
       void AppSettings.init();
@@ -255,6 +408,43 @@ const App = observer(() => {
             </YStack>
           </YStack>
         </ShadowCard>
+        {selectedApp && (
+          <ShadowCard>
+            <H4>Question Gate</H4>
+            <YStack space="$4" marginTop="$2">
+              <YStack space="$2">
+                <XStack alignItems="center" space="$4">
+                  <Label flex={1}>Source</Label>
+                  <View flex={2}>
+                    <SettingsSelect
+                      id="problemSource"
+                      value={selectedSource.id}
+                      options={problemSources.map((source) => ({
+                        label: source.label,
+                        value: source.id,
+                      }))}
+                      onValueChange={(value) => {
+                        const source = getProblemSource(value);
+                        void AppSettings.updateAppSettings({
+                          id: selectedApp.id,
+                          settings: {
+                            ...selectedApp.settings,
+                            sourceId: source.id,
+                            sourcePrefs: getDefaultSourcePrefs(source.id),
+                          },
+                        });
+                      }}
+                    />
+                  </View>
+                </XStack>
+                <Paragraph color="#797979" fontSize="$3" lineHeight={16}>
+                  {selectedSource.description}
+                </Paragraph>
+              </YStack>
+              {selectedSourcePrefSpecs.map(renderSourcePrefControl)}
+            </YStack>
+          </ShadowCard>
+        )}
         <View flexDirection="row" justifyContent="flex-end">
           <Popover size="$5" allowFlip>
             <Popover.Trigger asChild>
